@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BotTournamentManagement.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240123062138_%1")]
-    partial class _1
+    [Migration("20240123111301_%2")]
+    partial class _2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -304,21 +304,6 @@ namespace BotTournamentManagement.Migrations
                     b.ToTable("Team");
                 });
 
-            modelBuilder.Entity("BotTournamentManagement.Data.Entities.TeamInMatchEntity", b =>
-                {
-                    b.Property<string>("TeamId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("MatchId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("TeamId", "MatchId");
-
-                    b.HasIndex("MatchId");
-
-                    b.ToTable("TeamInMatch", (string)null);
-                });
-
             modelBuilder.Entity("BotTournamentManagement.Data.Entities.TeamResultEntity", b =>
                 {
                     b.Property<string>("Id")
@@ -470,21 +455,6 @@ namespace BotTournamentManagement.Migrations
                         .IsRequired();
 
                     b.Navigation("HighSchool");
-                });
-
-            modelBuilder.Entity("BotTournamentManagement.Data.Entities.TeamInMatchEntity", b =>
-                {
-                    b.HasOne("BotTournamentManagement.Data.Entities.MatchEntity", null)
-                        .WithMany()
-                        .HasForeignKey("MatchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BotTournamentManagement.Data.Entities.TeamEntity", null)
-                        .WithMany()
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("BotTournamentManagement.Data.Entities.TeamResultEntity", b =>

@@ -4,9 +4,15 @@
 
 namespace BotTournamentManagement.Migrations
 {
-    public partial class _4 : Migration
+    public partial class _2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "TeamInMatch");
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
                 name: "TeamInMatch",
@@ -36,12 +42,6 @@ namespace BotTournamentManagement.Migrations
                 name: "IX_TeamInMatch_MatchId",
                 table: "TeamInMatch",
                 column: "MatchId");
-        }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
-                name: "TeamInMatch");
         }
     }
 }

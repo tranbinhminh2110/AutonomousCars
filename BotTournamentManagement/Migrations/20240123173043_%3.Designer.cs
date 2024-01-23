@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BotTournamentManagement.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240122035728_%5")]
-    partial class _5
+    [Migration("20240123173043_%3")]
+    partial class _3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,29 @@ namespace BotTournamentManagement.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("BotTournamentManagement.Data.Entities.ActivityTypeEntity", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("DeletedTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset>("LastUpdatedTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("TypeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ActivityType");
+                });
 
             modelBuilder.Entity("BotTournamentManagement.Data.Entities.HighSchoolEntity", b =>
                 {
@@ -125,6 +148,46 @@ namespace BotTournamentManagement.Migrations
                     b.ToTable("Match");
                 });
 
+            modelBuilder.Entity("BotTournamentManagement.Data.Entities.PlayerEntity", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("DeletedTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset>("Dob")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("KeyId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTimeOffset>("LastUpdatedTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TeamId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeamId");
+
+                    b.HasIndex(new[] { "KeyId" }, "Index_KeyId")
+                        .IsUnique()
+                        .HasDatabaseName("Index_KeyId2");
+
+                    b.ToTable("Player");
+                });
+
             modelBuilder.Entity("BotTournamentManagement.Data.Entities.RoundEntity", b =>
                 {
                     b.Property<string>("Id")
@@ -146,6 +209,62 @@ namespace BotTournamentManagement.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Round");
+                });
+
+            modelBuilder.Entity("BotTournamentManagement.Data.Entities.TeamActivityEntity", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ActivityTypeId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("DeletedTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(4000)
+                        .HasColumnType("nvarchar(4000)");
+
+                    b.Property<TimeSpan?>("Duration")
+                        .HasColumnType("time");
+
+                    b.Property<DateTimeOffset>("EndTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset>("LastUpdatedTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("MatchId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<double?>("Score")
+                        .HasColumnType("float");
+
+                    b.Property<DateTimeOffset>("StartTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("TeamId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("Violation")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActivityTypeId");
+
+                    b.HasIndex("MatchId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("TeamActivity");
                 });
 
             modelBuilder.Entity("BotTournamentManagement.Data.Entities.TeamEntity", b =>
@@ -180,24 +299,9 @@ namespace BotTournamentManagement.Migrations
 
                     b.HasIndex(new[] { "KeyId" }, "Index_KeyId")
                         .IsUnique()
-                        .HasDatabaseName("Index_KeyId2");
+                        .HasDatabaseName("Index_KeyId3");
 
                     b.ToTable("Team");
-                });
-
-            modelBuilder.Entity("BotTournamentManagement.Data.Entities.TeamInMatchEntity", b =>
-                {
-                    b.Property<string>("TeamId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("MatchId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("TeamId", "MatchId");
-
-                    b.HasIndex("MatchId");
-
-                    b.ToTable("TeamInMatch", (string)null);
                 });
 
             modelBuilder.Entity("BotTournamentManagement.Data.Entities.TeamResultEntity", b =>
@@ -272,9 +376,55 @@ namespace BotTournamentManagement.Migrations
 
                     b.HasIndex(new[] { "KeyId" }, "Index_KeyId")
                         .IsUnique()
-                        .HasDatabaseName("Index_KeyId3");
+                        .HasDatabaseName("Index_KeyId4");
 
                     b.ToTable("Tournament");
+                });
+
+            modelBuilder.Entity("BotTournamentManagement.Data.Entities.UserEntity", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTimeOffset>("CreatedTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("DeletedTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("KeyId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTimeOffset>("LastUpdatedTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex(new[] { "KeyId" }, "Index_KeyId")
+                        .IsUnique()
+                        .HasDatabaseName("Index_KeyId5");
+
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("BotTournamentManagement.Data.Entities.MatchEntity", b =>
@@ -304,6 +454,44 @@ namespace BotTournamentManagement.Migrations
                     b.Navigation("Tournament");
                 });
 
+            modelBuilder.Entity("BotTournamentManagement.Data.Entities.PlayerEntity", b =>
+                {
+                    b.HasOne("BotTournamentManagement.Data.Entities.TeamEntity", "Team")
+                        .WithMany("Players")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("BotTournamentManagement.Data.Entities.TeamActivityEntity", b =>
+                {
+                    b.HasOne("BotTournamentManagement.Data.Entities.ActivityTypeEntity", "ActivityType")
+                        .WithMany("TeamActivities")
+                        .HasForeignKey("ActivityTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BotTournamentManagement.Data.Entities.MatchEntity", "Match")
+                        .WithMany()
+                        .HasForeignKey("MatchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BotTournamentManagement.Data.Entities.TeamEntity", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ActivityType");
+
+                    b.Navigation("Match");
+
+                    b.Navigation("Team");
+                });
+
             modelBuilder.Entity("BotTournamentManagement.Data.Entities.TeamEntity", b =>
                 {
                     b.HasOne("BotTournamentManagement.Data.Entities.HighSchoolEntity", "HighSchool")
@@ -313,21 +501,6 @@ namespace BotTournamentManagement.Migrations
                         .IsRequired();
 
                     b.Navigation("HighSchool");
-                });
-
-            modelBuilder.Entity("BotTournamentManagement.Data.Entities.TeamInMatchEntity", b =>
-                {
-                    b.HasOne("BotTournamentManagement.Data.Entities.MatchEntity", null)
-                        .WithMany()
-                        .HasForeignKey("MatchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BotTournamentManagement.Data.Entities.TeamEntity", null)
-                        .WithMany()
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("BotTournamentManagement.Data.Entities.TeamResultEntity", b =>
@@ -349,6 +522,11 @@ namespace BotTournamentManagement.Migrations
                     b.Navigation("Team");
                 });
 
+            modelBuilder.Entity("BotTournamentManagement.Data.Entities.ActivityTypeEntity", b =>
+                {
+                    b.Navigation("TeamActivities");
+                });
+
             modelBuilder.Entity("BotTournamentManagement.Data.Entities.HighSchoolEntity", b =>
                 {
                     b.Navigation("Teams");
@@ -357,6 +535,11 @@ namespace BotTournamentManagement.Migrations
             modelBuilder.Entity("BotTournamentManagement.Data.Entities.RoundEntity", b =>
                 {
                     b.Navigation("Matches");
+                });
+
+            modelBuilder.Entity("BotTournamentManagement.Data.Entities.TeamEntity", b =>
+                {
+                    b.Navigation("Players");
                 });
 
             modelBuilder.Entity("BotTournamentManagement.Data.Entities.TournamentEntity", b =>
