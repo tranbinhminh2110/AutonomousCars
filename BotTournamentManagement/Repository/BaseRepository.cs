@@ -51,6 +51,17 @@ namespace BotTournamentManagement.Repository
             }
         }
 
+        public T GetById(string id)
+        {
+            try 
+            {
+                return _appDbContext.Set<T>().Where(p => p.Id.Equals(id) && p.DeletedTime == null).FirstOrDefault();
+            }
+            catch (Exception ex) 
+            {
+                throw new Exception($"Error getting entity: {ex.Message}", ex);
+            }
+        }
         public void Update(T entity)
         {
             try

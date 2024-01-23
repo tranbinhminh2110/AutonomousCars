@@ -32,9 +32,9 @@ namespace BotTournamentManagement.Service
 
         }
 
-        public void DeleteAMap(string keyId)
+        public void DeleteAMap(string id)
         {
-            var chosenMap = _mapRepository.GetAll().Where(p => p.KeyId.Equals(keyId)).FirstOrDefault();
+            var chosenMap = _mapRepository.GetById(id);
             if (chosenMap is null)
             {
                 throw new Exception("This map is not existed");
@@ -43,6 +43,18 @@ namespace BotTournamentManagement.Service
             {
                 _mapRepository.Delete(chosenMap);
             }
+        }
+
+        public MapResponseModel GetMapById(string id)
+        {
+            var chosenMap = _mapRepository.GetById(id);
+            if (chosenMap is null)
+            {
+                throw new Exception("This map is not existed");
+            }
+            var responseMap = _mapper.Map<MapResponseModel>(chosenMap);
+            return responseMap;
+
         }
 
         public List<MapResponseModel> GetMaps()
@@ -56,9 +68,9 @@ namespace BotTournamentManagement.Service
             return responseMapList;
         }
 
-        public void UpdateANewMap(string keyId, [FromForm] MapUpdateModel mapUpdateModel)
+        public void UpdateANewMap(string id, [FromForm] MapUpdateModel mapUpdateModel)
         {
-            var existingMap = _mapRepository.GetAll().Where(_ => _.KeyId == keyId).FirstOrDefault();
+            var existingMap = _mapRepository.GetById(id);
             if (existingMap is null) 
             {
                 throw new Exception("This map is not existed");

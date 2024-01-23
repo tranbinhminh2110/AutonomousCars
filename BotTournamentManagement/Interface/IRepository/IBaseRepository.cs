@@ -8,6 +8,6 @@ namespace BotTournamentManagement.Interface.IRepository
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);
-
+        T GetById(string id);
     }
 }

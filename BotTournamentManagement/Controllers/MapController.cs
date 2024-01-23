@@ -25,6 +25,19 @@ namespace BotTournamentManagement.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [HttpGet]
+        [Route("api/[controller]/get-a-map-by-id/")]
+        public IActionResult GetMapById(string id)
+        {
+            try
+            {
+                return Ok(_mapService.GetMapById(id));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
         [HttpPost]
         [Route("api/[controller]/create-new-map")]
         public IActionResult CreateNewMap(MapCreatedModel mapCreatedModel) 
@@ -41,11 +54,11 @@ namespace BotTournamentManagement.Controllers
         }
         [HttpPut]
         [Route("api/[controller]/update-map")]
-        public IActionResult UpdateAMap(string keyId, MapUpdateModel updateMap)
+        public IActionResult UpdateAMap(string id, MapUpdateModel updateMap)
         {
             try
             {
-                _mapService.UpdateANewMap(keyId, updateMap);
+                _mapService.UpdateANewMap(id, updateMap);
                 return Ok("Updated Successfully !");
             }
             catch (Exception e)
@@ -55,7 +68,7 @@ namespace BotTournamentManagement.Controllers
         }
         [HttpDelete]
         [Route("api/[controller]/delete-map")]
-        public IActionResult Delete(string keyId)
+        public IActionResult DeleteMap(string keyId)
         {
             try
             {

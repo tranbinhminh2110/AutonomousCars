@@ -14,6 +14,7 @@ namespace BotTournamentManagement.Data.Entities
         
         [ForeignKey(nameof(HighSchoolId))]
         public virtual HighSchoolEntity HighSchool { get; set; }
+        public ICollection<PlayerEntity> Players { get; set; }
 
     }
 }
