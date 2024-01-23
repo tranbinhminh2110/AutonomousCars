@@ -1,0 +1,12 @@
+﻿using BotTournamentManagement.Data.Entities;
+using BotTournamentManagement.Data.RequestModel;
+using BotTournamentManagement.Data.ResponseModel;
+
+namespace BotTournamentManagement.Interface.IService
+{
+    public interface ITournamentService
+    {
+        List<TournamentResponseModel> GetAllTournament();
+        void CreateNewTournament(TournamentCreatedModel tournamentCreatedModel);
+    }
+}
