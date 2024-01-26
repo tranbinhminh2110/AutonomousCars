@@ -17,6 +17,9 @@ builder.Services.AddScoped<IMapRepository, MapRepository>();
 builder.Services.AddScoped<IMapService, MapService>();
 builder.Services.AddScoped<ITournamentRepository, TournamentRepository>();
 builder.Services.AddScoped<ITournamentService, TournamentService>();
+builder.Services.AddScoped<ITeamRepository, TeamRepository>();
+builder.Services.AddScoped<ITeamService, TeamService>();
+
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 var app = builder.Build();
 
