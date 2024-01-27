@@ -22,11 +22,11 @@ namespace BotTournamentManagement.Data
         public DbSet<RoundEntity> Rounds { get; set; }
         public DbSet<TeamEntity> Teams { get; set; }
         public DbSet<TournamentEntity> Tournaments { get; set; }
-        public DbSet<TeamResultEntity> TeamResults { get; set; }
         public DbSet<ActivityTypeEntity> ActivityTypes { get; set; }
         public DbSet<TeamActivityEntity> TeamActivities { get; set; }
         public DbSet<PlayerEntity> Players { get; set; }
         public DbSet<UserEntity> Users { get; set; }
+        public DbSet<TeamInMatchEntity> TeamInMatches { get; set; }
         
     }
 }
