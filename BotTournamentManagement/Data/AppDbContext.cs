@@ -12,7 +12,15 @@ namespace BotTournamentManagement.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Server=tcp:fptbottournamentmanagement.database.windows.net,1433;Initial Catalog=BotTournamentManagement-dev;Persist Security Info=False;User ID=fptbottournament;Password=fptbotgame@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            optionsBuilder.UseSqlServer(GetConnectionString());
+        }
+        private string GetConnectionString() 
+        {
+            IConfiguration config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", true, true).Build();
+            var strConn = config["ConnectionString:DefaultConnectionStringDB"];
+            return strConn;
         }
         
 
