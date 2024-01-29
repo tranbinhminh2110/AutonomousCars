@@ -12,7 +12,7 @@ namespace BotTournamentManagement.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("server =(local);database=BotTournamentManagement;uid=sa;pwd=12345;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("Server=tcp:fptbottournamentmanagement.database.windows.net,1433;Initial Catalog=BotTournamentManagement-dev;Persist Security Info=False;User ID=fptbottournament;Password=fptbotgame@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }
         
 
