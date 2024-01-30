@@ -16,6 +16,8 @@ namespace BotTournamentManagement.AutoMapper
             CreateMap<MapEntity, MapUpdateModel>().ReverseMap();
             CreateMap<TeamEntity, TeamCreatedModel>().ReverseMap();
             CreateMap<TeamEntity, TeamResponseModel>().ReverseMap();
+            CreateMap<HighSchoolEntity, HighSchoolResponseModel>().ReverseMap();
+            CreateMap<HighSchoolEntity, HighSchoolCreatedModel>().ReverseMap();
         }
     }
 }

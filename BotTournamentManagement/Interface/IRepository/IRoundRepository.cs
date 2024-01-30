@@ -2,7 +2,8 @@
 
 namespace BotTournamentManagement.Interface.IRepository
 {
-    public interface IHighSchoolRepository : IBaseRepository<HighSchoolEntity>
+    public interface IRoundRepository : IBaseRepository<RoundEntity>
     {
+
     }
 }
