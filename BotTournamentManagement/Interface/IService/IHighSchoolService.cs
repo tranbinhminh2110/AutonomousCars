@@ -7,10 +7,10 @@ namespace BotTournamentManagement.Interface.IService
     public interface IHighSchoolService
     {
         List<HighSchoolResponseModel> GetListHighSchools();
-        HighSchoolResponseModel GetHighSchoolById(int id);
+        HighSchoolResponseModel GetHighSchoolById(string id);
         void AddSchool(HighSchoolCreatedModel highSchoolCreatedModel);
-        void UpdateSchool(string id, [FromForm] HighSchoolCreatedModel highSchoolCreatedModel);
-        void DeleteSchool(int id);
+        void UpdateSchool(string id, [FromForm] HighSchoolUpdateModel highSchoolUpdateModel);
+        void DeleteSchool(string id);
 
 
     }

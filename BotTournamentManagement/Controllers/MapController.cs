@@ -68,11 +68,11 @@ namespace BotTournamentManagement.Controllers
         }
         [HttpDelete]
         [Route("api/[controller]/delete-map")]
-        public IActionResult DeleteMap(string keyId)
+        public IActionResult DeleteMap(string Id)
         {
             try
             {
-                _mapService.DeleteAMap(keyId);
+                _mapService.DeleteAMap(Id);
                 return Ok("Deleted Successfully !");
             }
             catch (Exception e)

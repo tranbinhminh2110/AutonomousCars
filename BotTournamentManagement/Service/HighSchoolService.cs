@@ -4,6 +4,7 @@ using BotTournamentManagement.Data.RequestModel;
 using BotTournamentManagement.Data.ResponseModel;
 using BotTournamentManagement.Interface.IRepository;
 using BotTournamentManagement.Interface.IService;
+using BotTournamentManagement.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BotTournamentManagement.Service
@@ -29,24 +30,58 @@ namespace BotTournamentManagement.Service
             _highSchoolRepository.Add(newHighSchool);
         }
 
-        public void DeleteSchool(int id)
+        public void DeleteSchool(string id)
         {
-            throw new NotImplementedException();
+            var chosenSchool = _highSchoolRepository.GetById(id);
+            if (chosenSchool is null)
+            {
+                throw new Exception("This high school is not existed");
+            }
+            else
+            {
+                _highSchoolRepository.Delete(chosenSchool);
+            }
         }
 
-        public HighSchoolResponseModel GetHighSchoolById(int id)
+        public HighSchoolResponseModel GetHighSchoolById(string id)
         {
-            throw new NotImplementedException();
+            var chosenSchool = _highSchoolRepository.GetById(id);
+            if (chosenSchool is null)
+            {
+                throw new Exception("This high school is not existed");
+            }
+            var responseSchool = _mapper.Map<HighSchoolResponseModel>(chosenSchool);
+            return responseSchool;
         }
 
         public List<HighSchoolResponseModel> GetListHighSchools()
         {
-            throw new NotImplementedException();
+            var highSchoolList = _highSchoolRepository.GetAll();
+            if (!highSchoolList.Any())
+            {
+                throw new Exception("This high school list is empty");
+            }
+            var responseHighSchoolList = _mapper.Map<List<HighSchoolResponseModel>>(highSchoolList);
+            return responseHighSchoolList;
         }
 
-        public void UpdateSchool(string id, [FromForm] HighSchoolCreatedModel highSchoolCreatedModel)
+        public void UpdateSchool(string id, [FromForm] HighSchoolUpdateModel highSchoolUpdateModel)
         {
-            throw new NotImplementedException();
+            var existingSchool = _highSchoolRepository.GetById(id);
+            if (existingSchool is null)
+            {
+                throw new Exception("This school is not existed");
+            }
+            var schoolList = _highSchoolRepository.GetAll();
+            foreach (var school in schoolList)
+            {
+                if (highSchoolUpdateModel.KeyId.Equals(school.KeyId))
+                {
+                    throw new Exception("This school ID existed");
+                }
+            }
+            _mapper.Map(highSchoolUpdateModel, existingSchool);
+            _highSchoolRepository.Update(existingSchool);
         }
     }
 }
