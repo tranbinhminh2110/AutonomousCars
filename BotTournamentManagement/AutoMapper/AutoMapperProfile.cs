@@ -11,10 +11,12 @@ namespace BotTournamentManagement.AutoMapper
         {
             CreateMap<TournamentEntity, TournamentCreatedModel>().ReverseMap();
             CreateMap<TournamentEntity, TournamentResponseModel>().ReverseMap();
+            CreateMap<TournamentEntity, TournamentUpdateModel>().ReverseMap();
             CreateMap<MapEntity, MapCreatedModel>().ReverseMap();
             CreateMap<MapEntity, MapResponseModel>().ReverseMap();
             CreateMap<MapEntity, MapUpdateModel>().ReverseMap();
             CreateMap<TeamEntity, TeamCreatedModel>().ReverseMap();
+            CreateMap<TeamEntity, TeamUpdateModel>().ReverseMap();
             CreateMap<TeamEntity, TeamResponseModel>().ReverseMap();
             CreateMap<HighSchoolEntity, HighSchoolResponseModel>().ReverseMap();
             CreateMap<HighSchoolEntity, HighSchoolCreatedModel>().ReverseMap();
