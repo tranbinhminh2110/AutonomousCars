@@ -2,7 +2,7 @@
 {
     public class ActivityTypeResponseModel
     {
-        public string KeyId { get; set; }
+        public string Id { get; set; }
         public string TypeName { get; set; }
     }
 }
