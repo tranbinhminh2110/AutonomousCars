@@ -68,7 +68,7 @@ namespace BotTournamentManagement.Service
             return responseTournament;
         }
 
-        public void UpdateTournament(string id, [FromForm] TournamentCreatedModel tournamentCreatedModel)
+        public void UpdateTournament(string id, [FromForm] TournamentUpdateModel tournamentUpdateModel)
         {
             var chosenTournament = _tournamentRepository.GetById(id);
             if (chosenTournament is null)
@@ -78,12 +78,12 @@ namespace BotTournamentManagement.Service
             var tournamentList = _tournamentRepository.GetAll();
             foreach (var tournament in tournamentList)
             {
-                if (tournament.KeyId.Equals(tournamentCreatedModel.KeyId))
+                if (tournament.KeyId.Equals(tournamentUpdateModel.KeyId))
                 {
                     throw new Exception("This map ID existed");
                 }
             }
-            _mapper.Map(tournamentCreatedModel, chosenTournament);
+            _mapper.Map(tournamentUpdateModel, chosenTournament);
             _tournamentRepository.Update(chosenTournament);
         }
     }

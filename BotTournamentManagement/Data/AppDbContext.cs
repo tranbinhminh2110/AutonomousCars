@@ -12,7 +12,15 @@ namespace BotTournamentManagement.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("server =(local);database=BotTournamentManagement;uid=sa;pwd=12345;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer(GetConnectionString());
+        }
+        private string GetConnectionString() 
+        {
+            IConfiguration config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", true, true).Build();
+            var strConn = config["ConnectionString:DefaultConnectionStringDB"];
+            return strConn;
         }
         
 

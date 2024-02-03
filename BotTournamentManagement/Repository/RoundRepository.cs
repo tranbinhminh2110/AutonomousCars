@@ -4,11 +4,10 @@ using BotTournamentManagement.Interface.IRepository;
 
 namespace BotTournamentManagement.Repository
 {
-    public class HighSchoolRepository : BaseRepository<HighSchoolEntity>, IHighSchoolRepository
+    public class RoundRepository : BaseRepository<RoundEntity>, IRoundRepository
     {
-        public HighSchoolRepository(AppDbContext appDbContext) : base(appDbContext)
+        public RoundRepository(AppDbContext appDbContext) : base(appDbContext)
         {
-
         }
     }
 }

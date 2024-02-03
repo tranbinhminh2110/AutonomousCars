@@ -1,10 +1,10 @@
-﻿namespace BotTournamentManagement.Data.ResponseModel
+﻿namespace BotTournamentManagement.Data.RequestModel
 {
-    public class TeamResponseModel
+    public class TeamUpdateModel
     {
-        public string Id { get; set; }
         public string KeyId { get; set; }
         public string TeamName { get; set; }
         public string HighSchoolId { get; set; }
+
     }
 }

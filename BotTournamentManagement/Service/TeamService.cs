@@ -58,7 +58,7 @@ namespace BotTournamentManagement.Service
             return responseTeamList;
         }
 
-        public void UpdateANewTeam(string id, [FromForm] TeamCreatedModel teamCreatedModel)
+        public void UpdateANewTeam(string id, [FromForm] TeamUpdateModel teamUpdateModel)
         {
             var chosenTeam = _teamRepository.GetById(id);
             if (chosenTeam is null)
@@ -68,12 +68,12 @@ namespace BotTournamentManagement.Service
             var teamList = _teamRepository.GetAll();
             foreach (var team in teamList)
             {
-                if (team.KeyId.Equals(teamCreatedModel.KeyId))
+                if (team.KeyId.Equals(teamUpdateModel.KeyId))
                 {
                     throw new Exception("This team ID existed");
                 }
             }
-            _mapper.Map(teamCreatedModel, chosenTeam);
+            _mapper.Map(teamUpdateModel, chosenTeam);
             _teamRepository.Update(chosenTeam);
         }
 

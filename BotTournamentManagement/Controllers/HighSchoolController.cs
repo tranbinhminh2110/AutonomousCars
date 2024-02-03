@@ -7,46 +7,34 @@ using Microsoft.AspNetCore.Mvc;
 namespace BotTournamentManagement.Controllers
 {
     [ApiController]
-    public class TournamentController : ControllerBase
+    public class HighSchoolController : ControllerBase
     {
-        private readonly ITournamentService _tournamentService;
-        public TournamentController(ITournamentService tournamentService)
+        private readonly IHighSchoolService _highSchoolService;
+        public HighSchoolController(IHighSchoolService highSchoolService)
         {
-            _tournamentService = tournamentService;
+            _highSchoolService = highSchoolService;
         }
         [HttpGet]
-        [Route("api/[controller]/get-all-tournaments")]
-        public IActionResult GetTournamentList()
+        [Route("api/[controller]/get-all-schools")]
+        public IActionResult GetMapList()
         {
             try
             {
-                return Ok(_tournamentService.GetAllTournament());
+                return Ok(_highSchoolService.GetListHighSchools());
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
         }
-        [HttpGet]
-        [Route("api/[controller]/get-a-tournament-by-id/")]
-        public IActionResult GetTournamentById(string id)
-        {
-            try
-            {
-                return Ok(_tournamentService.GetTournamentById(id));
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
+
         [HttpPost]
-        [Route("api/[controller]/create-tournament")]
-        public IActionResult CreateTournament(TournamentCreatedModel tournamentCreatedModel)
+        [Route("api/[controller]/create-new-school")]
+        public IActionResult CreateNewSchool(HighSchoolCreatedModel highSchoolCreatedModel)
         {
             try
             {
-                _tournamentService.CreateNewTournament(tournamentCreatedModel);
+                _highSchoolService.AddSchool(highSchoolCreatedModel);
                 return Ok("Created Successfully !");
             }
             catch (Exception e)
@@ -54,13 +42,26 @@ namespace BotTournamentManagement.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [HttpPut]
-        [Route("api/[controller]/update-tournament")]
-        public IActionResult UpdateATournament(string id, TournamentUpdateModel model)
+        [HttpGet]
+        [Route("api/[controller]/get-a-school-by-id/")]
+        public IActionResult GetSchoolById(string id)
         {
             try
             {
-                _tournamentService.UpdateTournament(id, model);
+                return Ok(_highSchoolService.GetHighSchoolById(id));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpPut]
+        [Route("api/[controller]/update-school")]
+        public IActionResult UpdateASchool(string id, HighSchoolUpdateModel highSchoolUpdateModel)
+        {
+            try
+            {
+                _highSchoolService.UpdateSchool(id, highSchoolUpdateModel);
                 return Ok("Updated Successfully !");
             }
             catch (Exception e)
@@ -69,12 +70,12 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpDelete]
-        [Route("api/[controller]/delete-tournament")]
-        public IActionResult DeleteTournament(string id)
+        [Route("api/[controller]/delete-school")]
+        public IActionResult DeleteSchool(string Id)
         {
             try
             {
-                _tournamentService.DeleteTournament(id);
+                _highSchoolService.DeleteSchool(Id);
                 return Ok("Deleted Successfully !");
             }
             catch (Exception e)
@@ -82,5 +83,8 @@ namespace BotTournamentManagement.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+
+
     }
 }
