@@ -4,6 +4,7 @@ using BotTournamentManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BotTournamentManagement.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240126132541_26012024825")]
+    partial class _26012024825
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -315,23 +317,19 @@ namespace BotTournamentManagement.Migrations
 
                     b.Property<string>("MatchId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("Score")
                         .HasColumnType("float");
 
                     b.Property<string>("TeamId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("isWinner")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MatchId");
-
-                    b.HasIndex("TeamId");
 
                     b.ToTable("TeamInMatch");
                 });
@@ -485,25 +483,6 @@ namespace BotTournamentManagement.Migrations
                         .IsRequired();
 
                     b.Navigation("HighSchool");
-                });
-
-            modelBuilder.Entity("BotTournamentManagement.Data.Entities.TeamInMatchEntity", b =>
-                {
-                    b.HasOne("BotTournamentManagement.Data.Entities.MatchEntity", "Match")
-                        .WithMany()
-                        .HasForeignKey("MatchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BotTournamentManagement.Data.Entities.TeamEntity", "Team")
-                        .WithMany()
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Match");
-
-                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("BotTournamentManagement.Data.Entities.ActivityTypeEntity", b =>
