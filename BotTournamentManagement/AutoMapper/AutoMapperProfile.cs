@@ -33,6 +33,8 @@ namespace BotTournamentManagement.AutoMapper
             CreateMap<TeamEntity, TeamCreatedModel>().ReverseMap();
             CreateMap<TeamEntity, TeamUpdateModel>().ReverseMap();
             CreateMap<TeamEntity, TeamResponseModel>().ReverseMap();
+            CreateMap<ActivityTypeEntity, ActivityTypeCreatedModel>().ReverseMap();
+            CreateMap<ActivityTypeEntity, ActivityTypeResponseModel>().ReverseMap();
         }
         public void HighSchoolMappingProfile()
         {
