@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
-using DocnetCorePractice.Data.Entity;
-using DocnetCorePractice.Model;
-using DocnetCorePractice.Repositories;
+using BotTournamentManagement.Data.Entities;
+using BotTournamentManagement.Data.RequestModel;
+using BotTournamentManagement.Data.ResponseModel;
+using BotTournamentManagement.Interface.IRepository;
+using BotTournamentManagement.Interface.IService;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -26,10 +28,6 @@ namespace DocnetCorePractice.Services
 
             return sb.ToString();
         }
-    }
-    public interface IAuthenticationService
-    {
-        ResponseLoginModel Authenticator(RequestLoginModel model);
     }
     public class AuthenticationService : IAuthenticationService
     {
@@ -62,19 +60,20 @@ namespace DocnetCorePractice.Services
             var refreshToken = CreateRefreshToken(account);
             var result = new ResponseLoginModel
             {
-                FullName = account.FirstName,
-                UserId = account.Id,
+                UserName = account.UserName,
+                FullName = account.FullName,
+                UserEmail = account.UserEmail,
                 Token = token,
                 RefreshToken = refreshToken.Token
             };
             return result;
         }
 
-        private RefreshTokens CreateRefreshToken(UserEntity account)
+        private RefreshToken CreateRefreshToken(UserEntity account)
         {
             var randomByte = new byte[64];
             var token = RandomStringGenerator.GenerateRandomString(5); // Viết hàm tạo chuỗi random string
-            var refreshToken = new RefreshTokens
+            var refreshToken = new RefreshToken
             {
                 Id = Guid.NewGuid().ToString("N"),
                 UserId = account.Id,
@@ -98,15 +97,15 @@ namespace DocnetCorePractice.Services
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.Name, account.FirstName),
-                    new Claim(ClaimTypes.Email, "sdasdasd"),
-                    new Claim("CarNumber", "1")
+                    new Claim(ClaimTypes.Name, account.FullName),
+                    new Claim(ClaimTypes.Email, account.UserEmail),
                 }),
-                Expires = DateTime.UtcNow.AddHours(1),
+                Expires = DateTime.UtcNow.AddHours(5),
                 SigningCredentials = credential
             };
             var token = tokenHanler.CreateToken(tokenDescription);
             return tokenHanler.WriteToken(token);
         }
+
     }
 }
