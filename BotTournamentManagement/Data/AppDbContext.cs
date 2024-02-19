@@ -35,6 +35,7 @@ namespace BotTournamentManagement.Data
         public DbSet<PlayerEntity> Players { get; set; }
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<TeamInMatchEntity> TeamInMatches { get; set; }
+        public DbSet<RefreshToken> RefreshTokens {  get; set; }
         
     }
 }
