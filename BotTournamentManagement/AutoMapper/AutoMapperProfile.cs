@@ -15,6 +15,8 @@ namespace BotTournamentManagement.AutoMapper
             RoundMappingProfile();
             HighSchoolMappingProfile();
             ActivityTypeProfile();
+            MatchMappingProfile();
+            UserMappingProfile();
         }
         public void TournamentMappingProfile()
         {
@@ -33,8 +35,9 @@ namespace BotTournamentManagement.AutoMapper
             CreateMap<TeamEntity, TeamCreatedModel>().ReverseMap();
             CreateMap<TeamEntity, TeamUpdateModel>().ReverseMap();
             CreateMap<TeamEntity, TeamResponseModel>().ReverseMap();
-            CreateMap<ActivityTypeEntity, ActivityTypeCreatedModel>().ReverseMap();
-            CreateMap<ActivityTypeEntity, ActivityTypeResponseModel>().ReverseMap();
+        }
+        public void MatchMappingProfile()
+        {
             CreateMap<MatchEntity, MatchCreatedModel>().ReverseMap();
             CreateMap<MatchEntity, MatchResponseModel>().ReverseMap();
         }
@@ -55,6 +58,11 @@ namespace BotTournamentManagement.AutoMapper
             CreateMap<ActivityTypeEntity, ActivityTypeCreatedModel>().ReverseMap();
             CreateMap<ActivityTypeEntity, ActivityTypeResponseModel>().ReverseMap();
             CreateMap<ActivityTypeEntity, ActivityTypeUpdateModel>().ReverseMap();
+        }
+        public void UserMappingProfile()
+        {
+            CreateMap<UserEntity,UserRequestModel> ().ReverseMap();
+            CreateMap<UserEntity, UserResponseModel>().ReverseMap();
         }
 
 

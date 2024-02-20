@@ -16,5 +16,6 @@ namespace BotTournamentManagement.Repository
             var user = GetAll().Where(u => u.UserName.Equals(requestLoginModel.UserName) && u.Password.Equals(requestLoginModel.Password)).FirstOrDefault();
             return user;
         }
+        
     }
 }
