@@ -1,8 +1,9 @@
 ﻿namespace BotTournamentManagement.Data.ResponseModel
 {
-    public class ActivityTypeResponseModel
+    public class RoundResponseModel
     {
         public string Id { get; set; }
-        public string TypeName { get; set; }
+        public string RoundName { get; set; }
+
     }
 }

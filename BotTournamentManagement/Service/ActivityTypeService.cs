@@ -25,9 +25,9 @@ namespace BotTournamentManagement.Service
             var activityTypeList = _activityTypeRepository.GetAll();
             foreach (ActivityTypeEntity activityType in activityTypeList)
             {
-                if (activityType.Id.Equals(activityTypeCreatedModel.KeyId))
+                if (activityType.TypeName.ToLower().Equals(activityTypeCreatedModel.TypeName.ToLower()))
                 {
-                    throw new Exception("This activityType Id is existed !");
+                    throw new Exception("This Activity type is existed !");
                 }
             }
             var activityTypeEntity = _mapper.Map<ActivityTypeEntity>(activityTypeCreatedModel);
@@ -39,7 +39,7 @@ namespace BotTournamentManagement.Service
             var chosenActivityType = _activityTypeRepository.GetById(id);
             if (chosenActivityType is null)
             {
-                throw new Exception("This activityType is not existed");
+                throw new Exception("This Activity type is not existed");
             }
             else
             {
@@ -52,7 +52,7 @@ namespace BotTournamentManagement.Service
             var chosenActivityType = _activityTypeRepository.GetById(id);
             if (chosenActivityType is null)
             {
-                throw new Exception("This activityType is not existed");
+                throw new Exception("This Activity Type is not existed");
             }
             var responseActivityType = _mapper.Map<ActivityTypeResponseModel>(chosenActivityType);
             return responseActivityType;
@@ -69,7 +69,7 @@ namespace BotTournamentManagement.Service
             return responseActivityTypeList;
         }
 
-        public void UpdateActivityType(string id, [FromForm] ActivityTypeCreatedModel activityTypeCreatedModel)
+        public void UpdateActivityType(string id, [FromForm] ActivityTypeUpdateModel activityTypeUpdateModel)
         {
             var chosenActivityType = _activityTypeRepository.GetById(id);
             if (chosenActivityType is null)
@@ -79,12 +79,12 @@ namespace BotTournamentManagement.Service
             var activityTypeList = _activityTypeRepository.GetAll();
             foreach (var activityType in activityTypeList)
             {
-                if (activityType.Id.Equals(activityTypeCreatedModel.KeyId))
+                if (activityType.TypeName.ToLower().Equals(activityTypeUpdateModel.TypeName.ToLower()))
                 {
-                    throw new Exception("This map ID existed");
+                    throw new Exception("This Activity type name existed");
                 }
             }
-            _mapper.Map(activityTypeCreatedModel, chosenActivityType);
+            _mapper.Map(activityTypeUpdateModel, chosenActivityType);
             _activityTypeRepository.Update(chosenActivityType);
         }
     }

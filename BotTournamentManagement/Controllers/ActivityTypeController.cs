@@ -54,7 +54,7 @@ namespace BotTournamentManagement.Controllers
         }
         [HttpPut]
         [Route("api/[controller]/update-activityType")]
-        public IActionResult UpdateActivityType(string id, ActivityTypeCreatedModel model)
+        public IActionResult UpdateActivityType(string id, ActivityTypeUpdateModel model)
         {
             try
             {

@@ -1,6 +1,6 @@
 ﻿namespace BotTournamentManagement.Data.RequestModel
 {
-    public class ActivityTypeCreatedModel
+    public class ActivityTypeUpdateModel
     {
         public string TypeName { get; set; }
     }

@@ -1,37 +1,38 @@
 ﻿using BotTournamentManagement.Data.RequestModel;
 using BotTournamentManagement.Interface.IService;
-using BotTournamentManagement.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BotTournamentManagement.Controllers
 {
     [ApiController]
-    public class MapController : ControllerBase
+    public class RoundController : ControllerBase
     {
-        private readonly IMapService _mapService;
-        public MapController(IMapService mapService) { 
-            _mapService = mapService;
+        private readonly IRoundService _roundService;
+        public RoundController(IRoundService roundService)
+        {
+            _roundService = roundService;
         }
         [HttpGet]
-        [Route("api/[controller]/get-all-maps")]
-        public IActionResult GetMapList() {
+        [Route("api/[controller]/get-all-rounds")]
+        public IActionResult GetRoundList()
+        {
             try
             {
-                return Ok(_mapService.GetMaps());
+                return Ok(_roundService.getAllRoundList());
             }
             catch (Exception e)
-            { 
+            {
                 return BadRequest(e.Message);
             }
         }
         [HttpGet]
-        [Route("api/[controller]/get-a-map-by-id/")]
-        public IActionResult GetMapById(string id)
+        [Route("api/[controller]/get-a-round-by-id/")]
+        public IActionResult GetRoundById(string id)
         {
             try
             {
-                return Ok(_mapService.GetMapById(id));
+                return Ok(_roundService.getRoundById(id));
             }
             catch (Exception e)
             {
@@ -39,12 +40,12 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPost]
-        [Route("api/[controller]/create-new-map")]
-        public IActionResult CreateNewMap(MapCreatedModel mapCreatedModel) 
+        [Route("api/[controller]/create-new-round")]
+        public IActionResult CreateNewRound(RoundCreatedModel roundCreatedModel)
         {
             try
             {
-                _mapService.CreateANewMap(mapCreatedModel);
+                _roundService.AddNewRound(roundCreatedModel);
                 return Ok("Created Successfully !");
             }
             catch (Exception e)
@@ -53,12 +54,12 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPut]
-        [Route("api/[controller]/update-map")]
-        public IActionResult UpdateAMap(string id, MapUpdateModel updateMap)
+        [Route("api/[controller]/update-round")]
+        public IActionResult UpdateAMap(string id, RoundUpdateModel roundUpdateModel)
         {
             try
             {
-                _mapService.UpdateANewMap(id, updateMap);
+                _roundService.UpdateRound(id, roundUpdateModel);
                 return Ok("Updated Successfully !");
             }
             catch (Exception e)
@@ -67,12 +68,12 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpDelete]
-        [Route("api/[controller]/delete-map")]
+        [Route("api/[controller]/delete-round")]
         public IActionResult DeleteMap(string Id)
         {
             try
             {
-                _mapService.DeleteAMap(Id);
+                _roundService.DeleteRound(Id);
                 return Ok("Deleted Successfully !");
             }
             catch (Exception e)
