@@ -1,5 +1,5 @@
 ﻿using BotTournamentManagement.Data.Entities;
-using BotTournamentManagement.Data.RequestModel;
+using BotTournamentManagement.Data.RequestModel.UserModel;
 
 namespace BotTournamentManagement.Interface.IRepository
 {

@@ -1,5 +1,4 @@
-﻿using BotTournamentManagement.Data.RequestModel;
-
+﻿using BotTournamentManagement.Data.RequestModel.MatchModel;
 using BotTournamentManagement.Interface.IService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,11 +40,11 @@ namespace BotTournamentManagement.Controllers
         }
         [HttpPost]
         [Route("api/[controller]/create-match")]
-        public IActionResult CreateMatch(MatchCreatedModel matchCreatedModel)
+        public IActionResult CreateMatch(MatchandTeamCreatedModel matchandTeamCreatedModel)
         {
             try
             {
-                _matchService.CreateNewMatch(matchCreatedModel);
+                _matchService.CreateNewMatch(matchandTeamCreatedModel);
                 return Ok("Created Successfully !");
             }
             catch (Exception e)

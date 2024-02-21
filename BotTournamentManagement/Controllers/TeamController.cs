@@ -1,10 +1,10 @@
-﻿using BotTournamentManagement.Data.RequestModel;
+﻿using BotTournamentManagement.Data.RequestModel.TeamModel;
 using BotTournamentManagement.Interface.IService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BotTournamentManagement.Controllers
 {
-        [ApiController]
+    [ApiController]
         public class TeamController : ControllerBase
         {
             private readonly ITeamService _teamService;

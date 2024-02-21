@@ -1,4 +1,4 @@
-﻿namespace BotTournamentManagement.Data.RequestModel
+﻿namespace BotTournamentManagement.Data.RequestModel.UserModel
 {
     public class RequestLoginModel
     {

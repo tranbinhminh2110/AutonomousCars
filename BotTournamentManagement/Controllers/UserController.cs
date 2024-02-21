@@ -1,4 +1,4 @@
-﻿using BotTournamentManagement.Data.RequestModel;
+﻿using BotTournamentManagement.Data.RequestModel.UserModel;
 using BotTournamentManagement.Interface.IService;
 using Microsoft.AspNetCore.Mvc;
 

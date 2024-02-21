@@ -1,6 +1,14 @@
 ﻿using AutoMapper;
 using BotTournamentManagement.Data.Entities;
-using BotTournamentManagement.Data.RequestModel;
+using BotTournamentManagement.Data.RequestModel.ActivityModel;
+using BotTournamentManagement.Data.RequestModel.HighSchoolModel;
+using BotTournamentManagement.Data.RequestModel.MapModel;
+using BotTournamentManagement.Data.RequestModel.MatchModel;
+using BotTournamentManagement.Data.RequestModel.RoundModel;
+using BotTournamentManagement.Data.RequestModel.TeamInMatchModel;
+using BotTournamentManagement.Data.RequestModel.TeamModel;
+using BotTournamentManagement.Data.RequestModel.TournamentModel;
+using BotTournamentManagement.Data.RequestModel.UserModel;
 using BotTournamentManagement.Data.ResponseModel;
 
 namespace BotTournamentManagement.AutoMapper
@@ -17,6 +25,7 @@ namespace BotTournamentManagement.AutoMapper
             ActivityTypeProfile();
             MatchMappingProfile();
             UserMappingProfile();
+            TeamInMatchMappingProfile();
         }
         public void TournamentMappingProfile()
         {
@@ -63,6 +72,11 @@ namespace BotTournamentManagement.AutoMapper
         {
             CreateMap<UserEntity,UserRequestModel> ().ReverseMap();
             CreateMap<UserEntity, UserResponseModel>().ReverseMap();
+        }
+        public void TeamInMatchMappingProfile() 
+        {
+            CreateMap<TeamInMatchEntity, TeamInMatchCreatedModel>().ReverseMap();
+
         }
 
 

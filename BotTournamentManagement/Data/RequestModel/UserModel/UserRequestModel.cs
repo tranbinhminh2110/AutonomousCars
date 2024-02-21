@@ -1,6 +1,6 @@
 ﻿using BotTournamentManagement.Data.Enum;
 
-namespace BotTournamentManagement.Data.RequestModel
+namespace BotTournamentManagement.Data.RequestModel.UserModel
 {
     public class UserRequestModel
     {

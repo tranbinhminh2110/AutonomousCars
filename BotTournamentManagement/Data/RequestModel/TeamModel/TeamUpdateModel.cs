@@ -1,6 +1,6 @@
-﻿namespace BotTournamentManagement.Data.RequestModel
+﻿namespace BotTournamentManagement.Data.RequestModel.TeamModel
 {
-    public class TeamCreatedModel
+    public class TeamUpdateModel
     {
         public string KeyId { get; set; }
         public string TeamName { get; set; }

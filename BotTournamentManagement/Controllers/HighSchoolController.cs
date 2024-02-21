@@ -1,4 +1,4 @@
-﻿using BotTournamentManagement.Data.RequestModel;
+﻿using BotTournamentManagement.Data.RequestModel.HighSchoolModel;
 using BotTournamentManagement.Interface.IService;
 using BotTournamentManagement.Service;
 using Microsoft.AspNetCore.Http;

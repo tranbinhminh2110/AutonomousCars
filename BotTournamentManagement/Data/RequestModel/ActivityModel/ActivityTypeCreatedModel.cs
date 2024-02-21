@@ -1,4 +1,4 @@
-﻿namespace BotTournamentManagement.Data.RequestModel
+﻿namespace BotTournamentManagement.Data.RequestModel.ActivityModel
 {
     public class ActivityTypeCreatedModel
     {

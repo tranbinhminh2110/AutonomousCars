@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BotTournamentManagement.Data.Entities;
 using BotTournamentManagement.Data.Enum;
-using BotTournamentManagement.Data.RequestModel;
+using BotTournamentManagement.Data.RequestModel.UserModel;
 using BotTournamentManagement.Data.ResponseModel;
 using BotTournamentManagement.Interface.IRepository;
 using BotTournamentManagement.Interface.IService;

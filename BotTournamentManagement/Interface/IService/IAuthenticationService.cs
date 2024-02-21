@@ -1,4 +1,4 @@
-﻿using BotTournamentManagement.Data.RequestModel;
+﻿using BotTournamentManagement.Data.RequestModel.UserModel;
 using BotTournamentManagement.Data.ResponseModel;
 
 namespace BotTournamentManagement.Interface.IService

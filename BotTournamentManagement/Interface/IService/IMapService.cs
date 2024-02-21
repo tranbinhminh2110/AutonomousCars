@@ -1,5 +1,5 @@
 ﻿using BotTournamentManagement.Data.Entities;
-using BotTournamentManagement.Data.RequestModel;
+using BotTournamentManagement.Data.RequestModel.MapModel;
 using BotTournamentManagement.Data.ResponseModel;
 using Microsoft.AspNetCore.Mvc;
 
