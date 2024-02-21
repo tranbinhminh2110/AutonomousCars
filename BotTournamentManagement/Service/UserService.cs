@@ -21,7 +21,7 @@ namespace BotTournamentManagement.Service
 
         public void AddNewUser(UserRequestModel userRequestModel)
         {
-            var existingUser = _userRepository.GetAll().Where(p => p.UserName == userRequestModel.UserName);
+            var existingUser = _userRepository.GetAll().Where(p => p.UserName == userRequestModel.UserName || p.UserEmail == userRequestModel.UserEmail);
             if (existingUser.Any()) 
             {
                 throw new Exception("This username is already existed");
@@ -60,7 +60,7 @@ namespace BotTournamentManagement.Service
             var userList = _userRepository.GetAll();
             if (!userList.Any())
             {
-                throw new Exception("This list is empty");
+                throw new Exception("This list is empty.");
             }
             var responseUserList = _mapper.Map<List<UserResponseModel>>(userList);
             return responseUserList;
@@ -69,9 +69,9 @@ namespace BotTournamentManagement.Service
         public List<UserResponseModel> SearchUser(string searchkey)
         {
             var userList = _userRepository.GetAll().Where(p => p.UserName.Contains(searchkey) || p.UserEmail.Contains(searchkey));
-            if (userList is null)
+            if (!userList.Any())
             {
-                throw new Exception("No user existed");
+                throw new Exception("No user existed.");
             }
             var responseUserList = _mapper.Map<List<UserResponseModel>>(userList);
             return responseUserList;
@@ -82,14 +82,18 @@ namespace BotTournamentManagement.Service
             var existingUser = _userRepository.GetById(id);
             if (existingUser is null)
             {
-                throw new Exception("This user is not existed");
+                throw new Exception("This user is not existed.");
             }
             var userList = _userRepository.GetAll();
             foreach (var user in userList)
             {
                 if (userRequestModel.UserName.Equals(user.UserName))
                 {
-                    throw new Exception("This Username is existed");
+                    throw new Exception("This Username is existed.");
+                }
+                if (userRequestModel.UserEmail.Equals(user.UserEmail))
+                {
+                    throw new Exception("This email is already used.");
                 }
             }
             _mapper.Map(userRequestModel, existingUser);

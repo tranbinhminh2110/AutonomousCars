@@ -80,6 +80,19 @@ namespace BotTournamentManagement.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [HttpGet]
+        [Route("api/[controller]/search-user")]
+        public IActionResult SearchUser(string searchKey)
+        {
+            try
+            {
+                return Ok(_userService.SearchUser(searchKey));
+            }
+            catch (Exception e) 
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
 
     }
