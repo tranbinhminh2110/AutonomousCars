@@ -58,6 +58,17 @@ namespace BotTournamentManagement.Service
             return responseTeamList;
         }
 
+        public TeamResponseModel GetTeamById(string id)
+        {
+            var chosenTeam = _teamRepository.GetById(id);
+            if (chosenTeam is null)
+            {
+                throw new Exception("Team doesn't existed"); 
+            }
+            var responseTeam = _mapper.Map<TeamResponseModel>(chosenTeam);
+            return responseTeam;
+        }
+
         public void UpdateANewTeam(string id, [FromForm] TeamUpdateModel teamUpdateModel)
         {
             var chosenTeam = _teamRepository.GetById(id);
@@ -77,15 +88,5 @@ namespace BotTournamentManagement.Service
             _teamRepository.Update(chosenTeam);
         }
 
-        TeamResponseModel ITeamService.GetTeamById(string id)
-        {
-            var chosenTeam = _teamRepository.GetById(id);
-            if (chosenTeam is null)
-            {
-                throw new Exception("This team is not existed");
-            }
-            var responseTeam = _mapper.Map<TeamResponseModel>(chosenTeam);
-            return responseTeam;
-        }
     }
 }

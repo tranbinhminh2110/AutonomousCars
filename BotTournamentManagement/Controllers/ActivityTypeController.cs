@@ -13,7 +13,7 @@ namespace BotTournamentManagement.Controllers
             _activityTypeService = activityTypeService;
         }
         [HttpGet]
-        [Route("api/[controller]/get-all-activityTypes")]
+        [Route("api/[controller]/get-all-activity-types")]
         public IActionResult GetActivityTypeList()
         {
             try
@@ -26,7 +26,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpGet]
-        [Route("api/[controller]/get-a-activityType-by-id/")]
+        [Route("api/[controller]/get-a-activity-type-by-id/")]
         public IActionResult GetActivityTypeById(string id)
         {
             try
@@ -39,7 +39,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPost]
-        [Route("api/[controller]/create-activityType")]
+        [Route("api/[controller]/create-activity-type")]
         public IActionResult CreateActivityType(ActivityTypeCreatedModel activityTypeCreatedModel)
         {
             try
@@ -53,7 +53,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPut]
-        [Route("api/[controller]/update-activityType")]
+        [Route("api/[controller]/update-activity-type")]
         public IActionResult UpdateActivityType(string id, ActivityTypeUpdateModel model)
         {
             try
@@ -67,7 +67,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpDelete]
-        [Route("api/[controller]/delete-activityType")]
+        [Route("api/[controller]/delete-activity-type")]
         public IActionResult DeleteActivityType(string id)
         {
             try
