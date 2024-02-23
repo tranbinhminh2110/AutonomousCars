@@ -13,11 +13,13 @@ namespace BotTournamentManagement.Service
     {
         private readonly ITeamRepository _teamRepository;
         private readonly IMapper _mapper;
+        private readonly IPlayerRepository _playerRepository;
 
-        public TeamService(ITeamRepository teamRepository, IMapper mapper)
+        public TeamService(ITeamRepository teamRepository, IMapper mapper, IPlayerRepository playerRepository)
         {
             _teamRepository = teamRepository;
             _mapper = mapper;
+            _playerRepository = playerRepository;
         }
 
         public void CreateANewTeam(TeamCreatedModel teamCreatedModel)
@@ -32,6 +34,12 @@ namespace BotTournamentManagement.Service
             }
             var teamEntity = _mapper.Map<TeamEntity>(teamCreatedModel);
             _teamRepository.Add(teamEntity);
+            foreach (var player in teamCreatedModel.PlayerCreatedModels) {
+                var playerEntity = _mapper.Map<PlayerEntity>(player);
+                playerEntity.TeamId = teamEntity.Id;
+                _playerRepository.Add(playerEntity);
+            }
+            
         }
 
         public void DeleteATeam(string id)
