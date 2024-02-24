@@ -12,7 +12,7 @@ namespace BotTournamentManagement.Data.Entities
         [Required]
         public string MatchId { get; set; }
         public double? Score { get; set; }
-        public double? Duration { get; set; }
+        public TimeSpan? Duration { get; set; }
         public bool? isWinner { get; set; }
         [ForeignKey(nameof(TeamId))]
         public virtual TeamEntity Team { get; set; }

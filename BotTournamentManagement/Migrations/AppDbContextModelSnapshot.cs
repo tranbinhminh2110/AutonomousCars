@@ -332,8 +332,8 @@ namespace BotTournamentManagement.Migrations
                     b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<double?>("Duration")
-                        .HasColumnType("float");
+                    b.Property<TimeSpan?>("Duration")
+                        .HasColumnType("time");
 
                     b.Property<DateTimeOffset>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");

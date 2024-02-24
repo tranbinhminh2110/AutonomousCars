@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BotTournamentManagement.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240126014954_TblUser")]
-    partial class TblUser
+    [Migration("20240224043041_%1")]
+    partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -188,6 +188,31 @@ namespace BotTournamentManagement.Migrations
                     b.ToTable("Player");
                 });
 
+            modelBuilder.Entity("BotTournamentManagement.Data.Entities.RefreshToken", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Expires")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshToken");
+                });
+
             modelBuilder.Entity("BotTournamentManagement.Data.Entities.RoundEntity", b =>
                 {
                     b.Property<string>("Id")
@@ -233,23 +258,19 @@ namespace BotTournamentManagement.Migrations
                     b.Property<TimeSpan?>("Duration")
                         .HasColumnType("time");
 
-                    b.Property<DateTimeOffset>("EndTime")
+                    b.Property<DateTimeOffset?>("EndTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<DateTimeOffset>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("MatchId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<double?>("Score")
                         .HasColumnType("float");
 
-                    b.Property<DateTimeOffset>("StartTime")
+                    b.Property<DateTimeOffset?>("StartTime")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("TeamId")
+                    b.Property<string>("TeamInMatchId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -260,9 +281,7 @@ namespace BotTournamentManagement.Migrations
 
                     b.HasIndex("ActivityTypeId");
 
-                    b.HasIndex("MatchId");
-
-                    b.HasIndex("TeamId");
+                    b.HasIndex("TeamInMatchId");
 
                     b.ToTable("TeamActivity");
                 });
@@ -304,7 +323,7 @@ namespace BotTournamentManagement.Migrations
                     b.ToTable("Team");
                 });
 
-            modelBuilder.Entity("BotTournamentManagement.Data.Entities.TeamResultEntity", b =>
+            modelBuilder.Entity("BotTournamentManagement.Data.Entities.TeamInMatchEntity", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -315,8 +334,8 @@ namespace BotTournamentManagement.Migrations
                     b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<double>("Duration")
-                        .HasColumnType("float");
+                    b.Property<TimeSpan?>("Duration")
+                        .HasColumnType("time");
 
                     b.Property<DateTimeOffset>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");
@@ -325,14 +344,14 @@ namespace BotTournamentManagement.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<double>("Score")
+                    b.Property<double?>("Score")
                         .HasColumnType("float");
 
                     b.Property<string>("TeamId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("isWinner")
+                    b.Property<bool?>("isWinner")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
@@ -341,7 +360,7 @@ namespace BotTournamentManagement.Migrations
 
                     b.HasIndex("TeamId");
 
-                    b.ToTable("TeamResult");
+                    b.ToTable("TeamInMatch");
                 });
 
             modelBuilder.Entity("BotTournamentManagement.Data.Entities.TournamentEntity", b =>
@@ -405,7 +424,8 @@ namespace BotTournamentManagement.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
@@ -416,7 +436,8 @@ namespace BotTournamentManagement.Migrations
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -465,6 +486,17 @@ namespace BotTournamentManagement.Migrations
                     b.Navigation("Team");
                 });
 
+            modelBuilder.Entity("BotTournamentManagement.Data.Entities.RefreshToken", b =>
+                {
+                    b.HasOne("BotTournamentManagement.Data.Entities.UserEntity", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("BotTournamentManagement.Data.Entities.TeamActivityEntity", b =>
                 {
                     b.HasOne("BotTournamentManagement.Data.Entities.ActivityTypeEntity", "ActivityType")
@@ -473,23 +505,15 @@ namespace BotTournamentManagement.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BotTournamentManagement.Data.Entities.MatchEntity", "Match")
-                        .WithMany()
-                        .HasForeignKey("MatchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BotTournamentManagement.Data.Entities.TeamEntity", "Team")
-                        .WithMany()
-                        .HasForeignKey("TeamId")
+                    b.HasOne("BotTournamentManagement.Data.Entities.TeamInMatchEntity", "TeamInMatch")
+                        .WithMany("TeamActivities")
+                        .HasForeignKey("TeamInMatchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("ActivityType");
 
-                    b.Navigation("Match");
-
-                    b.Navigation("Team");
+                    b.Navigation("TeamInMatch");
                 });
 
             modelBuilder.Entity("BotTournamentManagement.Data.Entities.TeamEntity", b =>
@@ -503,7 +527,7 @@ namespace BotTournamentManagement.Migrations
                     b.Navigation("HighSchool");
                 });
 
-            modelBuilder.Entity("BotTournamentManagement.Data.Entities.TeamResultEntity", b =>
+            modelBuilder.Entity("BotTournamentManagement.Data.Entities.TeamInMatchEntity", b =>
                 {
                     b.HasOne("BotTournamentManagement.Data.Entities.MatchEntity", "Match")
                         .WithMany()
@@ -540,6 +564,11 @@ namespace BotTournamentManagement.Migrations
             modelBuilder.Entity("BotTournamentManagement.Data.Entities.TeamEntity", b =>
                 {
                     b.Navigation("Players");
+                });
+
+            modelBuilder.Entity("BotTournamentManagement.Data.Entities.TeamInMatchEntity", b =>
+                {
+                    b.Navigation("TeamActivities");
                 });
 
             modelBuilder.Entity("BotTournamentManagement.Data.Entities.TournamentEntity", b =>

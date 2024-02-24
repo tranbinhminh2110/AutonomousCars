@@ -90,6 +90,26 @@ namespace BotTournamentManagement.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Role = table.Column<int>(type: "int", nullable: false),
+                    CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    DeletedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    KeyId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Team",
                 columns: table => new
                 {
@@ -149,6 +169,27 @@ namespace BotTournamentManagement.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RefreshToken",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Token = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Expires = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RefreshToken", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RefreshToken_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Player",
                 columns: table => new
                 {
@@ -173,56 +214,22 @@ namespace BotTournamentManagement.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TeamActivity",
+                name: "TeamInMatch",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
-                    StartTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    EndTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    MatchId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     TeamId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Duration = table.Column<TimeSpan>(type: "time", nullable: true),
+                    MatchId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Score = table.Column<double>(type: "float", nullable: true),
-                    Violation = table.Column<int>(type: "int", nullable: true),
-                    ActivityTypeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Duration = table.Column<TimeSpan>(type: "time", nullable: true),
+                    isWinner = table.Column<bool>(type: "bit", nullable: true),
                     CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     DeletedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TeamActivity", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TeamActivity_ActivityType_ActivityTypeId",
-                        column: x => x.ActivityTypeId,
-                        principalTable: "ActivityType",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TeamActivity_Match_MatchId",
-                        column: x => x.MatchId,
-                        principalTable: "Match",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TeamActivity_Team_TeamId",
-                        column: x => x.TeamId,
-                        principalTable: "Team",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TeamInMatch",
-                columns: table => new
-                {
-                    TeamId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    MatchId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TeamInMatch", x => new { x.TeamId, x.MatchId });
+                    table.PrimaryKey("PK_TeamInMatch", x => x.Id);
                     table.ForeignKey(
                         name: "FK_TeamInMatch_Match_MatchId",
                         column: x => x.MatchId,
@@ -238,32 +245,35 @@ namespace BotTournamentManagement.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TeamResult",
+                name: "TeamActivity",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    MatchId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    TeamId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Score = table.Column<double>(type: "float", nullable: false),
-                    Duration = table.Column<double>(type: "float", nullable: false),
-                    isWinner = table.Column<bool>(type: "bit", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
+                    StartTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    EndTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    Duration = table.Column<TimeSpan>(type: "time", nullable: true),
+                    Score = table.Column<double>(type: "float", nullable: true),
+                    Violation = table.Column<int>(type: "int", nullable: true),
+                    ActivityTypeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TeamInMatchId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     DeletedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TeamResult", x => x.Id);
+                    table.PrimaryKey("PK_TeamActivity", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TeamResult_Match_MatchId",
-                        column: x => x.MatchId,
-                        principalTable: "Match",
+                        name: "FK_TeamActivity_ActivityType_ActivityTypeId",
+                        column: x => x.ActivityTypeId,
+                        principalTable: "ActivityType",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TeamResult_Team_TeamId",
-                        column: x => x.TeamId,
-                        principalTable: "Team",
+                        name: "FK_TeamActivity_TeamInMatch_TeamInMatchId",
+                        column: x => x.TeamInMatchId,
+                        principalTable: "TeamInMatch",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -307,6 +317,11 @@ namespace BotTournamentManagement.Migrations
                 column: "TeamId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RefreshToken_UserId",
+                table: "RefreshToken",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "Index_KeyId3",
                 table: "Team",
                 column: "KeyId",
@@ -323,14 +338,9 @@ namespace BotTournamentManagement.Migrations
                 column: "ActivityTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TeamActivity_MatchId",
+                name: "IX_TeamActivity_TeamInMatchId",
                 table: "TeamActivity",
-                column: "MatchId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TeamActivity_TeamId",
-                table: "TeamActivity",
-                column: "TeamId");
+                column: "TeamInMatchId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TeamInMatch_MatchId",
@@ -338,18 +348,19 @@ namespace BotTournamentManagement.Migrations
                 column: "MatchId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TeamResult_MatchId",
-                table: "TeamResult",
-                column: "MatchId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TeamResult_TeamId",
-                table: "TeamResult",
+                name: "IX_TeamInMatch_TeamId",
+                table: "TeamInMatch",
                 column: "TeamId");
 
             migrationBuilder.CreateIndex(
                 name: "Index_KeyId4",
                 table: "Tournament",
+                column: "KeyId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "Index_KeyId5",
+                table: "User",
                 column: "KeyId",
                 unique: true);
         }
@@ -360,16 +371,19 @@ namespace BotTournamentManagement.Migrations
                 name: "Player");
 
             migrationBuilder.DropTable(
+                name: "RefreshToken");
+
+            migrationBuilder.DropTable(
                 name: "TeamActivity");
 
             migrationBuilder.DropTable(
-                name: "TeamInMatch");
-
-            migrationBuilder.DropTable(
-                name: "TeamResult");
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "ActivityType");
+
+            migrationBuilder.DropTable(
+                name: "TeamInMatch");
 
             migrationBuilder.DropTable(
                 name: "Match");

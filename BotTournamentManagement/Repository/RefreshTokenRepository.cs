@@ -1,7 +1,6 @@
 ﻿using BotTournamentManagement.Data;
 using BotTournamentManagement.Data.Entities;
 using BotTournamentManagement.Interface.IRepository;
-using BotTournamentManagement.Migrations;
 
 namespace BotTournamentManagement.Repository
 {
