@@ -65,9 +65,9 @@ namespace BotTournamentManagement.Service
             return responseHighSchoolList;
         }
 
-        public void UpdateSchool(string id, [FromForm] HighSchoolUpdateModel highSchoolUpdateModel)
+        public void UpdateSchool(HighSchoolUpdateModel highSchoolUpdateModel)
         {
-            var existingSchool = _highSchoolRepository.GetById(id);
+            var existingSchool = _highSchoolRepository.GetById(highSchoolUpdateModel.Id);
             if (existingSchool is null)
             {
                 throw new Exception("This school is not existed");

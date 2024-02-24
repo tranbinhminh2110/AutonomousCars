@@ -1,6 +1,6 @@
-﻿namespace BotTournamentManagement.Data.ResponseModel
+﻿namespace BotTournamentManagement.Data.RequestModel.MatchModel
 {
-    public class MatchResponseModel
+    public class MatchUpdateModel
     {
         public string Id { get; set; }
         public string MapId { get; set; }

@@ -9,7 +9,7 @@ namespace BotTournamentManagement.Interface.IService
     {
         List<MapResponseModel> GetMaps();
         void CreateANewMap(MapCreatedModel mapCreatedModel);
-        void UpdateANewMap(string id,[FromForm] MapUpdateModel mapUpdateModel);
+        void UpdateANewMap(MapUpdateModel mapUpdateModel);
         void DeleteAMap(string id);
         MapResponseModel GetMapById(string id);
     }

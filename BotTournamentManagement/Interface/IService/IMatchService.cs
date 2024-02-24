@@ -8,7 +8,7 @@ namespace BotTournamentManagement.Interface.IService
     {
         List<MatchResponseModel> GetAllMatches();
         void CreateNewMatch(MatchandTeamCreatedModel matchandTeamCreatedModel);
-        void UpdateMatch(string id, [FromForm] MatchCreatedModel matchCreatedModel);
+        //void UpdateMatch(MatchandTeamUpdateModel matchandTeamUpdateModel);
         void DeleteMatch(string id);
         MatchResponseModel GetMatchById(string id);
     }

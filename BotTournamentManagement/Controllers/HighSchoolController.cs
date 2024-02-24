@@ -57,11 +57,11 @@ namespace BotTournamentManagement.Controllers
         }
         [HttpPut]
         [Route("api/[controller]/update-school")]
-        public IActionResult UpdateASchool(string id, HighSchoolUpdateModel highSchoolUpdateModel)
+        public IActionResult UpdateASchool(HighSchoolUpdateModel highSchoolUpdateModel)
         {
             try
             {
-                _highSchoolService.UpdateSchool(id, highSchoolUpdateModel);
+                _highSchoolService.UpdateSchool(highSchoolUpdateModel);
                 return Ok("Updated Successfully !");
             }
             catch (Exception e)

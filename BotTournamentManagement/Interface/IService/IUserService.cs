@@ -11,7 +11,7 @@ namespace BotTournamentManagement.Interface.IService
         UserResponseModel GetUserById(string id);
         void AddNewUser(UserRequestModel userRequestModel);
         void DeleteUser(string id);
-        void UpdateUser(string id, UserRequestModel userRequestModel);
+        void UpdateUser(UserRequestModel userRequestModel);
 
 
     }

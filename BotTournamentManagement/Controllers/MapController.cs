@@ -54,11 +54,11 @@ namespace BotTournamentManagement.Controllers
         }
         [HttpPut]
         [Route("api/[controller]/update-map")]
-        public IActionResult UpdateAMap(string id, MapUpdateModel updateMap)
+        public IActionResult UpdateAMap(MapUpdateModel updateMap)
         {
             try
             {
-                _mapService.UpdateANewMap(id, updateMap);
+                _mapService.UpdateANewMap(updateMap);
                 return Ok("Updated Successfully !");
             }
             catch (Exception e)

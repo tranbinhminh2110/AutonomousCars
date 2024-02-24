@@ -68,9 +68,9 @@ namespace BotTournamentManagement.Service
             return responseTournament;
         }
 
-        public void UpdateTournament(string id, [FromForm] TournamentUpdateModel tournamentUpdateModel)
+        public void UpdateTournament(TournamentUpdateModel tournamentUpdateModel)
         {
-            var chosenTournament = _tournamentRepository.GetById(id);
+            var chosenTournament = _tournamentRepository.GetById(tournamentUpdateModel.Id);
             if (chosenTournament is null)
             {
                 throw new Exception("This map is not existed");

@@ -54,11 +54,11 @@ namespace BotTournamentManagement.Controllers
         }
         [HttpPut]
         [Route("api/[controller]/update-user")]
-        public IActionResult UpdateAUser(string id, UserRequestModel userRequestModel)
+        public IActionResult UpdateAUser(UserRequestModel userRequestModel)
         {
             try
             {
-                _userService.UpdateUser(id, userRequestModel);
+                _userService.UpdateUser(userRequestModel);
                 return Ok("Updated Successfully !");
             }
             catch (Exception e)

@@ -56,11 +56,11 @@ namespace BotTournamentManagement.Controllers
         }
         [HttpPut]
         [Route("api/[controller]/update-tournament")]
-        public IActionResult UpdateATournament(string id, TournamentUpdateModel model)
+        public IActionResult UpdateATournament(TournamentUpdateModel tournamentUpdateModel)
         {
             try
             {
-                _tournamentService.UpdateTournament(id, model);
+                _tournamentService.UpdateTournament(tournamentUpdateModel);
                 return Ok("Updated Successfully !");
             }
             catch (Exception e)

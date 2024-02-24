@@ -52,20 +52,20 @@ namespace BotTournamentManagement.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [HttpPut]
-        [Route("api/[controller]/update-match")]
-        public IActionResult UpdateMatch(string id, MatchCreatedModel model)
-        {
-            try
-            {
-                _matchService.UpdateMatch(id, model);
-                return Ok("Updated Successfully !");
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
+        //[HttpPut]
+        //[Route("api/[controller]/update-match")]
+        //public IActionResult UpdateMatch(MatchandTeamUpdateModel model)
+        //{
+        //    try
+        //    {
+        //        _matchService.UpdateMatch(model);
+        //        return Ok("Updated Successfully !");
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return BadRequest(e.Message);
+        //    }
+        //}
         [HttpDelete]
         [Route("api/[controller]/delete-match")]
         public IActionResult DeleteMatch(string id)

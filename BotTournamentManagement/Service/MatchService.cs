@@ -68,16 +68,17 @@ namespace BotTournamentManagement.Service
             return responseMatch;
         }
 
-        public void UpdateMatch(string id, [FromForm] MatchCreatedModel matchCreatedModel)
-        {
-            var chosenMatch = _matchRepository.GetById(id);
-            if (chosenMatch is null)
-            {
-                throw new Exception("This match is not existed");
-            }
-            var matchList = _matchRepository.GetAll();
-            _mapper.Map(matchCreatedModel, chosenMatch);
-            _matchRepository.Update(chosenMatch);
-        }
+        //public void UpdateMatch(MatchandTeamUpdateModel matchUpdateModel)
+        //{
+        //    var chosenMatch = _matchRepository.GetById(matchUpdateModel.MatchUpdateModel.Id);
+        //    if (chosenMatch is null)
+        //    {
+        //        throw new Exception("This match is not existed");
+        //    }
+        //    _mapper.Map(matchUpdateModel, chosenMatch);
+        //    var teamInchosenMatch = _teamInMatchRepository.GetAll().Where(p => p.MatchId.Equals(chosenMatch.Id));
+        //    _mapper.Map(teamInchosenMatch, matchUpdateModel.TeamInMatchUpdateModels);
+        //    _matchRepository.Update(chosenMatch);
+        //}
     }
 }
