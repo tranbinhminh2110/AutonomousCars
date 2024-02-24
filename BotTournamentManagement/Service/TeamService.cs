@@ -63,7 +63,22 @@ namespace BotTournamentManagement.Service
                 throw new Exception("This team list is empty");
             }
             var responseTeamList = _mapper.Map<List<TeamResponseModel>>(teamList);
+            foreach (var team in responseTeamList)
+            {
+                var playerList = getPlayerinTeam(team.Id);
+                team.playerResponseModels = playerList;
+            }
             return responseTeamList;
+        }
+        public List<PlayerResponseModel> getPlayerinTeam(string teamId)
+        {
+            var playerList = _playerRepository.GetAll().Where(p=>p.TeamId.Equals(teamId));
+            if (playerList is null)
+            {
+                throw new Exception("No Players");
+            }
+            var responsePlayersList = _mapper.Map<List<PlayerResponseModel>>(playerList);
+            return responsePlayersList;
         }
 
         public TeamResponseModel GetTeamById(string id)

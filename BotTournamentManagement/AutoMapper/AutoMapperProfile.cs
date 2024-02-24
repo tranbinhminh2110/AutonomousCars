@@ -83,6 +83,7 @@ namespace BotTournamentManagement.AutoMapper
         }
         public void PlayerMappingProfile() {
             CreateMap<PlayerEntity, PlayerCreatedModel>().ReverseMap();
+            CreateMap<PlayerEntity, PlayerResponseModel>().ReverseMap();
         }
 
 
