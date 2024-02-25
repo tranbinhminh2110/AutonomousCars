@@ -21,8 +21,8 @@ namespace BotTournamentManagement.Service
         }
         public void AddSchool(HighSchoolCreatedModel highSchoolCreatedModel)
         {
-            var existingHighSchool = _highSchoolRepository.GetAll().Where(p => p.KeyId == highSchoolCreatedModel.KeyId);
-            if (existingHighSchool.Any())
+            var existingHighSchool = _highSchoolRepository.GetAll().Where(p => p.KeyId == highSchoolCreatedModel.KeyId).FirstOrDefault();
+            if (existingHighSchool is not null)
             {
                 throw new Exception("This High school Id is existed !");
             }
