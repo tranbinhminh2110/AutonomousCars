@@ -92,9 +92,9 @@ namespace BotTournamentManagement.Service
             return responseTeam;
         }
 
-        public void UpdateANewTeam(string id, [FromForm] TeamUpdateModel teamUpdateModel)
+        public void UpdateATeam(TeamUpdateModel teamUpdateModel)
         {
-            var chosenTeam = _teamRepository.GetById(id);
+            var chosenTeam = _teamRepository.GetById(teamUpdateModel.Id);
             if (chosenTeam is null)
             {
                 throw new Exception("This team is not existed");
