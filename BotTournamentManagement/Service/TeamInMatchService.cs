@@ -22,20 +22,25 @@ namespace BotTournamentManagement.Service
             throw new NotImplementedException();
         }
 
-        //public List<TeamInMatchResponseModel> GetTeamInAMatch(string matchId)
-        //{
-        //    var listTeamInMatch = _teamInMatchRepository.GetAll().Where(p => p.MatchId.Equals(matchId));
-        //    if (!listTeamInMatch.Any())
-        //    {
-        //        throw new Exception("Empty Team in this match");
-        //    }
-        //    foreach (var teamInMatch in listTeamInMatch)
-        //    {
-        //        var team = _teamRepository.GetById(teamInMatch.TeamId);
-        //        var teamResponseModel = _mapper.Map<TeamResponseModel>(team);
-                
-        //    }
-        //}
+        public List<TeamInMatchResponseModel> GetTeamInAMatch(string matchId)
+        {
+            var listTeamInMatch = _teamInMatchRepository.GetAll().ToList();
+            if (!listTeamInMatch.Any())
+            {
+                throw new Exception("Empty Team in this match");
+            }
+            var listTeamInMatchResponse = new List<TeamInMatchResponseModel>();
+            foreach (var team in listTeamInMatch)
+            {
+                var teamEntity = _teamRepository.GetById(team.TeamId);
+                var teamResponseModel = _mapper.Map<TeamResponseModelWithoutPlayer>(teamEntity);
+                TeamInMatchResponseModel responseModel = _mapper.Map<TeamInMatchResponseModel>(team);
+                responseModel.teamResponse = teamResponseModel;
+                listTeamInMatchResponse.Add(responseModel);
+            }
+            return listTeamInMatchResponse;
+
+        }
 
         public void RemoveTeamFromMatch(string teamId)
         {
