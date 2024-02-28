@@ -1,4 +1,5 @@
-﻿using BotTournamentManagement.Data.RequestModel.TeamModel;
+﻿using BotTournamentManagement.Constant;
+using BotTournamentManagement.Data.RequestModel.TeamModel;
 using BotTournamentManagement.Interface.IService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +14,7 @@ namespace BotTournamentManagement.Controllers
                 _teamService = teamService;
             }
             [HttpGet]
-            [Route("api/[controller]/get-all-teams")]
+            [Route(WebApiEndpoint.Team.GetAllTeams)]
             public IActionResult GetTeamList()
             {
                 try
@@ -26,7 +27,7 @@ namespace BotTournamentManagement.Controllers
                 }
             }
             [HttpGet]
-            [Route("api/[controller]/get-a-team-by-id/")]
+            [Route(WebApiEndpoint.Team.GetSingleTeam)]
             public IActionResult GetTeamById(string id)
             {
                 try
@@ -39,7 +40,7 @@ namespace BotTournamentManagement.Controllers
                 }
             }
             [HttpPost]
-            [Route("api/[controller]/create-team")]
+            [Route(WebApiEndpoint.Team.CreateTeam)]
             public IActionResult CreateTeam(TeamCreatedModel teamCreatedModel)
             {
                 try
@@ -53,12 +54,12 @@ namespace BotTournamentManagement.Controllers
                 }
             }
             [HttpPut]
-            [Route("api/[controller]/update-team")]
-            public IActionResult UpdateATeam(TeamUpdateModel model)
+            [Route(WebApiEndpoint.Team.UpdateTeam)]
+            public IActionResult UpdateATeam(string id,TeamUpdateModel model)
             {
                 try
                 {
-                    _teamService.UpdateATeam(model);
+                    _teamService.UpdateATeam(id, model);
                     return Ok("Updated Successfully !");
                 }
                 catch (Exception e)
@@ -67,7 +68,7 @@ namespace BotTournamentManagement.Controllers
                 }
             }
             [HttpDelete]
-            [Route("api/[controller]/delete-team")]
+            [Route(WebApiEndpoint.Team.DeleteTeam)]
             public IActionResult DeleteTeam(string id)
             {
                 try

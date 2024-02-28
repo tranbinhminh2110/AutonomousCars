@@ -65,7 +65,7 @@ namespace BotTournamentManagement.Service
             return responseRound;
         }
 
-        public void UpdateRound(string id, [FromForm] RoundUpdateModel roundUpdateModel)
+        public void UpdateRound(string id, RoundUpdateModel roundUpdateModel)
         {
             var existingRound = _roundRepository.GetById(id);
             if (existingRound is null)

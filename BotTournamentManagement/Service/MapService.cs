@@ -68,9 +68,9 @@ namespace BotTournamentManagement.Service
             return responseMapList;
         }
 
-        public void UpdateANewMap(MapUpdateModel mapUpdateModel)
+        public void UpdateANewMap(string id, MapUpdateModel mapUpdateModel)
         {
-            var existingMap = _mapRepository.GetById(mapUpdateModel.Id);
+            var existingMap = _mapRepository.GetById(id);
             if (existingMap is null) 
             {
                 throw new Exception("This map is not existed");

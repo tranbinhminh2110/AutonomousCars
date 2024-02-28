@@ -1,4 +1,5 @@
-﻿using BotTournamentManagement.Data.RequestModel.MapModel;
+﻿using BotTournamentManagement.Constant;
+using BotTournamentManagement.Data.RequestModel.MapModel;
 using BotTournamentManagement.Interface.IService;
 using BotTournamentManagement.Service;
 using Microsoft.AspNetCore.Http;
@@ -14,7 +15,7 @@ namespace BotTournamentManagement.Controllers
             _mapService = mapService;
         }
         [HttpGet]
-        [Route("api/[controller]/get-all-maps")]
+        [Route(WebApiEndpoint.Map.GetAllMap)]
         public IActionResult GetMapList() {
             try
             {
@@ -26,7 +27,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpGet]
-        [Route("api/[controller]/get-a-map-by-id/")]
+        [Route(WebApiEndpoint.Map.GetSingleMap)]
         public IActionResult GetMapById(string id)
         {
             try
@@ -39,7 +40,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPost]
-        [Route("api/[controller]/create-new-map")]
+        [Route(WebApiEndpoint.Map.CreateMap)]
         public IActionResult CreateNewMap(MapCreatedModel mapCreatedModel) 
         {
             try
@@ -53,12 +54,12 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPut]
-        [Route("api/[controller]/update-map")]
-        public IActionResult UpdateAMap(MapUpdateModel updateMap)
+        [Route(WebApiEndpoint.Map.UpdateMap)]
+        public IActionResult UpdateAMap(string id, MapUpdateModel updateMap)
         {
             try
             {
-                _mapService.UpdateANewMap(updateMap);
+                _mapService.UpdateANewMap(id,updateMap);
                 return Ok("Updated Successfully !");
             }
             catch (Exception e)
@@ -67,12 +68,12 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpDelete]
-        [Route("api/[controller]/delete-map")]
-        public IActionResult DeleteMap(string Id)
+        [Route(WebApiEndpoint.Map.DeleteMap)]
+        public IActionResult DeleteMap(string id)
         {
             try
             {
-                _mapService.DeleteAMap(Id);
+                _mapService.DeleteAMap(id);
                 return Ok("Deleted Successfully !");
             }
             catch (Exception e)

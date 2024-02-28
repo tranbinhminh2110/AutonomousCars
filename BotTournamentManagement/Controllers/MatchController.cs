@@ -1,4 +1,5 @@
-﻿using BotTournamentManagement.Data.RequestModel.MatchModel;
+﻿using BotTournamentManagement.Constant;
+using BotTournamentManagement.Data.RequestModel.MatchModel;
 using BotTournamentManagement.Interface.IService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +14,7 @@ namespace BotTournamentManagement.Controllers
             _matchService = matchService;
         }
         [HttpGet]
-        [Route("api/[controller]/get-all-matches")]
+        [Route(WebApiEndpoint.Match.GetAllMatches)]
         public IActionResult GetMatchList()
         {
             try
@@ -26,7 +27,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpGet]
-        [Route("api/[controller]/get-a-match-by-id/")]
+        [Route(WebApiEndpoint.Match.GetSingleMatch)]
         public IActionResult GetMatchById(string id)
         {
             try
@@ -39,7 +40,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPost]
-        [Route("api/[controller]/create-match")]
+        [Route(WebApiEndpoint.Match.CreateMatch)]
         public IActionResult CreateMatch(MatchandTeamCreatedModel matchandTeamCreatedModel)
         {
             try
@@ -67,7 +68,7 @@ namespace BotTournamentManagement.Controllers
         //    }
         //}
         [HttpDelete]
-        [Route("api/[controller]/delete-match")]
+        [Route(WebApiEndpoint.Match.DeleteMatch)]
         public IActionResult DeleteMatch(string id)
         {
             try

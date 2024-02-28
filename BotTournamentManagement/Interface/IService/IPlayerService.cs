@@ -9,7 +9,7 @@ namespace BotTournamentManagement.Interface.IService
     {
         List<PlayerResponseModel> GetAllPlayers();
         void CreateNewPlayer(PlayerCreatedModel playerCreatedModel);
-        void UpdatePlayer(PlayerUpdatedModel playerUpdateModel);
+        void UpdatePlayer(string id, PlayerUpdatedModel playerUpdateModel);
         void DeletePlayer(string id);
         List<PlayerResponseModel> GetPlayerByTeamId(string teamId);
         PlayerResponseModel GetPlayerById(string id);

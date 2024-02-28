@@ -77,9 +77,9 @@ namespace BotTournamentManagement.Service
             return responseUserList;
         }
 
-        public void UpdateUser(UserRequestModel userRequestModel)
+        public void UpdateUser(string Id, UserRequestModel userRequestModel)
         {
-            var existingUser = _userRepository.GetById(userRequestModel.Id);
+            var existingUser = _userRepository.GetById(Id);
             if (existingUser is null)
             {
                 throw new Exception("This user is not existed.");

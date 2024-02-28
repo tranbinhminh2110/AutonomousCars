@@ -1,4 +1,5 @@
-﻿using BotTournamentManagement.Data.RequestModel.TournamentModel;
+﻿using BotTournamentManagement.Constant;
+using BotTournamentManagement.Data.RequestModel.TournamentModel;
 using BotTournamentManagement.Interface.IService;
 using BotTournamentManagement.Service;
 using Microsoft.AspNetCore.Http;
@@ -15,7 +16,7 @@ namespace BotTournamentManagement.Controllers
             _tournamentService = tournamentService;
         }
         [HttpGet]
-        [Route("api/[controller]/get-all-tournaments")]
+        [Route(WebApiEndpoint.Tournament.GetAllTournament)]
         public IActionResult GetTournamentList()
         {
             try
@@ -28,7 +29,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpGet]
-        [Route("api/[controller]/get-a-tournament-by-id/")]
+        [Route(WebApiEndpoint.Tournament.GetSingleTournament)]
         public IActionResult GetTournamentById(string id)
         {
             try
@@ -41,7 +42,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPost]
-        [Route("api/[controller]/create-tournament")]
+        [Route(WebApiEndpoint.Tournament.CreateTournament)]
         public IActionResult CreateTournament(TournamentCreatedModel tournamentCreatedModel)
         {
             try
@@ -55,12 +56,12 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPut]
-        [Route("api/[controller]/update-tournament")]
-        public IActionResult UpdateATournament(TournamentUpdateModel tournamentUpdateModel)
+        [Route(WebApiEndpoint.Tournament.UpdateTournament)]
+        public IActionResult UpdateATournament(string id, TournamentUpdateModel tournamentUpdateModel)
         {
             try
             {
-                _tournamentService.UpdateTournament(tournamentUpdateModel);
+                _tournamentService.UpdateTournament(id,tournamentUpdateModel);
                 return Ok("Updated Successfully !");
             }
             catch (Exception e)
@@ -69,7 +70,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpDelete]
-        [Route("api/[controller]/delete-tournament")]
+        [Route(WebApiEndpoint.Tournament.DeleteTournament)]
         public IActionResult DeleteTournament(string id)
         {
             try

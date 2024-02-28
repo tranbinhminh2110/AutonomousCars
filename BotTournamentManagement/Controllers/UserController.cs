@@ -1,4 +1,5 @@
-﻿using BotTournamentManagement.Data.RequestModel.UserModel;
+﻿using BotTournamentManagement.Constant;
+using BotTournamentManagement.Data.RequestModel.UserModel;
 using BotTournamentManagement.Interface.IService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +14,7 @@ namespace BotTournamentManagement.Controllers
             _userService = userService;
         }
         [HttpGet]
-        [Route("api/[controller]/get-all-user")]
+        [Route(WebApiEndpoint.User.GetAllUser)]
         public IActionResult GetUserList()
         {
             try
@@ -26,7 +27,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpGet]
-        [Route("api/[controller]/get-a-user-by-id/")]
+        [Route(WebApiEndpoint.User.GetSingleUser)]
         public IActionResult GetUserById(string id)
         {
             try
@@ -39,7 +40,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPost]
-        [Route("api/[controller]/create-new-user")]
+        [Route(WebApiEndpoint.User.CreateUser)]
         public IActionResult CreateNewUser(UserRequestModel userRequestModel)
         {
             try
@@ -53,12 +54,12 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPut]
-        [Route("api/[controller]/update-user")]
-        public IActionResult UpdateAUser(UserRequestModel userRequestModel)
+        [Route(WebApiEndpoint.User.UpdateUser)]
+        public IActionResult UpdateAUser(string id, UserRequestModel userRequestModel)
         {
             try
             {
-                _userService.UpdateUser(userRequestModel);
+                _userService.UpdateUser(id, userRequestModel);
                 return Ok("Updated Successfully !");
             }
             catch (Exception e)
@@ -67,7 +68,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpDelete]
-        [Route("api/[controller]/delete-user")]
+        [Route(WebApiEndpoint.User.DeleteUser)]
         public IActionResult DeleteUser(string Id)
         {
             try
@@ -81,7 +82,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpGet]
-        [Route("api/[controller]/search-user")]
+        [Route(WebApiEndpoint.User.SearchUser)]
         public IActionResult SearchUser(string searchKey)
         {
             try

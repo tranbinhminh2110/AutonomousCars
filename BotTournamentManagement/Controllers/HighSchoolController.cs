@@ -1,4 +1,5 @@
-﻿using BotTournamentManagement.Data.RequestModel.HighSchoolModel;
+﻿using BotTournamentManagement.Constant;
+using BotTournamentManagement.Data.RequestModel.HighSchoolModel;
 using BotTournamentManagement.Interface.IService;
 using BotTournamentManagement.Service;
 using Microsoft.AspNetCore.Http;
@@ -15,8 +16,8 @@ namespace BotTournamentManagement.Controllers
             _highSchoolService = highSchoolService;
         }
         [HttpGet]
-        [Route("api/[controller]/get-all-schools")]
-        public IActionResult GetMapList()
+        [Route(WebApiEndpoint.HighSchool.GetAllHighSchool)]
+        public IActionResult GetHighSchoolList()
         {
             try
             {
@@ -29,7 +30,7 @@ namespace BotTournamentManagement.Controllers
         }
 
         [HttpPost]
-        [Route("api/[controller]/create-new-school")]
+        [Route(WebApiEndpoint.HighSchool.CreateHighSchool)]
         public IActionResult CreateNewSchool(HighSchoolCreatedModel highSchoolCreatedModel)
         {
             try
@@ -43,7 +44,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpGet]
-        [Route("api/[controller]/get-a-school-by-id/")]
+        [Route(WebApiEndpoint.HighSchool.GetSingleHighSchool)]
         public IActionResult GetSchoolById(string id)
         {
             try
@@ -56,12 +57,12 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPut]
-        [Route("api/[controller]/update-school")]
-        public IActionResult UpdateASchool(HighSchoolUpdateModel highSchoolUpdateModel)
+        [Route(WebApiEndpoint.HighSchool.UpdateHighSchool)]
+        public IActionResult UpdateASchool(string id, HighSchoolUpdateModel highSchoolUpdateModel)
         {
             try
             {
-                _highSchoolService.UpdateSchool(highSchoolUpdateModel);
+                _highSchoolService.UpdateSchool(id, highSchoolUpdateModel);
                 return Ok("Updated Successfully !");
             }
             catch (Exception e)
@@ -70,7 +71,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpDelete]
-        [Route("api/[controller]/delete-school")]
+        [Route(WebApiEndpoint.HighSchool.DeleteHighSchool)]
         public IActionResult DeleteSchool(string Id)
         {
             try

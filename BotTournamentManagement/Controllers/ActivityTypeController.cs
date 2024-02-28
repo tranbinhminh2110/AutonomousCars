@@ -1,4 +1,5 @@
-﻿using BotTournamentManagement.Data.RequestModel.ActivityModel;
+﻿using BotTournamentManagement.Constant;
+using BotTournamentManagement.Data.RequestModel.ActivityModel;
 using BotTournamentManagement.Interface.IService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +14,7 @@ namespace BotTournamentManagement.Controllers
             _activityTypeService = activityTypeService;
         }
         [HttpGet]
-        [Route("api/[controller]/get-all-activity-types")]
+        [Route(WebApiEndpoint.ActivityType.GetAllActivity)]
         public IActionResult GetActivityTypeList()
         {
             try
@@ -26,7 +27,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpGet]
-        [Route("api/[controller]/get-a-activity-type-by-id/")]
+        [Route(WebApiEndpoint.ActivityType.GetSingleActivity)]
         public IActionResult GetActivityTypeById(string id)
         {
             try
@@ -39,7 +40,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPost]
-        [Route("api/[controller]/create-activity-type")]
+        [Route(WebApiEndpoint.ActivityType.CreateActivity)]
         public IActionResult CreateActivityType(ActivityTypeCreatedModel activityTypeCreatedModel)
         {
             try
@@ -53,12 +54,12 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPut]
-        [Route("api/[controller]/update-activity-type")]
-        public IActionResult UpdateActivityType(string id, ActivityTypeUpdateModel model)
+        [Route(WebApiEndpoint.ActivityType.UpdateActivity)]
+        public IActionResult UpdateActivityType(ActivityTypeUpdateModel model)
         {
             try
             {
-                _activityTypeService.UpdateActivityType(id, model);
+                _activityTypeService.UpdateActivityType(model);
                 return Ok("Updated Successfully !");
             }
             catch (Exception e)
@@ -67,7 +68,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpDelete]
-        [Route("api/[controller]/delete-activity-type")]
+        [Route(WebApiEndpoint.ActivityType.DeleteActivity)]
         public IActionResult DeleteActivityType(string id)
         {
             try

@@ -1,4 +1,5 @@
-﻿using BotTournamentManagement.Data.RequestModel.PlayModel;
+﻿using BotTournamentManagement.Constant;
+using BotTournamentManagement.Data.RequestModel.PlayModel;
 using BotTournamentManagement.Data.RequestModel.UserModel;
 using BotTournamentManagement.Interface.IService;
 using Microsoft.AspNetCore.Http;
@@ -15,7 +16,7 @@ namespace BotTournamentManagement.Controllers
             _playerService = playerService;
         }
         [HttpGet]
-        [Route("/api/[controller]/get-all-players")]
+        [Route(WebApiEndpoint.Player.GetAllPlayers)]
         public IActionResult GetAllPlayersList()
         {
             try {
@@ -27,7 +28,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpGet]
-        [Route("/api/[controller]/get-players-by-team-id")]
+        [Route(WebApiEndpoint.Player.GetPlayersByTeamId)]
         public IActionResult GetPlayerByTeamId(string teamId)
         {
             try
@@ -40,7 +41,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpGet]
-        [Route("/api/[controller]/get-players-by-id")]
+        [Route(WebApiEndpoint.Player.GetSinglePlayer)]
         public IActionResult GetPlayerById(string Id)
         {
             try
@@ -53,7 +54,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPost]
-        [Route("/api/[controller]/create-new-player")]
+        [Route(WebApiEndpoint.Player.CreatePlayer)]
         public IActionResult CreateNewPlayer(PlayerCreatedModel playerCreatedModel)
         {
             try
@@ -69,12 +70,12 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPut]
-        [Route("/api/[controller]/update-player")]
-        public IActionResult UpdateNewPlayer(PlayerUpdatedModel playerUpdatedModel)
+        [Route(WebApiEndpoint.Player.UpdatePlayer)]
+        public IActionResult UpdatePlayer(string id, PlayerUpdatedModel playerUpdatedModel)
         {
             try
             {
-                _playerService.UpdatePlayer(playerUpdatedModel);
+                _playerService.UpdatePlayer(id, playerUpdatedModel);
                 return Ok("Updated Successfully!");
 
             }
@@ -85,7 +86,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpDelete]
-        [Route("/api/[controller]/delete-player")]
+        [Route(WebApiEndpoint.Player.DeletePlayer)]
         public IActionResult DeletePlayer(string id)
         {
             try {

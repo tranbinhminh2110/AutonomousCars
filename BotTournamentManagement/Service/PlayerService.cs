@@ -71,9 +71,9 @@ namespace BotTournamentManagement.Service
             return responsePlayerList;
         }
 
-        public void UpdatePlayer(PlayerUpdatedModel playerUpdateModel)
+        public void UpdatePlayer(string id, PlayerUpdatedModel playerUpdateModel)
         {
-            var chosenPlayer = _playerRepository.GetById(playerUpdateModel.Id);
+            var chosenPlayer = _playerRepository.GetById(id);
             if (chosenPlayer is null) {
                 throw new Exception("Player is not existed");
             }

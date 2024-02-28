@@ -69,9 +69,9 @@ namespace BotTournamentManagement.Service
             return responseActivityTypeList;
         }
 
-        public void UpdateActivityType(string id, [FromForm] ActivityTypeUpdateModel activityTypeUpdateModel)
+        public void UpdateActivityType(ActivityTypeUpdateModel activityTypeUpdateModel)
         {
-            var chosenActivityType = _activityTypeRepository.GetById(id);
+            var chosenActivityType = _activityTypeRepository.GetById(activityTypeUpdateModel.Id);
             if (chosenActivityType is null)
             {
                 throw new Exception("This activityType is not existed");

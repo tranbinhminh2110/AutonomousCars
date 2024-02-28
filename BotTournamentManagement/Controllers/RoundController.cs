@@ -1,4 +1,5 @@
-﻿using BotTournamentManagement.Data.RequestModel.RoundModel;
+﻿using BotTournamentManagement.Constant;
+using BotTournamentManagement.Data.RequestModel.RoundModel;
 using BotTournamentManagement.Interface.IService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,7 @@ namespace BotTournamentManagement.Controllers
             _roundService = roundService;
         }
         [HttpGet]
-        [Route("api/[controller]/get-all-rounds")]
+        [Route(WebApiEndpoint.Round.GetAllRounds)]
         public IActionResult GetRoundList()
         {
             try
@@ -27,7 +28,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpGet]
-        [Route("api/[controller]/get-a-round-by-id/")]
+        [Route(WebApiEndpoint.Round.GetSingleRound)]
         public IActionResult GetRoundById(string id)
         {
             try
@@ -40,7 +41,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPost]
-        [Route("api/[controller]/create-new-round")]
+        [Route(WebApiEndpoint.Round.CreateRound)]
         public IActionResult CreateNewRound(RoundCreatedModel roundCreatedModel)
         {
             try
@@ -54,7 +55,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPut]
-        [Route("api/[controller]/update-round")]
+        [Route(WebApiEndpoint.Round.UpdateRound)]
         public IActionResult UpdateAMap(string id, RoundUpdateModel roundUpdateModel)
         {
             try
@@ -68,7 +69,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpDelete]
-        [Route("api/[controller]/delete-round")]
+        [Route(WebApiEndpoint.Round.DeleteRound)]
         public IActionResult DeleteMap(string Id)
         {
             try

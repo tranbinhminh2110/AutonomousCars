@@ -8,7 +8,7 @@ namespace BotTournamentManagement.Interface.IService
     {
         List<RoundResponseModel> getAllRoundList();
         void AddNewRound(RoundCreatedModel roundCreatedModel);
-        void UpdateRound(string id, [FromForm] RoundUpdateModel roundUpdateModel);
+        void UpdateRound(string id, RoundUpdateModel roundUpdateModel);
         void DeleteRound(string  id);
         RoundResponseModel getRoundById(string id);
     }

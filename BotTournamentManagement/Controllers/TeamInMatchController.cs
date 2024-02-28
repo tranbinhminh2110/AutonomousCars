@@ -1,4 +1,5 @@
-﻿using BotTournamentManagement.Data.RequestModel.RoundModel;
+﻿using BotTournamentManagement.Constant;
+using BotTournamentManagement.Data.RequestModel.RoundModel;
 using BotTournamentManagement.Interface.IService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,7 @@ namespace BotTournamentManagement.Controllers
             _teamInMatchService = teamInMatchService;
         }
         [HttpGet]
-        [Route("api/[controller]/get-all-team-in-match")]
+        [Route(WebApiEndpoint.TeamInMatch.GetAllTeamsInAMatch)]
         public IActionResult GetTeamListInAMatch(string matchId)
         {
             try
