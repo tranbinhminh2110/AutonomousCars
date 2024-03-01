@@ -3,9 +3,10 @@
     public class MatchResponseModel
     {
         public string Id { get; set; }
-        public string MapId { get; set; }
+        public string KeyId { get; set; }
+        public MapResponseModel MapResponseModel { get; set; }
         public DateTimeOffset MatchDate { get; set; }
-        public string RoundId { get; set; }
-        public string TournamentId { get; set; }
+        public RoundResponseModel RoundResponseModel { get; set; }
+        public TournamentResponseModel TournamentResponseModel { get; set; }
     }
 }

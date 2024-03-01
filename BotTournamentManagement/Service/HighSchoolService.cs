@@ -56,7 +56,7 @@ namespace BotTournamentManagement.Service
 
         public List<HighSchoolResponseModel> GetListHighSchools()
         {
-            var highSchoolList = _highSchoolRepository.GetAll();
+            var highSchoolList = _highSchoolRepository.GetAll().ToList();
             if (!highSchoolList.Any())
             {
                 throw new Exception("This high school list is empty");
@@ -72,7 +72,7 @@ namespace BotTournamentManagement.Service
             {
                 throw new Exception("This school is not existed");
             }
-            var schoolList = _highSchoolRepository.GetAll();
+            var schoolList = _highSchoolRepository.GetAll().ToList();
             foreach (var school in schoolList)
             {
                 if (highSchoolUpdateModel.KeyId.Equals(school.KeyId))

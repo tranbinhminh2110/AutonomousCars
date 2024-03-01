@@ -14,11 +14,17 @@ namespace BotTournamentManagement.Service
         private readonly IMatchRepository _matchRepository;
         private readonly IMapper _mapper;
         private readonly ITeamInMatchRepository _teamInMatchRepository;
-        public MatchService(IMatchRepository matchRepository, IMapper mapper, ITeamInMatchRepository teamInMatchRepository)
+        private readonly IMapRepository _mapRepository;
+        private readonly IRoundRepository _roundRepository;
+        private readonly ITournamentRepository _tournamentRepository;
+        public MatchService(IMatchRepository matchRepository, IMapper mapper, ITeamInMatchRepository teamInMatchRepository, IMapRepository mapRepository, IRoundRepository roundRepository, ITournamentRepository tournamentRepository)
         {
             _matchRepository = matchRepository;
             _mapper = mapper;
             _teamInMatchRepository = teamInMatchRepository;
+            _mapRepository = mapRepository;
+            _roundRepository = roundRepository;
+            _tournamentRepository = tournamentRepository;
         }
 
         public void CreateNewMatch(MatchandTeamCreatedModel matchandTeamCreatedModel)
@@ -48,12 +54,27 @@ namespace BotTournamentManagement.Service
 
         public List<MatchResponseModel> GetAllMatches()
         {
-            var matchList = _matchRepository.GetAll();
+            var matchList = _matchRepository.GetAll().ToList();
             if (!matchList.Any())
             {
                 throw new Exception("This match list is empty");
             }
             var responseMatchList = _mapper.Map<List<MatchResponseModel>>(matchList);
+            foreach (var match in responseMatchList) {
+                foreach (var matchEntity in matchList) { 
+                    var mapEntity = _mapRepository.GetById(matchEntity.MapId);
+                    var responseMap = _mapper.Map<MapResponseModel>(mapEntity);
+                    match.MapResponseModel = responseMap;
+
+                    var roundEntity = _roundRepository.GetById(matchEntity.RoundId);
+                    var responseRound =_mapper.Map<RoundResponseModel>(roundEntity);
+                    match.RoundResponseModel = responseRound;
+
+                    var tournamentEntity = _tournamentRepository.GetById(matchEntity.TournamentId);
+                    var responseTournament = _mapper.Map<TournamentResponseModel>(tournamentEntity);
+                    match.TournamentResponseModel = responseTournament;
+                }
+            }
             return responseMatchList;
         }
 
@@ -65,6 +86,17 @@ namespace BotTournamentManagement.Service
                 throw new Exception("This match is not existed");
             }
             var responseMatch = _mapper.Map<MatchResponseModel>(chosenMatch);
+            var mapEntity = _mapRepository.GetById(chosenMatch.MapId);
+            var responseMap = _mapper.Map<MapResponseModel>(mapEntity);
+            responseMatch.MapResponseModel = responseMap;
+
+            var roundEntity = _roundRepository.GetById(chosenMatch.RoundId);
+            var responseRound = _mapper.Map<RoundResponseModel>(roundEntity);
+            responseMatch.RoundResponseModel = responseRound;
+
+            var tournamentEntity = _tournamentRepository.GetById(chosenMatch.TournamentId);
+            var responseTournament = _mapper.Map<TournamentResponseModel>(tournamentEntity);
+            responseMatch.TournamentResponseModel = responseTournament;
             return responseMatch;
         }
 

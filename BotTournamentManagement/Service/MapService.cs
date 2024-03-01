@@ -22,8 +22,8 @@ namespace BotTournamentManagement.Service
 
         public void CreateANewMap(MapCreatedModel mapCreatedModel)
         {
-            var existingMap = _mapRepository.GetAll().Where(p=>p.KeyId == mapCreatedModel.KeyId);
-            if (existingMap.Any())
+            var existingMap = _mapRepository.GetAll().Where(p=>p.KeyId == mapCreatedModel.KeyId).FirstOrDefault();
+            if (existingMap is null)
             {
                 throw new Exception("This map Id is existed !");
             }
@@ -59,7 +59,7 @@ namespace BotTournamentManagement.Service
 
         public List<MapResponseModel> GetMaps()
         {
-            var mapList = _mapRepository.GetAll();
+            var mapList = _mapRepository.GetAll().ToList();
             if (!mapList.Any())
             {
                 throw new Exception("This list is empty");
@@ -75,7 +75,7 @@ namespace BotTournamentManagement.Service
             {
                 throw new Exception("This map is not existed");
             }
-            var mapList = _mapRepository.GetAll();
+            var mapList = _mapRepository.GetAll().ToList();
             foreach (var map in mapList) {
                 if (mapUpdateModel.KeyId.Equals(map.KeyId))
                 {

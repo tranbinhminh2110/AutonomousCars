@@ -21,7 +21,7 @@ namespace BotTournamentManagement.Service
 
         public void CreateNewTournament(TournamentCreatedModel tournamentCreatedModel)
         {
-            var tournamentList = _tournamentRepository.GetAll();
+            var tournamentList = _tournamentRepository.GetAll().ToList();
             foreach (TournamentEntity tournament in tournamentList)
             {
                 if (tournament.KeyId.Equals(tournamentCreatedModel.KeyId))
@@ -48,7 +48,7 @@ namespace BotTournamentManagement.Service
 
         public List<TournamentResponseModel> GetAllTournament()
         {
-            var tournamentList = _tournamentRepository.GetAll();
+            var tournamentList = _tournamentRepository.GetAll().ToList();
             if (!tournamentList.Any())
             {
                 throw new Exception("This tournament list is empty");
@@ -75,7 +75,7 @@ namespace BotTournamentManagement.Service
             {
                 throw new Exception("This map is not existed");
             }
-            var tournamentList = _tournamentRepository.GetAll();
+            var tournamentList = _tournamentRepository.GetAll().ToList();
             foreach (var tournament in tournamentList)
             {
                 if (tournament.KeyId.Equals(tournamentUpdateModel.KeyId))

@@ -24,7 +24,7 @@ namespace BotTournamentManagement.Service
 
         public void CreateANewTeam(TeamCreatedModel teamCreatedModel)
         {
-            var teamList = _teamRepository.GetAll();
+            var teamList = _teamRepository.GetAll().ToList();
             foreach (TeamEntity team in teamList)
             {
                 if (team.KeyId.Equals(teamCreatedModel.KeyId))
@@ -57,7 +57,7 @@ namespace BotTournamentManagement.Service
 
         public List<TeamResponseModel> GetAllTeams()
         {
-            var teamList = _teamRepository.GetAll().OrderBy(p => p.KeyId);
+            var teamList = _teamRepository.GetAll().OrderBy(p => p.KeyId).ToList();
             if (!teamList.Any())
             {
                 throw new Exception("This team list is empty");
@@ -72,7 +72,7 @@ namespace BotTournamentManagement.Service
         }
         public List<PlayerResponseModel> getPlayerinTeam(string teamId)
         {
-            var playerList = _playerRepository.GetAll().Where(p=>p.TeamId.Equals(teamId)).OrderBy(p => p.KeyId);
+            var playerList = _playerRepository.GetAll().Where(p=>p.TeamId.Equals(teamId)).OrderBy(p => p.KeyId).ToList();
             if (playerList is null)
             {
                 throw new Exception("No Players");
@@ -99,7 +99,7 @@ namespace BotTournamentManagement.Service
             {
                 throw new Exception("This team is not existed");
             }
-            var teamList = _teamRepository.GetAll();
+            var teamList = _teamRepository.GetAll().ToList();
             foreach (var team in teamList)
             {
                 if (team.KeyId.Equals(teamUpdateModel.KeyId))

@@ -57,7 +57,7 @@ namespace BotTournamentManagement.Service
 
         public List<UserResponseModel> GetUsersList()
         {
-            var userList = _userRepository.GetAll();
+            var userList = _userRepository.GetAll().ToList();
             if (!userList.Any())
             {
                 throw new Exception("This list is empty.");
@@ -68,7 +68,7 @@ namespace BotTournamentManagement.Service
 
         public List<UserResponseModel> SearchUser(string searchkey)
         {
-            var userList = _userRepository.GetAll().Where(p => p.UserName.Contains(searchkey) || p.UserEmail.Contains(searchkey));
+            var userList = _userRepository.GetAll().Where(p => p.UserName.Contains(searchkey) || p.UserEmail.Contains(searchkey)).ToList();
             if (!userList.Any())
             {
                 throw new Exception("No user existed.");

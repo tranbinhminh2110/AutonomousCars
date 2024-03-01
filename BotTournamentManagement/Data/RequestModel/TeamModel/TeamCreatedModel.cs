@@ -8,7 +8,7 @@ namespace BotTournamentManagement.Data.RequestModel.TeamModel
         public string KeyId { get; set; }
         public string TeamName { get; set; }
         public string HighSchoolId { get; set; }
-        public List<PlayerCreatedModel> PlayerCreatedModels { get; set; }
+        public List<PlayerCreateModelWithTeam> PlayerCreatedModels { get; set; }
 
     }
 }
