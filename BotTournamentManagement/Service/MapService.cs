@@ -77,7 +77,7 @@ namespace BotTournamentManagement.Service
             }
             var mapList = _mapRepository.GetAll().ToList();
             foreach (var map in mapList) {
-                if (mapUpdateModel.KeyId.Equals(map.KeyId))
+                if (mapUpdateModel.KeyId.Equals(map.KeyId) && !map.KeyId.Equals(existingMap.KeyId))
                 {
                     throw new Exception("This map ID existed");
                 }

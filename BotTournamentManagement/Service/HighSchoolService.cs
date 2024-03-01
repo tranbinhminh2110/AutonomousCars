@@ -75,7 +75,7 @@ namespace BotTournamentManagement.Service
             var schoolList = _highSchoolRepository.GetAll().ToList();
             foreach (var school in schoolList)
             {
-                if (highSchoolUpdateModel.KeyId.Equals(school.KeyId))
+                if (highSchoolUpdateModel.KeyId.Equals(school.KeyId) && !school.KeyId.Equals(existingSchool.KeyId))
                 {
                     throw new Exception("This school ID existed");
                 }

@@ -77,7 +77,7 @@ namespace BotTournamentManagement.Service
             if (chosenPlayer is null) {
                 throw new Exception("Player is not existed");
             }
-            var existingPlayer = _playerRepository.GetAll().Where(p => p.KeyId.Equals(playerUpdateModel.KeyId)).FirstOrDefault();
+            var existingPlayer = _playerRepository.GetAll().Where(p => p.KeyId.Equals(playerUpdateModel.KeyId) && !p.KeyId.Equals(chosenPlayer.KeyId)).FirstOrDefault();
             if (existingPlayer is not null)
             {
                 throw new Exception("This player Id is existed");
