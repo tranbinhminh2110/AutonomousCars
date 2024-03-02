@@ -90,6 +90,7 @@
         {
             private const string BaseEndpoint = "~/" + AreaName + "/team-in-match";
             public const string GetAllTeamsInAMatch = BaseEndpoint + "/get-all-teams-in-match-id" + "/{matchId}";
+            public const string AddATeamToMatch = BaseEndpoint + "/add-team-to-match-id" + "/{matchId}";
         }
 
     }

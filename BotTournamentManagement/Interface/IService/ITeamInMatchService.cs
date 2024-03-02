@@ -6,7 +6,7 @@ namespace BotTournamentManagement.Interface.IService
     public interface ITeamInMatchService
     {
         List<TeamInMatchResponseModel> GetTeamInAMatch(string matchId);
-        void AddTeamsToMatch();
+        void AddTeamToMatch(string matchId, TeamInMatchCreatedModel teamInMatchCreatedModel);
         void RemoveTeamFromMatch(string teamId);
         void UpdateFinalResult(TeamInMatchUpdateModel teamInMatchUpdateModel);
     }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BotTournamentManagement.Data.Entities;
 using BotTournamentManagement.Data.RequestModel.TeamInMatchModel;
 using BotTournamentManagement.Data.ResponseModel;
 using BotTournamentManagement.Interface.IRepository;
@@ -11,20 +12,35 @@ namespace BotTournamentManagement.Service
         private readonly ITeamInMatchRepository _teamInMatchRepository;
         private readonly IMapper _mapper;
         private readonly ITeamRepository _teamRepository;
-        public TeamInMatchService(ITeamInMatchRepository teamInMatchRepository, IMapper mapper, ITeamRepository teamRepository)
+        private readonly IMatchRepository _matchRepository;
+        public TeamInMatchService(ITeamInMatchRepository teamInMatchRepository, IMapper mapper, ITeamRepository teamRepository, IMatchRepository matchRepository)
         {
             _mapper = mapper;
             _teamInMatchRepository = teamInMatchRepository;
             _teamRepository = teamRepository;
+            _matchRepository = matchRepository;
         }
-        public void AddTeamsToMatch()
+        public void AddTeamToMatch(string matchId, TeamInMatchCreatedModel teamInMatchCreatedModel)
         {
-            throw new NotImplementedException();
+            var matchEntity = _matchRepository.GetById(matchId);
+            if (matchEntity is null)
+            {
+                throw new Exception("This match is not existed");
+            }
+            var teamEntity = _teamRepository.GetById(teamInMatchCreatedModel.TeamId);
+            if (teamEntity is null)
+            {
+                throw new Exception("This team is not existed");
+            }
+            var teamInMatchEntity = new TeamInMatchEntity();
+            teamInMatchEntity.MatchId = matchEntity.Id;
+            teamInMatchEntity.TeamId = teamEntity.Id;
+            _teamInMatchRepository.Add(teamInMatchEntity);
         }
 
         public List<TeamInMatchResponseModel> GetTeamInAMatch(string matchId)
         {
-            var listTeamInMatch = _teamInMatchRepository.GetAll().ToList();
+            var listTeamInMatch = _teamInMatchRepository.GetAll().Where(p => p.MatchId.Equals(matchId)).ToList();
             if (listTeamInMatch is null)
             {
                 throw new Exception("Empty Team in this match");

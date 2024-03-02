@@ -41,7 +41,7 @@ namespace BotTournamentManagement.Service
         public List<PlayerResponseModel> GetAllPlayers()
         {
             var playerList = _playerRepository.GetAll().ToList();
-            if (playerList is not null)
+            if (playerList is null)
             {
                 throw new Exception("No users existed !");
             }
