@@ -8,7 +8,7 @@ namespace BotTournamentManagement.Interface.IService
     {
         List<ActivityTypeResponseModel> GetAllActivityTypes();
         void CreateNewActivityType(ActivityTypeCreatedModel activityTypeCreatedModel);
-        void UpdateActivityType(ActivityTypeUpdateModel activityTypeUpdateModel);
+        void UpdateActivityType(string id, ActivityTypeUpdateModel activityTypeUpdateModel);
         void DeleteActivityType(string id);
         ActivityTypeResponseModel GetActivityTypeById(string id);
     }

@@ -49,7 +49,7 @@ namespace BotTournamentManagement.Service
         public List<TournamentResponseModel> GetAllTournament()
         {
             var tournamentList = _tournamentRepository.GetAll().ToList();
-            if (!tournamentList.Any())
+            if (tournamentList is null)
             {
                 throw new Exception("This tournament list is empty");
             }
@@ -73,14 +73,14 @@ namespace BotTournamentManagement.Service
             var chosenTournament = _tournamentRepository.GetById(id);
             if (chosenTournament is null)
             {
-                throw new Exception("This map is not existed");
+                throw new Exception("This tournament is not existed");
             }
             var tournamentList = _tournamentRepository.GetAll().ToList();
             foreach (var tournament in tournamentList)
             {
                 if (tournament.KeyId.Equals(tournamentUpdateModel.KeyId) && !tournament.KeyId.Equals(chosenTournament.Id))
                 {
-                    throw new Exception("This map ID existed");
+                    throw new Exception("This tournament ID existed");
                 }
             }
             _mapper.Map(tournamentUpdateModel, chosenTournament);

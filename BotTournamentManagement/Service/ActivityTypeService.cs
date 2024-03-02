@@ -23,7 +23,7 @@ namespace BotTournamentManagement.Service
         public void CreateNewActivityType(ActivityTypeCreatedModel activityTypeCreatedModel)
         {
             var activityTypeList = _activityTypeRepository.GetAll().ToList();
-            foreach (ActivityTypeEntity activityType in activityTypeList)
+            foreach (var activityType in activityTypeList)
             {
                 if (activityType.TypeName.ToLower().Equals(activityTypeCreatedModel.TypeName.ToLower()))
                 {
@@ -61,7 +61,7 @@ namespace BotTournamentManagement.Service
         public List<ActivityTypeResponseModel> GetAllActivityTypes()
         {
             var activityTypeList = _activityTypeRepository.GetAll().ToList();
-            if (!activityTypeList.Any())
+            if (activityTypeList is null)
             {
                 throw new Exception("This activityType list is empty");
             }
@@ -69,9 +69,9 @@ namespace BotTournamentManagement.Service
             return responseActivityTypeList;
         }
 
-        public void UpdateActivityType(ActivityTypeUpdateModel activityTypeUpdateModel)
+        public void UpdateActivityType(string id, ActivityTypeUpdateModel activityTypeUpdateModel)
         {
-            var chosenActivityType = _activityTypeRepository.GetById(activityTypeUpdateModel.Id);
+            var chosenActivityType = _activityTypeRepository.GetById(id);
             if (chosenActivityType is null)
             {
                 throw new Exception("This activityType is not existed");

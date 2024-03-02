@@ -22,7 +22,7 @@ namespace BotTournamentManagement.Service
         public void AddNewRound(RoundCreatedModel roundCreatedModel)
         {
             var existingRound = _roundRepository.GetAll().Where(p=>p.RoundName.Equals(roundCreatedModel.RoundName)).ToList();
-            if (existingRound.Any())
+            if (existingRound is not null)
             {
                 throw new Exception("This round is existed !");
             }
@@ -46,7 +46,7 @@ namespace BotTournamentManagement.Service
         public List<RoundResponseModel> getAllRoundList()
         {
             var roundList = _roundRepository.GetAll().ToList();
-            if (!roundList.Any())
+            if (roundList is null)
             {
                 throw new Exception("This list is empty");
             }

@@ -55,11 +55,11 @@ namespace BotTournamentManagement.Controllers
         }
         [HttpPut]
         [Route(WebApiEndpoint.ActivityType.UpdateActivity)]
-        public IActionResult UpdateActivityType(ActivityTypeUpdateModel model)
+        public IActionResult UpdateActivityType(string id, ActivityTypeUpdateModel model)
         {
             try
             {
-                _activityTypeService.UpdateActivityType(model);
+                _activityTypeService.UpdateActivityType(id, model);
                 return Ok("Updated Successfully !");
             }
             catch (Exception e)

@@ -55,7 +55,7 @@ namespace BotTournamentManagement.Service
         public List<MatchResponseModel> GetAllMatches()
         {
             var matchList = _matchRepository.GetAll().ToList();
-            if (!matchList.Any())
+            if (matchList is not null)
             {
                 throw new Exception("This match list is empty");
             }

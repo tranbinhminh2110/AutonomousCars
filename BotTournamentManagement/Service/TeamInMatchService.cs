@@ -25,7 +25,7 @@ namespace BotTournamentManagement.Service
         public List<TeamInMatchResponseModel> GetTeamInAMatch(string matchId)
         {
             var listTeamInMatch = _teamInMatchRepository.GetAll().ToList();
-            if (!listTeamInMatch.Any())
+            if (listTeamInMatch is null)
             {
                 throw new Exception("Empty Team in this match");
             }
