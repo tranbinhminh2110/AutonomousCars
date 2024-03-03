@@ -46,7 +46,7 @@ namespace BotTournamentManagement.Service
         public List<RoundResponseModel> getAllRoundList()
         {
             var roundList = _roundRepository.GetAll().ToList();
-            if (roundList is null)
+            if (!roundList.Any())
             {
                 throw new Exception("This list is empty");
             }

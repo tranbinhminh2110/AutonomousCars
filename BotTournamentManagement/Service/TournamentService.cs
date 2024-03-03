@@ -49,7 +49,7 @@ namespace BotTournamentManagement.Service
         public List<TournamentResponseModel> GetAllTournament()
         {
             var tournamentList = _tournamentRepository.GetAll().ToList();
-            if (tournamentList is null)
+            if (!tournamentList.Any())
             {
                 throw new Exception("This tournament list is empty");
             }

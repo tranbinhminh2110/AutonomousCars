@@ -41,9 +41,9 @@ namespace BotTournamentManagement.Service
         public List<PlayerResponseModel> GetAllPlayers()
         {
             var playerList = _playerRepository.GetAll().ToList();
-            if (playerList is null)
+            if (!playerList.Any())
             {
-                throw new Exception("No users existed !");
+                throw new Exception("No player existed !");
             }
             var responsePlayerList = _mapper.Map<List<PlayerResponseModel>>(playerList);
             return responsePlayerList;
@@ -63,7 +63,7 @@ namespace BotTournamentManagement.Service
         public List<PlayerResponseModel> GetPlayerByTeamId(string teamId)
         {
             var playerList = _playerRepository.GetAll().Where(p => p.TeamId.Equals(teamId)).ToList();
-            if (playerList is null)
+            if (!playerList.Any())
             {
                 throw new Exception("Empty list player in this team!");
             }

@@ -23,7 +23,7 @@ namespace BotTournamentManagement.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                return NotFound(e.Message);
             }
         }
         [HttpGet]
@@ -36,16 +36,16 @@ namespace BotTournamentManagement.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                return NotFound(e.Message);
             }
         }
         [HttpPost]
         [Route(WebApiEndpoint.Match.CreateMatch)]
-        public IActionResult CreateMatch(MatchandTeamCreatedModel matchandTeamCreatedModel)
+        public IActionResult CreateMatch(MatchCreatedModel matchCreatedModel)
         {
             try
             {
-                _matchService.CreateNewMatch(matchandTeamCreatedModel);
+                _matchService.CreateNewMatch(matchCreatedModel);
                 return Ok("Created Successfully !");
             }
             catch (Exception e)
@@ -53,20 +53,20 @@ namespace BotTournamentManagement.Controllers
                 return BadRequest(e.Message);
             }
         }
-        //[HttpPut]
-        //[Route("api/[controller]/update-match")]
-        //public IActionResult UpdateMatch(MatchandTeamUpdateModel model)
-        //{
-        //    try
-        //    {
-        //        _matchService.UpdateMatch(model);
-        //        return Ok("Updated Successfully !");
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return BadRequest(e.Message);
-        //    }
-        //}
+        [HttpPut]
+        [Route("api/[controller]/update-match")]
+        public IActionResult UpdateMatch(string id, MatchUpdateModel matchUpdateModel)
+        {
+            try
+            {
+                _matchService.UpdateMatch(id,matchUpdateModel);
+                return Ok("Updated Successfully !");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
         [HttpDelete]
         [Route(WebApiEndpoint.Match.DeleteMatch)]
         public IActionResult DeleteMatch(string id)

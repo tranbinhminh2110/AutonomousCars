@@ -27,16 +27,20 @@ namespace BotTournamentManagement.Service
             _tournamentRepository = tournamentRepository;
         }
 
-        public void CreateNewMatch(MatchandTeamCreatedModel matchandTeamCreatedModel)
+        public void CreateNewMatch(MatchCreatedModel matchCreatedModel)
         {
-            var matchEntity = _mapper.Map<MatchEntity>(matchandTeamCreatedModel.MatchCreatedModel);
-            _matchRepository.Add(matchEntity);
-            foreach (var teaminMatch in matchandTeamCreatedModel.TeamInMatchCreatedModel) 
+            var matchEntity = _mapper.Map<MatchEntity>(matchCreatedModel);
+            var tournamentEntity = _tournamentRepository.GetById(matchCreatedModel.TournamentId);
+            matchEntity.KeyId = tournamentEntity.KeyId + "_" + matchCreatedModel.KeyId ;
+            var matchList = _matchRepository.GetAll().ToList();
+            foreach (var match in matchList)
             {
-                var teamInMatchEntity = _mapper.Map<TeamInMatchEntity>(teaminMatch);
-                teamInMatchEntity.MatchId = matchEntity.Id;
-                _teamInMatchRepository.Add(teamInMatchEntity);
+                if (match.KeyId.Equals(matchEntity.KeyId))
+                {
+                    throw new Exception("This match has been created !");
+                }
             }
+            _matchRepository.Add(matchEntity);
         }
 
         public void DeleteMatch(string id)
@@ -55,7 +59,7 @@ namespace BotTournamentManagement.Service
         public List<MatchResponseModel> GetAllMatches()
         {
             var matchList = _matchRepository.GetAll().ToList();
-            if (matchList is null)
+            if (!matchList.Any())
             {
                 throw new Exception("This match list is empty");
             }
@@ -100,17 +104,15 @@ namespace BotTournamentManagement.Service
             return responseMatch;
         }
 
-        //public void UpdateMatch(MatchandTeamUpdateModel matchUpdateModel)
-        //{
-        //    var chosenMatch = _matchRepository.GetById(matchUpdateModel.MatchUpdateModel.Id);
-        //    if (chosenMatch is null)
-        //    {
-        //        throw new Exception("This match is not existed");
-        //    }
-        //    _mapper.Map(matchUpdateModel, chosenMatch);
-        //    var teamInchosenMatch = _teamInMatchRepository.GetAll().Where(p => p.MatchId.Equals(chosenMatch.Id));
-        //    _mapper.Map(teamInchosenMatch, matchUpdateModel.TeamInMatchUpdateModels);
-        //    _matchRepository.Update(chosenMatch);
-        //}
+        public void UpdateMatch(string id, MatchUpdateModel matchUpdateModel)
+        {
+            var chosenMatch = _matchRepository.GetById(id);
+            if (chosenMatch is null)
+            {
+                throw new Exception("This match is not existed");
+            }
+            _mapper.Map(matchUpdateModel, chosenMatch);
+            _matchRepository.Update(chosenMatch);
+        }
     }
 }

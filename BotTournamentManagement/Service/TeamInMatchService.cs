@@ -41,7 +41,7 @@ namespace BotTournamentManagement.Service
         public List<TeamInMatchResponseModel> GetTeamInAMatch(string matchId)
         {
             var listTeamInMatch = _teamInMatchRepository.GetAll().Where(p => p.MatchId.Equals(matchId)).ToList();
-            if (listTeamInMatch is null)
+            if (!listTeamInMatch.Any())
             {
                 throw new Exception("Empty Team in this match");
             }
@@ -58,9 +58,17 @@ namespace BotTournamentManagement.Service
 
         }
 
-        public void RemoveTeamFromMatch(string teamId)
+        public void RemoveTeamFromMatch(string teamId, string matchId)
         {
-            throw new NotImplementedException();
+            var teamInMatch = _teamInMatchRepository.GetAll().Where(p => p.TeamId.Equals(teamId) && p.MatchId.Equals(matchId)).FirstOrDefault();
+            if (teamInMatch is null)
+            {
+                throw new Exception("This team or match didn't existed");
+            }
+            else 
+            {
+                _teamInMatchRepository.Delete(teamInMatch);
+            }
         }
 
         public void UpdateFinalResult(TeamInMatchUpdateModel teamInMatchUpdateModel)

@@ -42,7 +42,20 @@ namespace BotTournamentManagement.Controllers
                 return BadRequest(e.Message);
             }
         }
-
+        [HttpDelete]
+        [Route(WebApiEndpoint.TeamInMatch.DeleteTeamFromMatch)]
+        public IActionResult DeleteATeamFromMatch(string teamId, string matchId)
+        {
+            try
+            {
+                _teamInMatchService.RemoveTeamFromMatch(teamId,matchId);
+                return Ok("Deleted successfully !");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
 
     }
