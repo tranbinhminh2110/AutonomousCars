@@ -56,6 +56,20 @@ namespace BotTournamentManagement.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [HttpPut]
+        [Route(WebApiEndpoint.TeamInMatch.UpdateResultForTeamInMatch)]
+        public IActionResult UpdateFinalResultForTeamInMatch(string teamId, string matchId, TeamInMatchUpdateModel teamInMatchUpdateModel)
+        {
+            try
+            {
+                _teamInMatchService.UpdateFinalResult(teamId,matchId,teamInMatchUpdateModel);
+                return Ok("Update successfully !");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
 
     }
