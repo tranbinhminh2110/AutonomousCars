@@ -21,8 +21,8 @@ namespace BotTournamentManagement.Service
 
         public void AddNewUser(UserRequestModel userRequestModel)
         {
-            var existingUser = _userRepository.GetAll().Where(p => p.UserName == userRequestModel.UserName || p.UserEmail == userRequestModel.UserEmail);
-            if (existingUser is null) 
+            var existingUser = _userRepository.GetAll().Where(p => p.UserName == userRequestModel.UserName || p.UserEmail == userRequestModel.UserEmail).FirstOrDefault();
+            if (existingUser is not null) 
             {
                 throw new Exception("This username is already existed");
             }   
