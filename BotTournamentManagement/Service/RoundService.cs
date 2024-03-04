@@ -21,7 +21,7 @@ namespace BotTournamentManagement.Service
         }
         public void AddNewRound(RoundCreatedModel roundCreatedModel)
         {
-            var existingRound = _roundRepository.GetAll().Where(p=>p.RoundName.Equals(roundCreatedModel.RoundName)).ToList();
+            var existingRound = _roundRepository.GetAll().Where(p=>p.RoundName.Equals(roundCreatedModel.RoundName)).FirstOrDefault();
             if (existingRound is not null)
             {
                 throw new Exception("This round is existed !");
