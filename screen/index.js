@@ -3,10 +3,19 @@ import Welcome from "./Welcome";
 import Signup from "./Signup";
 import TournamentList from "./TournamentList";
 import Map from "./Map"
+import Match from "./Match"
+import HighSchool from "./HighSchool"
+import ActivityType from "./ActivityType"
+import Round from "./Round"
+
 export{
     Login,
     Welcome,
     Signup,
     TournamentList,
     Map,
+    Match,
+    HighSchool,
+    ActivityType,
+    Round,
 }

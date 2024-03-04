@@ -17,7 +17,7 @@ const Map = ({ navigation }) => {
   }, []);
 
   const fetchMaps = () => {
-    fetch('https://fptbottournamentweb.azurewebsites.net/api/Map/get-all-maps')
+    fetch('https://fptbottournamentweb.azurewebsites.net/api/map/get-all')
       .then(response => response.json())
       .then(data => {
         setMaps(data);
@@ -32,7 +32,7 @@ const Map = ({ navigation }) => {
   };
 
   const createMap = () => {
-    fetch('https://fptbottournamentweb.azurewebsites.net/api/Map/create-new-map', {
+    fetch('https://fptbottournamentweb.azurewebsites.net/api/map/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ const Map = ({ navigation }) => {
   const updateMap = () => {
     const { id, keyId, mapName } = selectedMap;
 
-    fetch(`https://fptbottournamentweb.azurewebsites.net/api/Map/update-map?id=${id}`, {
+    fetch(`https://fptbottournamentweb.azurewebsites.net/api/map/update/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ const Map = ({ navigation }) => {
   };
 
   const deleteMap = (id) => {
-    fetch(`https://fptbottournamentweb.azurewebsites.net/api/Map/delete-map?id=${id}`, {
+    fetch(`https://fptbottournamentweb.azurewebsites.net/api/map/delete/${id}`, {
       method: 'DELETE',
     })
       .then(response => {
@@ -108,7 +108,7 @@ const Map = ({ navigation }) => {
 
   return (
     <LinearGradient
-      colors={['#9F8CE3', '#6A5ACD']}
+      colors={['#9F8CE3', '#FFBE98']}
       style={styles.gradientContainer}
     >
       <Text style={styles.titleText}>Maps</Text>

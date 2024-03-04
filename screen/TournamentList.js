@@ -22,7 +22,7 @@ const TournamentList = ({ navigation }) => {
   }, []);
 
   const fetchTournaments = () => {
-    fetch('https://fptbottournamentweb.azurewebsites.net/api/Tournament/get-all-tournaments')
+    fetch('https://fptbottournamentweb.azurewebsites.net/api/tournament/get-all')
       .then(response => response.json())
       .then(data => {
         setTournaments(data);
@@ -65,7 +65,7 @@ const TournamentList = ({ navigation }) => {
   };
 
   const createTournament = () => {
-    fetch('https://fptbottournamentweb.azurewebsites.net/api/Tournament/create-tournament', {
+    fetch( 'https://fptbottournamentweb.azurewebsites.net/api/tournament/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ const TournamentList = ({ navigation }) => {
   const updateTournament = () => {
     const { id, keyId, tournamentName, startDate, endDate } = selectedTournament;
 
-    fetch(`https://fptbottournamentweb.azurewebsites.net/api/Tournament/update-tournament?id=${id}`, {
+    fetch(`https://fptbottournamentweb.azurewebsites.net/api/tournament/update/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -121,7 +121,7 @@ const TournamentList = ({ navigation }) => {
   };
 
   const deleteTournament = (id) => {
-    fetch(`https://fptbottournamentweb.azurewebsites.net/api/Tournament/delete-tournament?id=${id}`, {
+    fetch(`https://fptbottournamentweb.azurewebsites.net/api/tournament/delete/${id}`, {
       method: 'DELETE',
     })
       .then(response => {
@@ -147,10 +147,10 @@ const TournamentList = ({ navigation }) => {
 
   return (
     <LinearGradient
-      colors={['#96E9C6', '#83C0C1']}
+      colors={['#96E9C6', '#86A7FC']}
       style={styles.gradientContainer}
     >
-      <Text style={styles.titleText}>Tournament</Text>
+      <Text style={styles.titleText}>Tournaments</Text>
 
       <FlatList
         data={tournaments}
@@ -168,6 +168,10 @@ const TournamentList = ({ navigation }) => {
       />
       <Button title="Create Tournament" onPress={toggleModal} />
       <Button title="Map" onPress={() => navigation.navigate('Map')} />
+      <Button title="HighSchool" onPress={() => navigation.navigate('HighSchool')} />
+      <Button title="ActivityType" onPress={() => navigation.navigate('ActivityType')} />
+      <Button title="Round" onPress={() => navigation.navigate('Round')} />
+      <Button title="Match" onPress={() => navigation.navigate('Match')} />
 
 <Modal isVisible={isModalVisible}>
   <ScrollView contentContainerStyle={styles.modalContainer}>
