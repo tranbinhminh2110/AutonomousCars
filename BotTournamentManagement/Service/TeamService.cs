@@ -37,12 +37,6 @@ namespace BotTournamentManagement.Service
             }
             var teamEntity = _mapper.Map<TeamEntity>(teamCreatedModel);
             _teamRepository.Add(teamEntity);
-            foreach (var player in teamCreatedModel.PlayerCreatedModels) {
-                var playerEntity = _mapper.Map<PlayerEntity>(player);
-                playerEntity.TeamId = teamEntity.Id;
-                _playerRepository.Add(playerEntity);
-            }
-            
         }
 
         public void DeleteATeam(string id)
@@ -68,14 +62,8 @@ namespace BotTournamentManagement.Service
             var responseTeamList = _mapper.Map<List<TeamResponseModel>>(teamList);
             foreach (var team in responseTeamList)
             {
-                foreach (var teamEntity in teamList)
-                {
-                    var highSchoolEntity = _highSchoolRepository.GetById(teamEntity.HighSchoolId);
-                    var responseHighSchool = _mapper.Map<HighSchoolResponseModel>(highSchoolEntity);
-                    team.highSchoolResponseModel = responseHighSchool;
-                }
-                var playerList = getPlayerinTeam(team.Id);
-                team.playerResponseModels = playerList;
+                var highSchoolEntity = _highSchoolRepository.GetById(team.HighSchoolId);
+                team.HighSchoolName = highSchoolEntity.HighSchoolName;
             }
             return responseTeamList;
         }
@@ -95,10 +83,7 @@ namespace BotTournamentManagement.Service
             }
             var responseTeam = _mapper.Map<TeamResponseModel>(chosenTeam);
             var highSchoolEntity = _highSchoolRepository.GetById(chosenTeam.HighSchoolId);
-            var responseHighSchool = _mapper.Map<HighSchoolResponseModel>(highSchoolEntity);
-            responseTeam.highSchoolResponseModel = responseHighSchool;
-            var playerList = getPlayerinTeam(chosenTeam.Id);
-            responseTeam.playerResponseModels = playerList;
+            responseTeam.HighSchoolName = highSchoolEntity.HighSchoolName;
             return responseTeam;
         }
 

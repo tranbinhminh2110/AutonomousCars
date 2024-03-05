@@ -65,19 +65,14 @@ namespace BotTournamentManagement.Service
             }
             var responseMatchList = _mapper.Map<List<MatchResponseModel>>(matchList);
             foreach (var match in responseMatchList) {
-                foreach (var matchEntity in matchList) { 
-                    var mapEntity = _mapRepository.GetById(matchEntity.MapId);
-                    var responseMap = _mapper.Map<MapResponseModel>(mapEntity);
-                    match.MapResponseModel = responseMap;
+                var mapEntity = _mapRepository.GetById(match.MapId);
+                match.MapName = mapEntity.MapName;
 
-                    var roundEntity = _roundRepository.GetById(matchEntity.RoundId);
-                    var responseRound =_mapper.Map<RoundResponseModel>(roundEntity);
-                    match.RoundResponseModel = responseRound;
+                var roundEntity = _roundRepository.GetById(match.RoundId);
+                match.RoundName = roundEntity.RoundName;
 
-                    var tournamentEntity = _tournamentRepository.GetById(matchEntity.TournamentId);
-                    var responseTournament = _mapper.Map<TournamentResponseModel>(tournamentEntity);
-                    match.TournamentResponseModel = responseTournament;
-                }
+                var tournamentEntity = _tournamentRepository.GetById(match.TournamentId);
+                match.TournamentName = tournamentEntity.TournamentName;
             }
             return responseMatchList;
         }
@@ -90,17 +85,14 @@ namespace BotTournamentManagement.Service
                 throw new Exception("This match is not existed");
             }
             var responseMatch = _mapper.Map<MatchResponseModel>(chosenMatch);
-            var mapEntity = _mapRepository.GetById(chosenMatch.MapId);
-            var responseMap = _mapper.Map<MapResponseModel>(mapEntity);
-            responseMatch.MapResponseModel = responseMap;
+            var mapEntity = _mapRepository.GetById(responseMatch.MapId);
+            responseMatch.MapName = mapEntity.MapName;
 
-            var roundEntity = _roundRepository.GetById(chosenMatch.RoundId);
-            var responseRound = _mapper.Map<RoundResponseModel>(roundEntity);
-            responseMatch.RoundResponseModel = responseRound;
+            var roundEntity = _roundRepository.GetById(responseMatch.RoundId);
+            responseMatch.RoundName = roundEntity.RoundName;
 
-            var tournamentEntity = _tournamentRepository.GetById(chosenMatch.TournamentId);
-            var responseTournament = _mapper.Map<TournamentResponseModel>(tournamentEntity);
-            responseMatch.TournamentResponseModel = responseTournament;
+            var tournamentEntity = _tournamentRepository.GetById(responseMatch.TournamentId);
+            responseMatch.TournamentName = tournamentEntity.TournamentName;
             return responseMatch;
         }
 

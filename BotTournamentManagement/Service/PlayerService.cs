@@ -51,12 +51,8 @@ namespace BotTournamentManagement.Service
             var responsePlayerList = _mapper.Map<List<PlayerResponseModel>>(playerList);
             foreach (var playerResponse in responsePlayerList)
             {
-                foreach (var player in playerList) 
-                {
-                    var teamEntity = _teamRepository.GetById(player.TeamId);
-                    var responseTeam = _mapper.Map<TeamResponseModelWithoutPlayer>(teamEntity);
-                    playerResponse.TeamResponseModel = responseTeam;
-                }
+                var teamEntity = _teamRepository.GetById(playerResponse.TeamId);
+                playerResponse.TeamName = teamEntity.TeamName;
             }
             return responsePlayerList;
         }
@@ -70,8 +66,7 @@ namespace BotTournamentManagement.Service
             }
             var responsePlayer = _mapper.Map<PlayerResponseModel>(chosenPlayer);
             var teamEntity = _teamRepository.GetById(chosenPlayer.TeamId);
-            var responseTeam = _mapper.Map<TeamResponseModelWithoutPlayer>(teamEntity);
-            responsePlayer.TeamResponseModel = responseTeam;
+            responsePlayer.TeamName = teamEntity.TeamName;
             return responsePlayer;
         }
 
@@ -83,6 +78,11 @@ namespace BotTournamentManagement.Service
                 throw new Exception("Empty list player in this team!");
             }
             var responsePlayerList = _mapper.Map<List<PlayerResponseModel>>(playerList);
+            foreach( var playerResponse in responsePlayerList)
+            {
+                var teamEntity = _teamRepository.GetById(playerResponse.TeamId);
+                playerResponse.TeamName = teamEntity.TeamName;
+            }
             return responsePlayerList;
         }
 
