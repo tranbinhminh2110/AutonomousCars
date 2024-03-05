@@ -9,7 +9,7 @@ const Welcome = ({ navigation }) => {
       style={{
         flex: 1,  
       }}
-      colors={['#96E9C6', '#83C0C1']} // Gradient từ 96E9C6 đến 83C0C1
+      colors={['#96E9C6', '#86A7FC']} // Gradient từ 96E9C6 đến 83C0C1
       start={{x: 0, y: 0}} // Điểm bắt đầu của gradient (góc trái ở trên)
       end={{x: 1, y: 0}}
     >
