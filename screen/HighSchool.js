@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Button, TextInput, Pressable, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Button, Pressable, ScrollView, StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const HighSchool = ({ navigation }) => {
   const [highSchools, setHighSchools] = useState([]);
-  const [newKeyId, setNewKeyId] = useState('');
-  const [newHighSchoolName, setNewHighSchoolName] = useState('');
   const [isModalVisible, setModalVisible] = useState(false);
   const [selectedHighSchool, setSelectedHighSchool] = useState(null);
   const [isUpdateModalVisible, setUpdateModalVisible] = useState(false);
@@ -28,71 +26,6 @@ const HighSchool = ({ navigation }) => {
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
-  };
-
-  const createHighSchool = () => {
-    fetch('https://fptbottournamentweb.azurewebsites.net/api/highSchool/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        keyId: newKeyId || Math.floor(Math.random() * 1000),
-        highSchoolName: newHighSchoolName,
-      }),
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        fetchHighSchools();
-        setNewKeyId('');
-        setNewHighSchoolName('');
-        toggleModal();
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  };
-
-  const updateHighSchool = () => {
-    const { id, keyId, highSchoolName } = selectedHighSchool;
-
-    fetch(`https://fptbottournamentweb.azurewebsites.net/api/highSchool/update/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        keyId,
-        highSchoolName: newHighSchoolName || highSchoolName,
-      }),
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        fetchHighSchools();
-        hideUpdateModal();
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  };
-
-  const deleteHighSchool = (id) => {
-    fetch(`https://fptbottournamentweb.azurewebsites.net/api/highSchool/delete/${id}`, {
-      method: 'DELETE',
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        fetchHighSchools();
-      })
-      .catch(error => {
-        console.error(error);
-      });
   };
 
   const showUpdateModal = (highSchool) => {
@@ -119,64 +52,19 @@ const HighSchool = ({ navigation }) => {
           <View style={styles.highSchoolContainer}>
             <Text>High School Name: {item.highSchoolName}</Text>
             <Text>Key ID: {item.keyId}</Text>
-            <Button title="Update" onPress={() => showUpdateModal(item)} />
-            <Button title="Delete" onPress={() => deleteHighSchool(item.id)} />
           </View>
         )}
       />
-      <Button title="Create High School" onPress={toggleModal} />
-      <Button title="Map" onPress={() => navigation.navigate('Map')} />
       <Button title="Tournament List" onPress={() => navigation.navigate('TournamentList')} />
-
-      <Modal isVisible={isModalVisible}>
-        <ScrollView contentContainerStyle={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Create High School</Text>
-            <TextInput
-              placeholder="Key ID"
-              value={newKeyId}
-              onChangeText={(text) => setNewKeyId(text)}
-              style={styles.input}
-            />
-            <TextInput
-              placeholder="High School Name"
-              value={newHighSchoolName}
-              onChangeText={(text) => setNewHighSchoolName(text)}
-              style={styles.input}
-            />
-            <Pressable onPress={createHighSchool}>
-              <Text style={styles.buttonText}>Create High School</Text>
-            </Pressable>
-            <Pressable onPress={toggleModal}>
-              <Text style={styles.buttonText}>Cancel</Text>
-            </Pressable>
-          </View>
-        </ScrollView>
-      </Modal>
 
       <Modal isVisible={isUpdateModalVisible}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Update High School</Text>
+            <Text style={styles.modalTitle}>High School</Text>
             {selectedHighSchool && (
               <>
-                <TextInput
-                  placeholder="Key ID"
-                  value={selectedHighSchool.keyId.toString()}
-                  onChangeText={(text) => setSelectedHighSchool({ ...selectedHighSchool, keyId: text })}
-                  style={styles.input}
-                  placeholderTextColor="black"
-                />
-                <TextInput
-                  placeholder="High School Name"
-                  value={selectedHighSchool.highSchoolName}
-                  onChangeText={(text) => setSelectedHighSchool({ ...selectedHighSchool, highSchoolName: text })}
-                  style={styles.input}
-                  placeholderTextColor="black"
-                />
-                <Pressable onPress={updateHighSchool}>
-                  <Text style={styles.buttonText}>Update High School</Text>
-                </Pressable>
+                <Text>High School Name: {selectedHighSchool.highSchoolName}</Text>
+                <Text>Key ID: {selectedHighSchool.keyId}</Text>
                 <Pressable onPress={hideUpdateModal}>
                   <Text style={styles.buttonText}>Cancel</Text>
                 </Pressable>
@@ -210,12 +98,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  input: {
-    color: 'black',
-    fontSize: 25,
-    textAlign: 'center',
-    marginBottom: 16,
   },
   buttonText: {
     color: 'black',

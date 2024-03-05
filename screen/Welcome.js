@@ -80,7 +80,7 @@ const Welcome = ({ navigation }) => {
             alignItems: 'center',
             borderRadius: 8
           }}
-          onPress={() => navigation.navigate("Signup")}
+          onPress={() => navigation.navigate("Login")}
         >
           <Text style={{ color: '#9681EB', fontSize: 16, fontStyle: "bold" }}>Join Now</Text>
         </TouchableOpacity>
@@ -93,16 +93,15 @@ const Welcome = ({ navigation }) => {
           <Text style={{
             fontSize: 16,
             color: COLORS.white
-          }}>Already have an account ?</Text>
+          }}></Text>
           <Pressable
-            onPress={() => navigation.navigate("Login")}
           >
             <Text style={{
               fontSize: 16,
               color: "#9681EB",
               fontWeight: "bold",
               marginLeft: 4
-            }}>Login</Text>
+            }}></Text>
             
           </Pressable>
         </View>

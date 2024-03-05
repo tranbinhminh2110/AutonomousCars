@@ -10,7 +10,6 @@ const ActivityType = ({ navigation }) => {
   const [selectedActivityType, setSelectedActivityType] = useState(null);
   const [isUpdateModalVisible, setUpdateModalVisible] = useState(false);
   const [editTypeName, setEditTypeName] = useState('');
-  const [updateId, setUpdateId] = useState(null); // Thêm state updateId
 
   useEffect(() => {
     fetchActivityTypes();
@@ -31,77 +30,15 @@ const ActivityType = ({ navigation }) => {
     setModalVisible(!isModalVisible);
   };
 
-  const createActivityType = () => {
-    fetch('https://fptbottournamentweb.azurewebsites.net/api/activity-type/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        typeName: newTypeName,
-      }),
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        fetchActivityTypes();
-        setNewTypeName('');
-        toggleModal();
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  };
-
-  const updateActivityType = () => {
-    fetch(`https://fptbottournamentweb.azurewebsites.net/api/activity-type/update/${updateId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        typeName: editTypeName || selectedActivityType.typeName,
-      }),
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        fetchActivityTypes();
-        hideUpdateModal();
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  };
-
-  const deleteActivityType = (id) => {
-    fetch(`https://fptbottournamentweb.azurewebsites.net/api/activity-type/delete/${id}`, {
-      method: 'DELETE',
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        fetchActivityTypes();
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  };
-
   const showUpdateModal = (activityType) => {
     setSelectedActivityType(activityType);
-    setEditTypeName(activityType.typeName); // Cập nhật giá trị trường nhập liệu
-    setUpdateId(activityType.id); // Cập nhật giá trị id
+    setEditTypeName(activityType.typeName);
     setUpdateModalVisible(true);
   };
 
   const hideUpdateModal = () => {
     setSelectedActivityType(null);
     setUpdateModalVisible(false);
-    setUpdateId(null); // Đặt lại updateId sau khi đóng modal
   };
 
   return (
@@ -117,12 +54,9 @@ const ActivityType = ({ navigation }) => {
         renderItem={({ item }) => (
           <View style={styles.activityTypeContainer}>
             <Text>Type Name: {item.typeName}</Text>
-            <Button title="Update" onPress={() => showUpdateModal(item)} />
-            <Button title="Delete" onPress={() => deleteActivityType(item.id)} />
           </View>
         )}
       />
-      <Button title="Create Activity Type" onPress={toggleModal} />
       <Button title="TournamentList" onPress={() => navigation.navigate('TournamentList')} />
 
       <Modal isVisible={isModalVisible}>
@@ -135,9 +69,6 @@ const ActivityType = ({ navigation }) => {
               onChangeText={(text) => setNewTypeName(text)}
               style={styles.input}
             />
-            <Pressable onPress={createActivityType}>
-              <Text style={styles.buttonText}>Create Activity Type</Text>
-            </Pressable>
             <Pressable onPress={toggleModal}>
               <Text style={styles.buttonText}>Cancel</Text>
             </Pressable>
@@ -148,7 +79,7 @@ const ActivityType = ({ navigation }) => {
       <Modal isVisible={isUpdateModalVisible}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Update Activity Type</Text>
+            <Text style={styles.modalTitle}>Activity Type</Text>
             {selectedActivityType && (
               <>
                 <TextInput
@@ -157,9 +88,6 @@ const ActivityType = ({ navigation }) => {
                   onChangeText={(text) => setEditTypeName(text)}
                   style={styles.input}
                 />
-                <Pressable onPress={updateActivityType}>
-                  <Text style={styles.buttonText}>Update Activity Type</Text>
-                </Pressable>
                 <Pressable onPress={hideUpdateModal}>
                   <Text style={styles.buttonText}>Cancel</Text>
                 </Pressable>
