@@ -14,12 +14,14 @@ namespace BotTournamentManagement.Service
         private readonly ITeamRepository _teamRepository;
         private readonly IMapper _mapper;
         private readonly IPlayerRepository _playerRepository;
+        private readonly IHighSchoolRepository _highSchoolRepository;
 
-        public TeamService(ITeamRepository teamRepository, IMapper mapper, IPlayerRepository playerRepository)
+        public TeamService(ITeamRepository teamRepository, IMapper mapper, IPlayerRepository playerRepository, IHighSchoolRepository highSchoolRepository)
         {
             _teamRepository = teamRepository;
             _mapper = mapper;
             _playerRepository = playerRepository;
+            _highSchoolRepository = highSchoolRepository;
         }
 
         public void CreateANewTeam(TeamCreatedModel teamCreatedModel)
@@ -65,6 +67,12 @@ namespace BotTournamentManagement.Service
             var responseTeamList = _mapper.Map<List<TeamResponseModel>>(teamList);
             foreach (var team in responseTeamList)
             {
+                foreach (var teamEntity in teamList)
+                {
+                    var highSchoolEntity = _highSchoolRepository.GetById(teamEntity.HighSchoolId);
+                    var responseHighSchool = _mapper.Map<HighSchoolResponseModel>(highSchoolEntity);
+                    team.highSchoolResponseModel = responseHighSchool;
+                }
                 var playerList = getPlayerinTeam(team.Id);
                 team.playerResponseModels = playerList;
             }
