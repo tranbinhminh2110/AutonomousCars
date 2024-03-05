@@ -4,6 +4,7 @@ using BotTournamentManagement.Data.RequestModel.PlayModel;
 using BotTournamentManagement.Data.ResponseModel;
 using BotTournamentManagement.Interface.IRepository;
 using BotTournamentManagement.Interface.IService;
+using static BotTournamentManagement.Constant.WebApiEndpoint;
 
 namespace BotTournamentManagement.Service
 {
@@ -11,11 +12,13 @@ namespace BotTournamentManagement.Service
     {
         private readonly IPlayerRepository _playerRepository;
         private readonly IMapper _mapper;
+        private readonly ITeamRepository _teamRepository;
         
-        public PlayerService(IPlayerRepository playerRepository, IMapper mapper) 
+        public PlayerService(IPlayerRepository playerRepository,ITeamRepository teamRepository, IMapper mapper) 
         {
             _playerRepository = playerRepository;
             _mapper = mapper;
+            _teamRepository = teamRepository;
         }
         public void CreateNewPlayer(PlayerCreatedModel playerCreatedModel)
         {
@@ -46,6 +49,15 @@ namespace BotTournamentManagement.Service
                 throw new Exception("No player existed !");
             }
             var responsePlayerList = _mapper.Map<List<PlayerResponseModel>>(playerList);
+            foreach (var playerResponse in responsePlayerList)
+            {
+                foreach (var player in playerList) 
+                {
+                    var teamEntity = _teamRepository.GetById(player.TeamId);
+                    var responseTeam = _mapper.Map<TeamResponseModelWithoutPlayer>(teamEntity);
+                    playerResponse.TeamResponseModel = responseTeam;
+                }
+            }
             return responsePlayerList;
         }
 
@@ -57,6 +69,9 @@ namespace BotTournamentManagement.Service
                 throw new Exception("No existed player");
             }
             var responsePlayer = _mapper.Map<PlayerResponseModel>(chosenPlayer);
+            var teamEntity = _teamRepository.GetById(chosenPlayer.TeamId);
+            var responseTeam = _mapper.Map<TeamResponseModelWithoutPlayer>(teamEntity);
+            responsePlayer.TeamResponseModel = responseTeam;
             return responsePlayer;
         }
 

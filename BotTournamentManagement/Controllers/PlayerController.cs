@@ -42,11 +42,11 @@ namespace BotTournamentManagement.Controllers
         }
         [HttpGet]
         [Route(WebApiEndpoint.Player.GetSinglePlayer)]
-        public IActionResult GetPlayerById(string Id)
+        public IActionResult GetPlayerById(string id)
         {
             try
             {
-                return Ok(_playerService.GetPlayerById(Id));
+                return Ok(_playerService.GetPlayerById(id));
             }
             catch (Exception ex)
             {
