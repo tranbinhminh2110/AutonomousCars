@@ -78,7 +78,7 @@ namespace BotTournamentManagement.Service
             var tournamentList = _tournamentRepository.GetAll().ToList();
             foreach (var tournament in tournamentList)
             {
-                if (tournament.KeyId.Equals(tournamentUpdateModel.KeyId) && !tournament.KeyId.Equals(chosenTournament.Id))
+                if (tournament.KeyId.Equals(tournamentUpdateModel.KeyId) && !tournament.KeyId.Equals(chosenTournament.KeyId))
                 {
                     throw new Exception("This tournament ID existed");
                 }

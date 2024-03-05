@@ -97,7 +97,7 @@ namespace BotTournamentManagement.Service
             var teamList = _teamRepository.GetAll().ToList();
             foreach (var team in teamList)
             {
-                if (team.KeyId.Equals(teamUpdateModel.KeyId) && !team.KeyId.Equals(chosenTeam))
+                if (team.KeyId.Equals(teamUpdateModel.KeyId) && !team.KeyId.Equals(chosenTeam.KeyId))
                 {
                     throw new Exception("This team ID existed");
                 }
