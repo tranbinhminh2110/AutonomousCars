@@ -6,6 +6,7 @@ using BotTournamentManagement.Interface.IRepository;
 using BotTournamentManagement.Interface.IService;
 using BotTournamentManagement.Repository;
 using Microsoft.AspNetCore.Mvc;
+using static BotTournamentManagement.Constant.WebApiEndpoint;
 
 namespace BotTournamentManagement.Service
 {
@@ -93,6 +94,11 @@ namespace BotTournamentManagement.Service
                 throw new Exception("Team doesn't existed"); 
             }
             var responseTeam = _mapper.Map<TeamResponseModel>(chosenTeam);
+            var highSchoolEntity = _highSchoolRepository.GetById(chosenTeam.HighSchoolId);
+            var responseHighSchool = _mapper.Map<HighSchoolResponseModel>(highSchoolEntity);
+            responseTeam.highSchoolResponseModel = responseHighSchool;
+            var playerList = getPlayerinTeam(chosenTeam.Id);
+            responseTeam.playerResponseModels = playerList;
             return responseTeam;
         }
 
