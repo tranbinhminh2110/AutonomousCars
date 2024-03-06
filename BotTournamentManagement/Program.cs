@@ -49,6 +49,8 @@ builder.Services.AddScoped<IMatchRepository, MatchRepository>();
 builder.Services.AddScoped<IMatchService, MatchService>();
 builder.Services.AddScoped<ITeamInMatchRepository, TeamInMatchRepository>();
 builder.Services.AddScoped<ITeamInMatchService, TeamInMatchService>();
+builder.Services.AddScoped<ITeamActivityRepository, TeamActivityRepository>();
+builder.Services.AddScoped<ITeamActivityService, TeamActivityService>();
 builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
 builder.Services.AddScoped<IPlayerService, PlayerService>();
 builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
