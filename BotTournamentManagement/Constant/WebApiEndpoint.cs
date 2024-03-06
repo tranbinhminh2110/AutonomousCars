@@ -75,6 +75,7 @@
             public const string CreateMatch = BaseEndpoint + "/create";
             public const string UpdateMatch = BaseEndpoint + "/update" + "/{id}";
             public const string DeleteMatch = BaseEndpoint + "/delete" + "/{id}";
+            public const string GetAllMatchesInTournament = BaseEndpoint + "/get-by-tournament-id" + "/{tournamentId}";
         }
         public static class User
         {
@@ -90,7 +91,7 @@
         {
             private const string BaseEndpoint = "~/" + AreaName + "/team-in-match";
             public const string GetAllTeamsInAMatch = BaseEndpoint + "/get-all-teams-in-match-id" + "/{matchId}";
-            public const string AddATeamToMatch = BaseEndpoint + "/add-team-to-match-id" + "/{matchId}";
+            public const string AddATeamToMatch = BaseEndpoint + "/add-team-to-match";
             public const string DeleteTeamFromMatch = BaseEndpoint + "/delete-team-with-id"+ "/{teamId}";
             public const string UpdateResultForTeamInMatch = BaseEndpoint + "/update-result-for-team-in-match" + "/{teamId}";
         }

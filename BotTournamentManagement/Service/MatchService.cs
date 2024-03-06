@@ -96,6 +96,28 @@ namespace BotTournamentManagement.Service
             return responseMatch;
         }
 
+        public List<MatchResponseModel> GetMatchesInTournament(string tournamentId)
+        {
+            var matchList = _matchRepository.GetAll().Where(p => p.TournamentId.Equals(tournamentId)).ToList();
+            if (!matchList.Any())
+            {
+                throw new Exception("Not found matches in tournament !");
+            }
+            var responseMatchList = _mapper.Map<List<MatchResponseModel>>(matchList);
+            foreach (var match in responseMatchList)
+            {
+                var mapEntity = _mapRepository.GetById(match.MapId);
+                match.MapName = mapEntity.MapName;
+
+                var roundEntity = _roundRepository.GetById(match.RoundId);
+                match.RoundName = roundEntity.RoundName;
+
+                var tournamentEntity = _tournamentRepository.GetById(match.TournamentId);
+                match.TournamentName = tournamentEntity.TournamentName;
+            }
+            return responseMatchList;
+        }
+
         public void UpdateMatch(string id, MatchUpdateModel matchUpdateModel)
         {
             var chosenMatch = _matchRepository.GetById(id);

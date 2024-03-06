@@ -11,5 +11,7 @@ namespace BotTournamentManagement.Interface.IService
         void UpdateMatch(string id, MatchUpdateModel matchUpdateModel);
         void DeleteMatch(string id);
         MatchResponseModel GetMatchById(string id);
+        List<MatchResponseModel> GetMatchesInTournament(string tournamentId);
+
     }
 }

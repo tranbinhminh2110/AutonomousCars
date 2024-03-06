@@ -54,13 +54,26 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPut]
-        [Route("api/[controller]/update-match")]
+        [Route(WebApiEndpoint.Match.UpdateMatch)]
         public IActionResult UpdateMatch(string id, MatchUpdateModel matchUpdateModel)
         {
             try
             {
                 _matchService.UpdateMatch(id,matchUpdateModel);
                 return Ok("Updated Successfully !");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpGet]
+        [Route(WebApiEndpoint.Match.GetAllMatchesInTournament)]
+        public IActionResult GetAllMatchesInTournament(string tournamentId) 
+        {
+            try 
+            {
+                return Ok(_matchService.GetMatchesInTournament(tournamentId));
             }
             catch (Exception e)
             {

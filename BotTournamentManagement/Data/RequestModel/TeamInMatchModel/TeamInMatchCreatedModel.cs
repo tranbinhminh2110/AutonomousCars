@@ -3,5 +3,6 @@
     public class TeamInMatchCreatedModel
     {
         public string TeamId { get; set; }
+        public string MatchId { get; set; }
     }
 }
