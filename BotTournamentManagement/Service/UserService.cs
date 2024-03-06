@@ -27,7 +27,8 @@ namespace BotTournamentManagement.Service
                 throw new Exception("This username is already existed");
             }   
             var newUser = _mapper.Map<UserEntity>(userRequestModel);
-            newUser.KeyId = GenerateKeyIdForUser(userRequestModel.Role);
+            var userList = _userRepository.GetBothActiveandInactive().ToList();
+            newUser.KeyId = "USER" + (userList.Count + 1).ToString();
             _userRepository.Add(newUser);
         }
 
@@ -87,39 +88,17 @@ namespace BotTournamentManagement.Service
             var userList = _userRepository.GetAll();
             foreach (var user in userList)
             {
-                if (userRequestModel.UserName.Equals(user.UserName))
+                if (user.UserName.Equals(userRequestModel.UserName) && !user.UserName.Equals(existingUser.UserName))
                 {
                     throw new Exception("This Username is existed.");
                 }
-                if (userRequestModel.UserEmail.Equals(user.UserEmail))
+                if (user.UserEmail.Equals(userRequestModel.UserEmail) && !user.UserEmail.Equals(existingUser.UserEmail))
                 {
                     throw new Exception("This email is already used.");
                 }
             }
             _mapper.Map(userRequestModel, existingUser);
             _userRepository.Update(existingUser);
-        }
-        public string GenerateKeyIdForUser(Role role) 
-        {
-            string userRoleNotation = null;
-            int numberUserofRole = _userRepository.GetAll().Where(p=>p.Role == role).Count();
-            if (role == Data.Enum.Role.Organizer)
-            {
-                userRoleNotation = "AD";
-                numberUserofRole = numberUserofRole + 1;
-            }
-            if (role == Data.Enum.Role.Referee) 
-            {
-                userRoleNotation = "RE";
-                numberUserofRole = numberUserofRole + 1;
-            }
-            if (role == Data.Enum.Role.HeadReferee)
-            {
-                userRoleNotation = "HRE";
-                numberUserofRole = numberUserofRole + 1;
-            }
-            string keyId = (userRoleNotation + numberUserofRole).ToString();
-            return keyId;
         }
     }
 }

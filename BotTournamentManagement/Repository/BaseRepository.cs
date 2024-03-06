@@ -50,6 +50,17 @@ namespace BotTournamentManagement.Repository
                 throw new Exception($"Error getting entity: {ex.Message}", ex);
             }
         }
+        public IQueryable<T> GetBothActiveandInactive()
+        {
+            try
+            {
+                return _appDbContext.Set<T>();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error getting entity: {ex.Message}", ex);
+            }
+        }
 
         public T GetById(string id)
         {

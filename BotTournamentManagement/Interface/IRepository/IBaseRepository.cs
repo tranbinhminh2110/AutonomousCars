@@ -9,5 +9,6 @@ namespace BotTournamentManagement.Interface.IRepository
         void Update(T entity);
         void Delete(T entity);
         T GetById(string id);
+        IQueryable<T> GetBothActiveandInactive();
     }
 }

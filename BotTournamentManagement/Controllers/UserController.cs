@@ -69,11 +69,11 @@ namespace BotTournamentManagement.Controllers
         }
         [HttpDelete]
         [Route(WebApiEndpoint.User.DeleteUser)]
-        public IActionResult DeleteUser(string Id)
+        public IActionResult DeleteUser(string id)
         {
             try
             {
-                _userService.DeleteUser(Id);
+                _userService.DeleteUser(id);
                 return Ok("Deleted Successfully !");
             }
             catch (Exception e)
