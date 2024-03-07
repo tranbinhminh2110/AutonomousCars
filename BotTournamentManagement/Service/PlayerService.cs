@@ -43,7 +43,7 @@ namespace BotTournamentManagement.Service
 
         public List<PlayerResponseModel> GetAllPlayers()
         {
-            var playerList = _playerRepository.GetAll().ToList();
+            var playerList = _playerRepository.GetAll().OrderBy(x=>x.KeyId).ToList();
             if (!playerList.Any())
             {
                 throw new Exception("No player existed !");
@@ -72,7 +72,7 @@ namespace BotTournamentManagement.Service
 
         public List<PlayerResponseModel> GetPlayerByTeamId(string teamId)
         {
-            var playerList = _playerRepository.GetAll().Where(p => p.TeamId.Equals(teamId)).ToList();
+            var playerList = _playerRepository.GetAll().Where(p => p.TeamId.Equals(teamId)).OrderBy(x => x.KeyId).ToList();
             if (!playerList.Any())
             {
                 throw new Exception("Empty list player in this team!");

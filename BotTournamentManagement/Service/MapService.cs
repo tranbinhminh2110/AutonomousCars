@@ -59,7 +59,7 @@ namespace BotTournamentManagement.Service
 
         public List<MapResponseModel> GetMaps()
         {
-            var mapList = _mapRepository.GetAll().ToList();
+            var mapList = _mapRepository.GetAll().OrderBy(x => x.KeyId).ToList();
             if (!mapList.Any())
             {
                 throw new Exception("This map list is empty");

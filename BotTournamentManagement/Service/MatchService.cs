@@ -58,7 +58,7 @@ namespace BotTournamentManagement.Service
 
         public List<MatchResponseModel> GetAllMatches()
         {
-            var matchList = _matchRepository.GetAll().ToList();
+            var matchList = _matchRepository.GetAll().OrderByDescending(x => x.KeyId).ToList();
             if (!matchList.Any())
             {
                 throw new Exception("This match list is empty");
@@ -98,7 +98,7 @@ namespace BotTournamentManagement.Service
 
         public List<MatchResponseModel> GetMatchesInTournament(string tournamentId)
         {
-            var matchList = _matchRepository.GetAll().Where(p => p.TournamentId.Equals(tournamentId)).ToList();
+            var matchList = _matchRepository.GetAll().Where(p => p.TournamentId.Equals(tournamentId)).OrderBy(x => x.KeyId).ToList();
             if (!matchList.Any())
             {
                 throw new Exception("Not found matches in tournament !");

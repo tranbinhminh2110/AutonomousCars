@@ -56,7 +56,7 @@ namespace BotTournamentManagement.Service
 
         public List<HighSchoolResponseModel> GetListHighSchools()
         {
-            var highSchoolList = _highSchoolRepository.GetAll().ToList();
+            var highSchoolList = _highSchoolRepository.GetAll().OrderBy(x => x.KeyId).ToList();
             if (!highSchoolList.Any())
             {
                 throw new Exception("This high school list is empty");

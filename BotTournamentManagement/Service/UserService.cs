@@ -58,7 +58,7 @@ namespace BotTournamentManagement.Service
 
         public List<UserResponseModel> GetUsersList()
         {
-            var userList = _userRepository.GetAll().ToList();
+            var userList = _userRepository.GetAll().OrderBy(x=>x.KeyId).ToList();
             if (!userList.Any())
             {
                 throw new Exception("This list is empty.");
