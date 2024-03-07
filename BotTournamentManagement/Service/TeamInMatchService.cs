@@ -71,12 +71,12 @@ namespace BotTournamentManagement.Service
             }
         }
 
-        public void UpdateFinalResult(string teamId, string matchId, TeamInMatchUpdateModel teamInMatchUpdateModel)
+        public void UpdateFinalResult(string id, TeamInMatchUpdateModel teamInMatchUpdateModel)
         {
-            var teamInMatch = _teamInMatchRepository.GetAll().Where(p => p.MatchId.Equals(matchId) && p.TeamId.Equals(teamId)).FirstOrDefault();
+            var teamInMatch = _teamInMatchRepository.GetAll().Where(p => p.Id.Equals(id)).FirstOrDefault();
             if (teamInMatch is null)
             {
-                throw new Exception("This team or match doesn't exist");
+                throw new Exception("This team doesn't exist in match");
             }
             _mapper.Map(teamInMatchUpdateModel, teamInMatch);
             teamInMatch.Duration = TimeSpan.Parse(teamInMatchUpdateModel.Duration);
