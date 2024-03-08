@@ -28,6 +28,19 @@ namespace BotTournamentManagement.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [HttpGet]
+        [Route(WebApiEndpoint.TeamInMatch.GetTeamInMatchById)]
+        public IActionResult GetTeamInMatchById(string id)
+        {
+            try
+            {
+                return Ok(_teamInMatchService.GetTeamInMatchById(id));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
         [HttpPost]
         [Route(WebApiEndpoint.TeamInMatch.AddATeamToMatch)]
         public IActionResult AddATeamToMatch(TeamInMatchCreatedModel teamInMatchCreatedModel)
@@ -44,11 +57,11 @@ namespace BotTournamentManagement.Controllers
         }
         [HttpDelete]
         [Route(WebApiEndpoint.TeamInMatch.DeleteTeamFromMatch)]
-        public IActionResult DeleteATeamFromMatch(string teamId, string matchId)
+        public IActionResult DeleteATeamFromMatch(string id)
         {
             try
             {
-                _teamInMatchService.RemoveTeamFromMatch(teamId, matchId);
+                _teamInMatchService.RemoveTeamFromMatch(id);
                 return Ok("Deleted successfully !");
             }
             catch (Exception e)
