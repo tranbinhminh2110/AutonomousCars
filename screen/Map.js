@@ -22,7 +22,7 @@ const Map = ({ navigation }) => {
 
   return (
     <LinearGradient
-      colors={['#9F8CE3', '#FFBE98']}
+      colors={['#FF9BD2', '#F4F27E']}
       style={styles.gradientContainer}
     >
       <Text style={styles.titleText}>Maps</Text>

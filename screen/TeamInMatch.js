@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Button, Pressable, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Button, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const HighSchool = ({ navigation }) => {
-  const [highSchools, setHighSchools] = useState([]);
+const TeamInMatch = ({ navigation, route }) => {
+  const [teams, setTeams] = useState([]);
+  const { matchId } = route.params;
 
   useEffect(() => {
-    fetchHighSchools();
+    fetchTeams();
   }, []);
 
-  const fetchHighSchools = () => {
-    fetch('https://fptbottournamentweb.azurewebsites.net/api/highSchool/get-all')
+  const fetchTeams = () => {
+    // Fetch teams with a specific matchId from the API endpoint
+    fetch(`https://fptbottournamentweb.azurewebsites.net/api/team-in-match/get-all-teams-in-match-id/${matchId}`)
       .then(response => response.json())
       .then(data => {
-        setHighSchools(data);
+        setTeams(data);
       })
       .catch(error => {
         console.error(error);
@@ -22,18 +24,17 @@ const HighSchool = ({ navigation }) => {
 
   return (
     <LinearGradient
-      colors={['#59D5E0', '#F2AFEF']}
+      colors={['#EADFB4', '#83C0C1']}
       style={styles.gradientContainer}
     >
-      <Text style={styles.titleText}>High Schools</Text>
+      <Text style={styles.titleText}>Teams in Match</Text>
 
       <FlatList
-        data={highSchools}
+        data={teams}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={styles.highSchoolContainer}>
-            <Text>High School Name: {item.highSchoolName}</Text>
-            <Text>Key ID: {item.keyId}</Text>
+          <View style={styles.teamContainer}>
+            <Text style={styles.teamName}>{item.name}</Text>
           </View>
         )}
       />
@@ -53,17 +54,16 @@ const styles = StyleSheet.create({
     color: 'white',
     marginBottom: 16,
   },
-  highSchoolContainer: {
+  teamContainer: {
     backgroundColor: 'white',
     padding: 16,
     marginBottom: 16,
     borderRadius: 8,
   },
-  buttonText: {
+  teamName: {
+    fontSize: 16,
     color: 'black',
-    fontSize: 25,
-    marginBottom: 16,
   },
 });
 
-export default HighSchool;
+export default TeamInMatch;

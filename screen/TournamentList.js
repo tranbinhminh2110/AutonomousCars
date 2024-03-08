@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Button, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const TournamentList = ({ navigation }) => {
@@ -20,6 +20,10 @@ const TournamentList = ({ navigation }) => {
       });
   };
 
+  const handleTournamentPress = (tournamentId) => {
+    navigation.navigate('Match', { tournamentId });
+  };
+
   return (
     <LinearGradient
       colors={['#96E9C6', '#86A7FC']}
@@ -31,19 +35,20 @@ const TournamentList = ({ navigation }) => {
         data={tournaments}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={styles.tournamentContainer}>
-            <Text>Tournament Name: {item.tournamentName}</Text>
-            <Text>Key ID: {item.keyId}</Text>
-            <Text>Start Date: {new Date(item.startDate).toLocaleDateString()}</Text>
-            <Text>End Date: {new Date(item.endDate).toLocaleDateString()}</Text>
-          </View>
+          <TouchableOpacity onPress={() => handleTournamentPress(item.id)}>
+            <View style={styles.tournamentContainer}>
+              <Text>Tournament Name: {item.tournamentName}</Text>
+              <Text>Key ID: {item.keyId}</Text>
+              <Text>Start Date: {new Date(item.startDate).toLocaleDateString()}</Text>
+              <Text>End Date: {new Date(item.endDate).toLocaleDateString()}</Text>
+            </View>
+          </TouchableOpacity>
         )}
       />
       <Button title="Map" onPress={() => navigation.navigate('Map')} />
       <Button title="HighSchool" onPress={() => navigation.navigate('HighSchool')} />
       <Button title="ActivityType" onPress={() => navigation.navigate('ActivityType')} />
       <Button title="Round" onPress={() => navigation.navigate('Round')} />
-      <Button title="Match" onPress={() => navigation.navigate('Match')} />
     </LinearGradient>
   );
 };
