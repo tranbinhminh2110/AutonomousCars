@@ -32,6 +32,11 @@ namespace BotTournamentManagement.Service
             {
                 throw new Exception("This team is not existed");
             }
+            var teamInMatchExisting = _teamInMatchRepository.GetAll().Where(p => p.TeamId.Equals(teamInMatchCreatedModel.TeamId) && p.MatchId.Equals(teamInMatchCreatedModel.MatchId)).FirstOrDefault();
+            if (teamInMatchExisting is not null) 
+            {
+                throw new Exception("This team is already in the match");
+            }
             var teamInMatchEntity = new TeamInMatchEntity();
             teamInMatchEntity.MatchId = matchEntity.Id;
             teamInMatchEntity.TeamId = teamEntity.Id;
@@ -58,16 +63,32 @@ namespace BotTournamentManagement.Service
 
         }
 
-        public void RemoveTeamFromMatch(string teamId, string matchId)
+        public TeamInMatchResponseModel GetTeamInMatchById(string id)
         {
-            var teamInMatch = _teamInMatchRepository.GetAll().Where(p => p.TeamId.Equals(teamId) && p.MatchId.Equals(matchId)).FirstOrDefault();
-            if (teamInMatch is null)
+            var teamInMatchEntity = _teamInMatchRepository.GetById(id);
+            if (teamInMatchEntity is null)
+            {
+                throw new Exception("This team is not existed in match");
+            }
+            var teamInMatchResponse = _mapper.Map<TeamInMatchResponseModel>(teamInMatchEntity);
+            var matchEntity = _matchRepository.GetById(teamInMatchResponse.MatchId);
+            teamInMatchResponse.MatchKeyId = matchEntity.KeyId;
+            var teamEntity = _teamRepository.GetById(teamInMatchResponse.TeamId);
+            teamInMatchResponse.TeamName = teamEntity.TeamName;
+            return teamInMatchResponse;
+
+        }
+
+        public void RemoveTeamFromMatch(string id)
+        {
+            var teamInMatchEntity = _teamInMatchRepository.GetById(id);
+            if (teamInMatchEntity is null)
             {
                 throw new Exception("This team or match didn't existed");
             }
             else
             {
-                _teamInMatchRepository.Delete(teamInMatch);
+                _teamInMatchRepository.Delete(teamInMatchEntity);
             }
         }
 

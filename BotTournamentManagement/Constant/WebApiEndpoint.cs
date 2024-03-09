@@ -92,8 +92,9 @@
             private const string BaseEndpoint = "~/" + AreaName + "/team-in-match";
             public const string GetAllTeamsInAMatch = BaseEndpoint + "/get-all-teams-in-match-id" + "/{matchId}";
             public const string AddATeamToMatch = BaseEndpoint + "/add-team-to-match";
-            public const string DeleteTeamFromMatch = BaseEndpoint + "/delete-team-with-id"+ "/{teamId}";
+            public const string DeleteTeamFromMatch = BaseEndpoint + "/delete-team-with-id"+ "/{id}";
             public const string UpdateResultForTeamInMatch = BaseEndpoint + "/update-result-for-team-in-match-id" + "/{id}";
+            public const string GetTeamInMatchById = BaseEndpoint + "/get-team-in-match-by-id" + "/{id}";
         }
         public static class TeamActivity
         {
