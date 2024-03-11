@@ -102,6 +102,11 @@ namespace DocnetCorePractice.Services
             {
                 roleValue = "head-referee";
             }
+            if (account.Role == BotTournamentManagement.Data.Enum.Role.Referee)
+            {
+                roleValue = "referee";
+            }
+
             var tokenDescription = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
