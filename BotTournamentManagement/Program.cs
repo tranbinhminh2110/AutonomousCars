@@ -8,6 +8,10 @@ using Microsoft.IdentityModel.Tokens;
 using static DocnetCorePractice.Extensions.ApiKeyAuthorizationFilter;
 using System.Text;
 using DocnetCorePractice.Services;
+using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using BotTournamentManagement.Swagger;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -69,8 +73,12 @@ builder.Services.AddAuthentication("Bearer").AddJwtBearer(o =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("suifbweudfwqudgweufgewufgwefcgweiudgweidgwed"))
     };
 });
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(o => {
+    o.AddPolicy("admin", policy => policy.RequireClaim(ClaimTypes.Role,"admin"));
+});
 
+builder.Services.AddSwaggerGen();
+builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 var app = builder.Build();
 
@@ -81,7 +89,9 @@ app.UseCors(MyAllowSpecificOrigins);
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 

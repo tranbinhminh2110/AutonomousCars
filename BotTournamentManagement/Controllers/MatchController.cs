@@ -1,6 +1,7 @@
 ﻿using BotTournamentManagement.Constant;
 using BotTournamentManagement.Data.RequestModel.MatchModel;
 using BotTournamentManagement.Interface.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BotTournamentManagement.Controllers
@@ -40,6 +41,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [Route(WebApiEndpoint.Match.CreateMatch)]
         public IActionResult CreateMatch(MatchCreatedModel matchCreatedModel)
         {
@@ -54,6 +56,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPut]
+        [Authorize(Roles = "admin")]
         [Route(WebApiEndpoint.Match.UpdateMatch)]
         public IActionResult UpdateMatch(string id, MatchUpdateModel matchUpdateModel)
         {
@@ -81,6 +84,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpDelete]
+        [Authorize(Roles = "admin")]
         [Route(WebApiEndpoint.Match.DeleteMatch)]
         public IActionResult DeleteMatch(string id)
         {

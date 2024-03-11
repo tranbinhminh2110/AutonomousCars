@@ -2,6 +2,7 @@
 using BotTournamentManagement.Data.RequestModel.MapModel;
 using BotTournamentManagement.Interface.IService;
 using BotTournamentManagement.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,6 +41,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [Route(WebApiEndpoint.Map.CreateMap)]
         public IActionResult CreateNewMap(MapCreatedModel mapCreatedModel) 
         {
@@ -54,6 +56,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPut]
+        [Authorize(Roles = "admin")]
         [Route(WebApiEndpoint.Map.UpdateMap)]
         public IActionResult UpdateAMap(string id, MapUpdateModel updateMap)
         {
@@ -68,6 +71,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpDelete]
+        [Authorize(Roles = "admin")]
         [Route(WebApiEndpoint.Map.DeleteMap)]
         public IActionResult DeleteMap(string id)
         {

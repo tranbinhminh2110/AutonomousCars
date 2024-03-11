@@ -1,6 +1,7 @@
 ﻿using BotTournamentManagement.Constant;
 using BotTournamentManagement.Data.RequestModel.UserModel;
 using BotTournamentManagement.Interface.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BotTournamentManagement.Controllers
@@ -40,6 +41,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [Route(WebApiEndpoint.User.CreateUser)]
         public IActionResult CreateNewUser(UserRequestModel userRequestModel)
         {
@@ -54,6 +56,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPut]
+        [Authorize(Roles = "admin")]
         [Route(WebApiEndpoint.User.UpdateUser)]
         public IActionResult UpdateAUser(string id, UserRequestModel userRequestModel)
         {
@@ -68,6 +71,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpDelete]
+        [Authorize(Roles = "admin")]
         [Route(WebApiEndpoint.User.DeleteUser)]
         public IActionResult DeleteUser(string id)
         {

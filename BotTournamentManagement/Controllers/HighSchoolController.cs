@@ -2,6 +2,7 @@
 using BotTournamentManagement.Data.RequestModel.HighSchoolModel;
 using BotTournamentManagement.Interface.IService;
 using BotTournamentManagement.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,6 +31,7 @@ namespace BotTournamentManagement.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [Route(WebApiEndpoint.HighSchool.CreateHighSchool)]
         public IActionResult CreateNewSchool(HighSchoolCreatedModel highSchoolCreatedModel)
         {
@@ -57,6 +59,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPut]
+        [Authorize(Roles = "admin")]
         [Route(WebApiEndpoint.HighSchool.UpdateHighSchool)]
         public IActionResult UpdateASchool(string id, HighSchoolUpdateModel highSchoolUpdateModel)
         {
@@ -71,6 +74,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpDelete]
+        [Authorize(Roles = "admin")]
         [Route(WebApiEndpoint.HighSchool.DeleteHighSchool)]
         public IActionResult DeleteSchool(string Id)
         {

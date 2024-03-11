@@ -93,12 +93,22 @@ namespace DocnetCorePractice.Services
             var key = Encoding.UTF8.GetBytes(Key);
             var securityKey = new SymmetricSecurityKey(key);
             var credential = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            string roleValue = "";
+            if (account.Role == BotTournamentManagement.Data.Enum.Role.Organizer)
+            {
+                roleValue = "admin";
+            }
+            if (account.Role == BotTournamentManagement.Data.Enum.Role.HeadReferee)
+            {
+                roleValue = "head-referee";
+            }
             var tokenDescription = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.Name, account.FullName),
                     new Claim(ClaimTypes.Email, account.UserEmail),
+                    new Claim(ClaimTypes.Role, roleValue),
                 }),
                 Expires = DateTime.UtcNow.AddHours(5),
                 SigningCredentials = credential

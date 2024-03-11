@@ -1,6 +1,7 @@
 ﻿using BotTournamentManagement.Constant;
 using BotTournamentManagement.Data.RequestModel.RoundModel;
 using BotTournamentManagement.Interface.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,6 +42,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [Route(WebApiEndpoint.Round.CreateRound)]
         public IActionResult CreateNewRound(RoundCreatedModel roundCreatedModel)
         {
@@ -55,6 +57,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPut]
+        [Authorize(Roles = "admin")]
         [Route(WebApiEndpoint.Round.UpdateRound)]
         public IActionResult UpdateAMap(string id, RoundUpdateModel roundUpdateModel)
         {
@@ -69,6 +72,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpDelete]
+        [Authorize(Roles = "admin")]
         [Route(WebApiEndpoint.Round.DeleteRound)]
         public IActionResult DeleteMap(string Id)
         {
