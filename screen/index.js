@@ -8,6 +8,7 @@ import HighSchool from "./HighSchool"
 import ActivityType from "./ActivityType"
 import Round from "./Round"
 import TeamInMatch from "./TeamInMatch"
+import Profile from "./Profile"
 
 export{
     Login,
@@ -20,4 +21,5 @@ export{
     ActivityType,
     Round,
     TeamInMatch,
+    Profile,
 }

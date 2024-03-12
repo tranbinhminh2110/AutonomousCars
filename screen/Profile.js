@@ -1,53 +1,51 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Button, FlatList } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 
-const Round = ({ navigation }) => {
-  const [rounds, setRounds] = useState([]);
+const Profile = ({ navigation }) => {
+  const [userData, setUserData] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    fetchRounds();
-  }, []);
+      fetchUserData();
+    }, []);
 
-  const fetchRounds = () => {
-    fetch('https://fptbottournamentweb.azurewebsites.net/api/round/get-all')
-      .then(response => response.json())
-      .then(data => {
-        setRounds(data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    const fetchUserData = () => {
+      fetch('https://fptbottournamentweb.azurewebsites.net/api/user/get-all')
+        .then(response => response.json())
+        .then(data => {
+          setUserData(data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
   };
 
   const handleProfilePress = () => {
-      navigation.navigate('Profile'); // Chuyển hướng tới trang Profile
-    };
+    navigation.navigate('Profile'); // Chuyển hướng tới trang Profile
+  };
 
-    const handleMenuPress = (screen) => {
-      navigation.navigate(screen);
-      setIsMenuOpen(false); // Đóng menu sau khi chuyển hướng
-    };
+  const handleMenuPress = (screen) => {
+    navigation.navigate(screen);
+    setIsMenuOpen(false); // Đóng menu sau khi chuyển hướng
+  };
 
-    const handleHamburgerPress = () => {
-      setIsMenuOpen(!isMenuOpen); // Chuyển đổi giá trị giữa true và false
-    };
+  const handleHamburgerPress = () => {
+    setIsMenuOpen(!isMenuOpen); // Chuyển đổi giá trị giữa true và false
+  };
 
   return (
     <LinearGradient
-      colors={['#FF9BD2', '#ED7D31']}
+      colors={['#96E9C6', '#86A7FC']}
       style={styles.gradientContainer}
     >
 
-
-{/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={handleHamburgerPress}>
           <Ionicons name={isMenuOpen ? 'ios-close' : 'ios-menu'} size={32} color="white" />
         </TouchableOpacity>
-        <Text style={styles.titleText}>Rounds</Text>
+        <Text style={styles.titleText}>UserProfile</Text>
         <TouchableOpacity onPress={handleProfilePress}>
           <Ionicons name="ios-person" size={32} color="white" />
         </TouchableOpacity>
@@ -75,16 +73,20 @@ const Round = ({ navigation }) => {
       )}
 
       <FlatList
-        data={rounds}
-        keyExtractor={(item) => item.id.toString()}
+        data={userData}
+        keyExtractor={(item) => item.id ? item.id.toString() : null} // Check if item.id exists
         renderItem={({ item }) => (
-          <View style={styles.roundContainer}>
-            <Text>Round Name: {item.roundName}</Text>
+          <View style={styles.container}>
+            <Text>Username: {item.userName}</Text>
+            <Text>Email: {item.userEmail}</Text>
+            <Text>Full Name: {item.fullName}</Text>
           </View>
         )}
       />
 
-    </LinearGradient>
+
+
+  </LinearGradient>
   );
 };
 
@@ -93,19 +95,19 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
+  container: {
+    backgroundColor: 'white',
+    padding: 16,
+    marginBottom: 16,
+    borderRadius: 8,
+  },
   titleText: {
     fontSize: 24,
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 16,
   },
-  roundContainer: {
-    backgroundColor: 'white',
-    padding: 16,
-    marginBottom: 16,
-    borderRadius: 8,
-  },
-header: {
+  header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -129,4 +131,4 @@ header: {
   },
 });
 
-export default Round;
+export default Profile
