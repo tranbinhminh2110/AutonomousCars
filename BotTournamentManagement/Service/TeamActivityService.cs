@@ -39,6 +39,10 @@ namespace BotTournamentManagement.Service
         public List<TeamActivityResponseModel> GetAllActivities()
         {
             var activityList = _teamActivityRepository.GetAll().ToList();
+            if (!activityList.Any())
+            {
+                throw new Exception("Empty Activity !");
+            }
             var responseActivityList = _mapper.Map<List<TeamActivityResponseModel>>(activityList);
             foreach (var activityResponse in responseActivityList)
             {
@@ -59,6 +63,10 @@ namespace BotTournamentManagement.Service
         public List<TeamActivityResponseModel> GetAllActivitiesByTeamInMatchId(string teamInMatchId)
         {
             var chosenTeamActivitiesList = _teamActivityRepository.GetAll().Where(p=>p.TeamInMatchId.Equals(teamInMatchId)).ToList();
+            if (!chosenTeamActivitiesList.Any())
+            {
+                throw new Exception("This team doesn't have any activity !");
+            }
             var responseActivityList = _mapper.Map<List<TeamActivityResponseModel>>(chosenTeamActivitiesList);
             foreach (var activityResponse in responseActivityList)
             {
