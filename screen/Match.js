@@ -73,6 +73,9 @@ const Match = ({ navigation, route }) => {
                 <TouchableOpacity onPress={() => handleMenuPress('TournamentList')}>
                   <Text style={styles.menuItem}>TOURNAMENT</Text>
                 </TouchableOpacity>
+                 <TouchableOpacity onPress={() => navigation.goBack()}>
+                   <Text style={styles.menuItem}>BACK</Text>
+                 </TouchableOpacity>
               </View>
             )}
 

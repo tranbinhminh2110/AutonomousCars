@@ -1,30 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Button, StyleSheet, TouchableOpacity, Pressable } from 'react-native';
+import { View, Text, FlatList, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons'; // Import Ionicons from Expo
 
-const TeamInMatch = ({ navigation, route }) => {
-  const [teams, setTeams] = useState([]);
-  const { matchId } = route.params;
+const TeamActivity = ({ navigation, route }) => {
+  const [teamActivities, setTeamActivities] = useState([]);
+  const { teamInMatchId } = route.params;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    fetchTeams();
+    fetchTeamActivities();
   }, []);
 
-  const fetchTeams = () => {
-    // Fetch teams with a specific matchId from the API endpoint
-    fetch(`https://fptbottournamentweb.azurewebsites.net/api/team-in-match/get-all-teams-in-match-id/${matchId}`)
+  const fetchTeamActivities = () => {
+    // Fetch team activities with a specific teamInMatchId from the API endpoint
+    fetch(`https://fptbottournamentweb.azurewebsites.net/api/team-activity/get-all-activity`)
       .then(response => response.json())
       .then(data => {
-        setTeams(data);
+        setTeamActivities(data);
       })
       .catch(error => {
         console.error(error);
       });
   };
+    const handleTournamentPress = (tournamentId) => {
+      navigation.navigate('Match', { tournamentId });
+    };
 
-  const handleProfilePress = () => {
+    const handleProfilePress = () => {
       navigation.navigate('Profile'); // Chuyển hướng tới trang Profile
     };
 
@@ -37,25 +40,26 @@ const TeamInMatch = ({ navigation, route }) => {
       setIsMenuOpen(!isMenuOpen); // Chuyển đổi giá trị giữa true và false
     };
 
+
   return (
     <LinearGradient
       colors={['#EADFB4', '#83C0C1']}
       style={styles.gradientContainer}
     >
-      {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={handleHamburgerPress}>
-          <Ionicons name={isMenuOpen ? 'ios-close' : 'ios-menu'} size={32} color="white" />
-        </TouchableOpacity>
-        <Text style={styles.titleText}>Teams in Match</Text>
-        <TouchableOpacity onPress={handleProfilePress}>
-          <Ionicons name="ios-person" size={32} color="white" />
-        </TouchableOpacity>
-      </View>
+            {/* Header */}
+            <View style={styles.header}>
+              <TouchableOpacity onPress={handleHamburgerPress}>
+                <Ionicons name={isMenuOpen ? 'ios-close' : 'ios-menu'} size={32} color="white" />
+              </TouchableOpacity>
+              <Text style={styles.titleText}>Team Activities</Text>
+              <TouchableOpacity onPress={handleProfilePress}>
+                <Ionicons name="ios-person" size={32} color="white" />
+              </TouchableOpacity>
+            </View>
 
-      {/* Hamburger Menu */}
-      {isMenuOpen && (
-        <View style={styles.menu}>
+            {/* Hamburger Menu */}
+            {isMenuOpen && (
+              <View style={styles.menu}>
                 <TouchableOpacity onPress={() => handleMenuPress('Map')}>
                   <Text style={styles.menuItem}>MAP</Text>
                 </TouchableOpacity>
@@ -74,21 +78,22 @@ const TeamInMatch = ({ navigation, route }) => {
                <TouchableOpacity onPress={() => navigation.goBack()}>
                  <Text style={styles.menuItem}>BACK</Text>
                </TouchableOpacity>
-        </View>
-      )}
+              </View>
+            )}
+
 
       <FlatList
-        data={teams}
+        data={teamActivities}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <Pressable onPress={() => navigation.navigate('TeamActivity', { teamInMatchId: item.id })}>
-          <View style={styles.teamContainer}>
-              <Text>Team Name: {item.teamName}</Text>
+          <View style={styles.activityContainer}>
+              <Text>Description: {item.description}</Text>
+              <Text>Start Time: {item.startTime}</Text>
+              <Text>End Time: {item.endTime}</Text>
               <Text>Score: {item.score}</Text>
-              <Text>Duration: {item.duration}</Text>
-              <Text>Winner: {item.isWinner}</Text>
+              <Text>Violation: {item.violation}</Text>
+              {/* Add more details as needed */}
           </View>
-          </Pressable>
         )}
       />
     </LinearGradient>
@@ -106,23 +111,19 @@ const styles = StyleSheet.create({
     color: 'white',
     marginBottom: 16,
   },
-  header: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginBottom: 16,
-    },
-  teamContainer: {
+  activityContainer: {
     backgroundColor: 'white',
     padding: 16,
     marginBottom: 16,
     borderRadius: 8,
   },
-  teamName: {
-    fontSize: 16,
-    color: 'black',
-  },
-  menu: {
+    header: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: 16,
+    },
+    menu: {
       backgroundColor: 'rgba(255, 255, 255, 0.9)',
       position: 'absolute',
       top: 60,
@@ -140,4 +141,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default TeamInMatch;
+export default TeamActivity;

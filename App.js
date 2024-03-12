@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import store from './StorageToken/store';
-import { Login, Signup, Welcome, TournamentList, Map, Match, HighSchool, ActivityType, Round, TeamInMatch, Profile } from './screen';
+import { Login, Signup, Welcome, TournamentList, Map, Match, HighSchool, ActivityType, Round, TeamInMatch, Profile, TeamActivity } from './screen';
 
 const Stack = createNativeStackNavigator();
 
@@ -66,6 +66,11 @@ export default function App() {
           <Stack.Screen
             name="Profile"
             component={Profile}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="TeamActivity"
+            component={TeamActivity}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
