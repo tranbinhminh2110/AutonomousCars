@@ -4,6 +4,7 @@ using BotTournamentManagement.Data.RequestModel.TeamActivityModel;
 using BotTournamentManagement.Data.ResponseModel;
 using BotTournamentManagement.Interface.IRepository;
 using BotTournamentManagement.Interface.IService;
+using System.Diagnostics;
 
 namespace BotTournamentManagement.Service
 {
@@ -53,6 +54,27 @@ namespace BotTournamentManagement.Service
                 activityResponse.MatchKeyId = matchEntity.KeyId;
             }
             return responseActivityList;
+        }
+
+        public List<TeamActivityResponseModel> GetAllActivitiesByTeamInMatchId(string teamInMatchId)
+        {
+            var chosenTeamActivitiesList = _teamActivityRepository.GetAll().Where(p=>p.TeamInMatchId.Equals(teamInMatchId)).ToList();
+            var responseActivityList = _mapper.Map<List<TeamActivityResponseModel>>(chosenTeamActivitiesList);
+            foreach (var activityResponse in responseActivityList)
+            {
+                var activityTypeEntity = _activityTypeRepository.GetById(activityResponse.ActivityTypeId);
+                activityResponse.ActivityTypeName = activityTypeEntity.TypeName;
+                var teamInMatch = _teamInMatchRepository.GetById(activityResponse.TeamInMatchId);
+                var teamEntity = _teamRepository.GetById(teamInMatch.TeamId);
+                activityResponse.TeamId = teamEntity.Id;
+                activityResponse.TeamKeyId = teamEntity.KeyId;
+                activityResponse.TeamName = teamEntity.TeamName;
+                var matchEntity = _matchRepository.GetById(teamInMatch.MatchId);
+                activityResponse.MatchId = matchEntity.Id;
+                activityResponse.MatchKeyId = matchEntity.KeyId;
+            }
+            return responseActivityList;
+
         }
 
         public void RemoveActivity(string id)

@@ -101,6 +101,7 @@
             private const string BaseEndpoint = "~/" + AreaName + "/team-activity";
             public const string GetAllActivity = BaseEndpoint + "/get-all-activity";
             public const string SubmitActivity = BaseEndpoint + "/create";
+            public const string GetAllActivityOfTeam = BaseEndpoint + "/get-activities-by-team-in-match-id" + "/{teamInMatchId}";
         }
 
     }

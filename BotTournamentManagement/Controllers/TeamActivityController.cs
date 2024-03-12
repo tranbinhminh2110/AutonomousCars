@@ -28,7 +28,20 @@ namespace BotTournamentManagement.Controllers
                 return BadRequest(e.Message);
             }
         }
-        
+        [HttpGet]
+        [Route(WebApiEndpoint.TeamActivity.GetAllActivityOfTeam)]
+        public IActionResult GetAllActivitiesOfATeamInMatch(string teamInMatchId)
+        {
+            try
+            {
+                return Ok(_teamActivityService.GetAllActivitiesByTeamInMatchId(teamInMatchId));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpPost]
         [Route(WebApiEndpoint.TeamActivity.SubmitActivity)]
         public IActionResult SubmitActivity(TeamActivitySubmitModel teamActivitySubmitModel)

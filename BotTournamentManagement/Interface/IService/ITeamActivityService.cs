@@ -8,5 +8,6 @@ namespace BotTournamentManagement.Interface.IService
         List<TeamActivityResponseModel> GetAllActivities();
         void AddNewActivity(TeamActivitySubmitModel teamActivitySubmitModel);
         void RemoveActivity(string id);
+        List<TeamActivityResponseModel> GetAllActivitiesByTeamInMatchId(string teamInMatchId);
     }
 }
