@@ -41,7 +41,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Organizer")]
         [Route(WebApiEndpoint.Map.CreateMap)]
         public IActionResult CreateNewMap(MapCreatedModel mapCreatedModel) 
         {
@@ -56,7 +56,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPut]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Organizer")]
         [Route(WebApiEndpoint.Map.UpdateMap)]
         public IActionResult UpdateAMap(string id, MapUpdateModel updateMap)
         {
@@ -71,7 +71,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpDelete]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Organizer")]
         [Route(WebApiEndpoint.Map.DeleteMap)]
         public IActionResult DeleteMap(string id)
         {

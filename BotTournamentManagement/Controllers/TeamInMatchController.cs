@@ -43,7 +43,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Organizer")]
         [Route(WebApiEndpoint.TeamInMatch.AddATeamToMatch)]
         public IActionResult AddATeamToMatch(TeamInMatchCreatedModel teamInMatchCreatedModel)
         {
@@ -58,7 +58,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpDelete]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Organizer")]
         [Route(WebApiEndpoint.TeamInMatch.DeleteTeamFromMatch)]
         public IActionResult DeleteATeamFromMatch(string id)
         {
@@ -73,7 +73,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPut]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Organizer,Head Referee")]
         [Route(WebApiEndpoint.TeamInMatch.UpdateResultForTeamInMatch)]
         public IActionResult UpdateFinalResultForTeamInMatch(string id, TeamInMatchUpdateModel teamInMatchUpdateModel)
         {

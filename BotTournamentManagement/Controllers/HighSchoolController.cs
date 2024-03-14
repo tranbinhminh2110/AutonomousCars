@@ -31,7 +31,7 @@ namespace BotTournamentManagement.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Organizer")]
         [Route(WebApiEndpoint.HighSchool.CreateHighSchool)]
         public IActionResult CreateNewSchool(HighSchoolCreatedModel highSchoolCreatedModel)
         {
@@ -59,7 +59,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPut]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Organizer")]
         [Route(WebApiEndpoint.HighSchool.UpdateHighSchool)]
         public IActionResult UpdateASchool(string id, HighSchoolUpdateModel highSchoolUpdateModel)
         {
@@ -74,7 +74,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpDelete]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Organizer")]
         [Route(WebApiEndpoint.HighSchool.DeleteHighSchool)]
         public IActionResult DeleteSchool(string Id)
         {

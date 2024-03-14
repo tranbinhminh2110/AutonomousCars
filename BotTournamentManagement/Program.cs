@@ -74,9 +74,9 @@ builder.Services.AddAuthentication("Bearer").AddJwtBearer(o =>
     };
 });
 builder.Services.AddAuthorization(o => {
-    o.AddPolicy("admin", policy => policy.RequireClaim(ClaimTypes.Role,"admin"));
-    o.AddPolicy("head-referee", policy => policy.RequireClaim(ClaimTypes.Role, "head-referee"));
-    o.AddPolicy("referee", policy => policy.RequireClaim(ClaimTypes.Role, "referee"));
+    o.AddPolicy("Organizer", policy => policy.RequireClaim(ClaimTypes.Role, "Organizer"));
+    o.AddPolicy("Head Referee", policy => policy.RequireClaim(ClaimTypes.Role, "Head Referee"));
+    o.AddPolicy("Referee", policy => policy.RequireClaim(ClaimTypes.Role, "Referee"));
 });
 
 builder.Services.AddSwaggerGen();

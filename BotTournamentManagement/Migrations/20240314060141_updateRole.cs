@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BotTournamentManagement.Migrations
 {
-    public partial class _1 : Migration
+    public partial class updateRole : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -98,7 +98,7 @@ namespace BotTournamentManagement.Migrations
                     UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Role = table.Column<int>(type: "int", nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     DeletedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
@@ -143,7 +143,8 @@ namespace BotTournamentManagement.Migrations
                     TournamentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    DeletedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                    DeletedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    KeyId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -291,6 +292,12 @@ namespace BotTournamentManagement.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "Index_KeyId2",
+                table: "Match",
+                column: "KeyId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Match_MapId",
                 table: "Match",
                 column: "MapId");
@@ -306,7 +313,7 @@ namespace BotTournamentManagement.Migrations
                 column: "TournamentId");
 
             migrationBuilder.CreateIndex(
-                name: "Index_KeyId2",
+                name: "Index_KeyId3",
                 table: "Player",
                 column: "KeyId",
                 unique: true);
@@ -322,7 +329,7 @@ namespace BotTournamentManagement.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "Index_KeyId3",
+                name: "Index_KeyId4",
                 table: "Team",
                 column: "KeyId",
                 unique: true);
@@ -353,13 +360,13 @@ namespace BotTournamentManagement.Migrations
                 column: "TeamId");
 
             migrationBuilder.CreateIndex(
-                name: "Index_KeyId4",
+                name: "Index_KeyId5",
                 table: "Tournament",
                 column: "KeyId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "Index_KeyId5",
+                name: "Index_KeyId6",
                 table: "User",
                 column: "KeyId",
                 unique: true);

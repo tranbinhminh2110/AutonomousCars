@@ -117,6 +117,10 @@ namespace BotTournamentManagement.Migrations
                     b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<string>("KeyId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTimeOffset>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");
 
@@ -142,6 +146,10 @@ namespace BotTournamentManagement.Migrations
                     b.HasIndex("RoundId");
 
                     b.HasIndex("TournamentId");
+
+                    b.HasIndex(new[] { "KeyId" }, "Index_KeyId")
+                        .IsUnique()
+                        .HasDatabaseName("Index_KeyId2");
 
                     b.ToTable("Match");
                 });
@@ -181,7 +189,7 @@ namespace BotTournamentManagement.Migrations
 
                     b.HasIndex(new[] { "KeyId" }, "Index_KeyId")
                         .IsUnique()
-                        .HasDatabaseName("Index_KeyId2");
+                        .HasDatabaseName("Index_KeyId3");
 
                     b.ToTable("Player");
                 });
@@ -316,7 +324,7 @@ namespace BotTournamentManagement.Migrations
 
                     b.HasIndex(new[] { "KeyId" }, "Index_KeyId")
                         .IsUnique()
-                        .HasDatabaseName("Index_KeyId3");
+                        .HasDatabaseName("Index_KeyId4");
 
                     b.ToTable("Team");
                 });
@@ -393,7 +401,7 @@ namespace BotTournamentManagement.Migrations
 
                     b.HasIndex(new[] { "KeyId" }, "Index_KeyId")
                         .IsUnique()
-                        .HasDatabaseName("Index_KeyId4");
+                        .HasDatabaseName("Index_KeyId5");
 
                     b.ToTable("Tournament");
                 });
@@ -425,8 +433,9 @@ namespace BotTournamentManagement.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserEmail")
                         .IsRequired()
@@ -441,7 +450,7 @@ namespace BotTournamentManagement.Migrations
 
                     b.HasIndex(new[] { "KeyId" }, "Index_KeyId")
                         .IsUnique()
-                        .HasDatabaseName("Index_KeyId5");
+                        .HasDatabaseName("Index_KeyId6");
 
                     b.ToTable("User");
                 });

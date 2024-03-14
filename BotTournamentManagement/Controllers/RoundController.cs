@@ -42,7 +42,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Organizer")]
         [Route(WebApiEndpoint.Round.CreateRound)]
         public IActionResult CreateNewRound(RoundCreatedModel roundCreatedModel)
         {
@@ -57,7 +57,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPut]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Organizer")]
         [Route(WebApiEndpoint.Round.UpdateRound)]
         public IActionResult UpdateAMap(string id, RoundUpdateModel roundUpdateModel)
         {
@@ -72,7 +72,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpDelete]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Organizer")]
         [Route(WebApiEndpoint.Round.DeleteRound)]
         public IActionResult DeleteMap(string Id)
         {

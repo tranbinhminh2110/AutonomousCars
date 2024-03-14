@@ -1,6 +1,4 @@
-﻿using BotTournamentManagement.Data.Enum;
-
-namespace BotTournamentManagement.Data.ResponseModel
+﻿namespace BotTournamentManagement.Data.ResponseModel
 {
     public class UserResponseModel
     {
@@ -9,6 +7,6 @@ namespace BotTournamentManagement.Data.ResponseModel
         public string UserName { get; set; }
         public string UserEmail { get; set; }
         public string FullName { get; set; }
-        public Role Role { get; set; }
+        public string Role { get; set; }
     }
 }

@@ -55,7 +55,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Organizer")]
         [Route(WebApiEndpoint.Player.CreatePlayer)]
         public IActionResult CreateNewPlayer(PlayerCreatedModel playerCreatedModel)
         {
@@ -72,7 +72,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPut]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Organizer")]
         [Route(WebApiEndpoint.Player.UpdatePlayer)]
         public IActionResult UpdatePlayer(string id, PlayerUpdatedModel playerUpdatedModel)
         {
@@ -89,7 +89,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpDelete]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Organizer")]
         [Route(WebApiEndpoint.Player.DeletePlayer)]
         public IActionResult DeletePlayer(string id)
         {

@@ -41,7 +41,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Organizer")]
         [Route(WebApiEndpoint.ActivityType.CreateActivity)]
         public IActionResult CreateActivityType(ActivityTypeCreatedModel activityTypeCreatedModel)
         {
@@ -56,7 +56,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPut]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Organizer")]
         [Route(WebApiEndpoint.ActivityType.UpdateActivity)]
         public IActionResult UpdateActivityType(string id, ActivityTypeUpdateModel model)
         {
@@ -71,7 +71,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpDelete]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Organizer")]
         [Route(WebApiEndpoint.ActivityType.DeleteActivity)]
         public IActionResult DeleteActivityType(string id)
         {

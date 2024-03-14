@@ -41,7 +41,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Organizer")]
         [Route(WebApiEndpoint.Match.CreateMatch)]
         public IActionResult CreateMatch(MatchCreatedModel matchCreatedModel)
         {
@@ -56,7 +56,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpPut]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Organizer")]
         [Route(WebApiEndpoint.Match.UpdateMatch)]
         public IActionResult UpdateMatch(string id, MatchUpdateModel matchUpdateModel)
         {
@@ -84,7 +84,7 @@ namespace BotTournamentManagement.Controllers
             }
         }
         [HttpDelete]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "Organizer")]
         [Route(WebApiEndpoint.Match.DeleteMatch)]
         public IActionResult DeleteMatch(string id)
         {
