@@ -43,7 +43,7 @@ namespace BotTournamentManagement.Service
 
         public List<PlayerResponseModel> GetAllPlayers()
         {
-            var playerList = _playerRepository.GetAll().OrderBy(x=>x.KeyId).ToList();
+            var playerList = _playerRepository.GetAll().OrderBy(x=> x.TeamId).ToList();
             var responsePlayerList = _mapper.Map<List<PlayerResponseModel>>(playerList);
             foreach (var playerResponse in responsePlayerList)
             {
