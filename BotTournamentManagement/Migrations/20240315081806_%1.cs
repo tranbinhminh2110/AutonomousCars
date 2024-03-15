@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BotTournamentManagement.Migrations
 {
-    public partial class updateRole : Migration
+    public partial class _1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -223,7 +223,7 @@ namespace BotTournamentManagement.Migrations
                     MatchId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Score = table.Column<double>(type: "float", nullable: true),
                     Duration = table.Column<TimeSpan>(type: "time", nullable: true),
-                    isWinner = table.Column<bool>(type: "bit", nullable: true),
+                    Result = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     DeletedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)

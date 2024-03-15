@@ -4,6 +4,6 @@
     {
         public double Score { get; set; }
         public string Duration { get; set; }
-        public bool isWinner {  get; set; }
+        public string? Result {  get; set; }
     }
 }

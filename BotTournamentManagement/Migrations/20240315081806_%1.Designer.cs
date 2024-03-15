@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BotTournamentManagement.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240314060141_updateRole")]
-    partial class updateRole
+    [Migration("20240315081806_%1")]
+    partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -352,15 +352,15 @@ namespace BotTournamentManagement.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Result")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double?>("Score")
                         .HasColumnType("float");
 
                     b.Property<string>("TeamId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool?>("isWinner")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

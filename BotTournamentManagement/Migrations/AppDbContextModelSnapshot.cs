@@ -350,15 +350,15 @@ namespace BotTournamentManagement.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Result")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double?>("Score")
                         .HasColumnType("float");
 
                     b.Property<string>("TeamId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool?>("isWinner")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
