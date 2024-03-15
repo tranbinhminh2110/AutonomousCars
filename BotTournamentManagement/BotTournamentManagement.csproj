@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Enum\**" />
+    <Content Remove="Data\Enum\**" />
+    <EmbeddedResource Remove="Data\Enum\**" />
+    <None Remove="Data\Enum\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.19" />
@@ -23,10 +30,6 @@
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.32.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\Enum\" />
   </ItemGroup>
 
 </Project>
