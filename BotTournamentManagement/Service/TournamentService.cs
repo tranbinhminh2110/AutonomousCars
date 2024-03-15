@@ -49,10 +49,6 @@ namespace BotTournamentManagement.Service
         public List<TournamentResponseModel> GetAllTournament()
         {
             var tournamentList = _tournamentRepository.GetAll().OrderByDescending(x=>x.KeyId).ToList();
-            if (!tournamentList.Any())
-            {
-                throw new Exception("This tournament list is empty");
-            }
             var responseTnmList = _mapper.Map<List<TournamentResponseModel>>(tournamentList);
             return responseTnmList;
         }

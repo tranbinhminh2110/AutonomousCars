@@ -46,10 +46,6 @@ namespace BotTournamentManagement.Service
         public List<TeamInMatchResponseModel> GetTeamInAMatch(string matchId)
         {
             var listTeamInMatch = _teamInMatchRepository.GetAll().OrderBy(x=>x.CreatedTime).Where(p => p.MatchId.Equals(matchId)).ToList();
-            if (!listTeamInMatch.Any())
-            {
-                throw new Exception("Empty Team in this match");
-            }
             var listTeamInMatchResponse = _mapper.Map<List<TeamInMatchResponseModel>>(listTeamInMatch);
             foreach (var teamInMatch in listTeamInMatchResponse)
             {

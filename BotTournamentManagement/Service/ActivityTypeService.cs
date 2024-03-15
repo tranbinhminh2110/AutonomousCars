@@ -61,10 +61,6 @@ namespace BotTournamentManagement.Service
         public List<ActivityTypeResponseModel> GetAllActivityTypes()
         {
             var activityTypeList = _activityTypeRepository.GetAll().ToList();
-            if (!activityTypeList.Any())
-            {
-                throw new Exception("This activityType list is empty");
-            }
             var responseActivityTypeList = _mapper.Map<List<ActivityTypeResponseModel>>(activityTypeList);
             return responseActivityTypeList;
         }

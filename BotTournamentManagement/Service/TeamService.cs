@@ -55,10 +55,6 @@ namespace BotTournamentManagement.Service
         public List<TeamResponseModel> GetAllTeams()
         {
             var teamList = _teamRepository.GetAll().OrderBy(p => p.KeyId).ToList();
-            if (!teamList.Any())
-            {
-                throw new Exception("This team list is empty");
-            }
             var responseTeamList = _mapper.Map<List<TeamResponseModel>>(teamList);
             foreach (var team in responseTeamList)
             {

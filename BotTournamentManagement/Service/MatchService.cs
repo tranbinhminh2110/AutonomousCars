@@ -59,10 +59,6 @@ namespace BotTournamentManagement.Service
         public List<MatchResponseModel> GetAllMatches()
         {
             var matchList = _matchRepository.GetAll().OrderByDescending(x => x.KeyId).ToList();
-            if (!matchList.Any())
-            {
-                throw new Exception("This match list is empty");
-            }
             var responseMatchList = _mapper.Map<List<MatchResponseModel>>(matchList);
             foreach (var match in responseMatchList) {
                 var mapEntity = _mapRepository.GetById(match.MapId);

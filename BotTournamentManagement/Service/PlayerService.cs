@@ -44,10 +44,6 @@ namespace BotTournamentManagement.Service
         public List<PlayerResponseModel> GetAllPlayers()
         {
             var playerList = _playerRepository.GetAll().OrderBy(x=>x.KeyId).ToList();
-            if (!playerList.Any())
-            {
-                throw new Exception("No player existed !");
-            }
             var responsePlayerList = _mapper.Map<List<PlayerResponseModel>>(playerList);
             foreach (var playerResponse in responsePlayerList)
             {
