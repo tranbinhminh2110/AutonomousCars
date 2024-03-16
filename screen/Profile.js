@@ -37,7 +37,7 @@ const Profile = ({ navigation }) => {
 
   return (
     <LinearGradient
-      colors={['#96E9C6', '#86A7FC']}
+      colors={['#96E9C6', '#DC84F3']}
       style={styles.gradientContainer}
     >
 

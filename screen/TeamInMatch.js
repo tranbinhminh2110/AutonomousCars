@@ -82,12 +82,13 @@ const TeamInMatch = ({ navigation, route }) => {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <Pressable onPress={() => navigation.navigate('TeamActivity', { teamInMatchId: item.id })}>
-          <View style={styles.teamContainer}>
-              <Text>Team Name: {item.teamName}</Text>
-              <Text>Score: {item.score}</Text>
-              <Text>Duration: {item.duration}</Text>
-              <Text>Winner: {item.isWinner}</Text>
-          </View>
+            <View style={styles.teamContainer}>
+                <Text>Match: {item.matchKeyId}</Text>
+                <Text>Team: {item.teamName}</Text>
+                <Text>Score: {item.score}</Text>
+                <Text>Duration: {item.duration}</Text>
+                <Text>Winner: {item.isWinner}</Text>
+            </View>
           </Pressable>
         )}
       />

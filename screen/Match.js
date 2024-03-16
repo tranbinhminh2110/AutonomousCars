@@ -85,10 +85,11 @@ const Match = ({ navigation, route }) => {
         renderItem={({ item }) => (
           <Pressable onPress={() => navigation.navigate('TeamInMatch', { matchId: item.id })}>
             <View style={styles.matchContainer}>
-              <Text>Key Id: {item.keyId}</Text>
-              <Text>Map Name: {item.mapName}</Text>
-              <Text>Round Name: {item.roundName}</Text>
               <Text>Tournament Name: {item.tournamentName}</Text>
+              <Text>Match: {item.keyId}</Text>
+              <Text>Match Date: {item.matchDate}</Text>
+              <Text>Map: {item.mapName}</Text>
+              <Text>Round: {item.roundName}</Text>
             </View>
           </Pressable>
         )}

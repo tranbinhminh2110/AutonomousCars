@@ -79,7 +79,7 @@ const Map = ({ navigation }) => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.mapContainer}>
-            <Text>Map Name: {item.mapName}</Text>
+            <Text>Map: {item.mapName}</Text>
             <Text>Key ID: {item.keyId}</Text>
           </View>
         )}

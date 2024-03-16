@@ -79,7 +79,7 @@ const Round = ({ navigation }) => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.roundContainer}>
-            <Text>Round Name: {item.roundName}</Text>
+            <Text>Round: {item.roundName}</Text>
           </View>
         )}
       />

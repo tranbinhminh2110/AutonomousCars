@@ -79,7 +79,7 @@ const HighSchool = ({ navigation }) => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.highSchoolContainer}>
-            <Text>High School Name: {item.highSchoolName}</Text>
+            <Text>High School: {item.highSchoolName}</Text>
             <Text>Key ID: {item.keyId}</Text>
           </View>
         )}

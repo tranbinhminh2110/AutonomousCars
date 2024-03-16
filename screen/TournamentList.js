@@ -83,7 +83,7 @@ const TournamentList = ({ navigation }) => {
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => handleTournamentPress(item.id)}>
             <View style={styles.tournamentContainer}>
-              <Text>Tournament Name: {item.tournamentName}</Text>
+              <Text>Tournament: {item.tournamentName}</Text>
               <Text>Key ID: {item.keyId}</Text>
               <Text>Start Date: {new Date(item.startDate).toLocaleDateString()}</Text>
               <Text>End Date: {new Date(item.endDate).toLocaleDateString()}</Text>
