@@ -16,13 +16,17 @@ namespace BotTournamentManagement.Service
         private readonly IMapper _mapper;
         private readonly IPlayerRepository _playerRepository;
         private readonly IHighSchoolRepository _highSchoolRepository;
+        private readonly ITeamInMatchRepository _teamInMatchRepository;
+        private readonly ITeamActivityRepository _teamActivityRepository;
 
-        public TeamService(ITeamRepository teamRepository, IMapper mapper, IPlayerRepository playerRepository, IHighSchoolRepository highSchoolRepository)
+        public TeamService(ITeamRepository teamRepository, IMapper mapper, IPlayerRepository playerRepository, IHighSchoolRepository highSchoolRepository, ITeamInMatchRepository teamInMatchRepository, ITeamActivityRepository teamActivityRepository)
         {
             _teamRepository = teamRepository;
             _mapper = mapper;
             _playerRepository = playerRepository;
             _highSchoolRepository = highSchoolRepository;
+            _teamInMatchRepository = teamInMatchRepository;
+            _teamActivityRepository = teamActivityRepository;
         }
 
         public void CreateANewTeam(TeamCreatedModel teamCreatedModel)
@@ -48,6 +52,21 @@ namespace BotTournamentManagement.Service
             }
             else
             {
+                var playersofteam = _playerRepository.GetAll().Where(x => x.TeamId == id).ToList();
+                foreach (var player in playersofteam)
+                {
+                    _playerRepository.Delete(player);
+                }
+                var teamInMatchList = _teamInMatchRepository.GetAll().Where(x => x.TeamId == id).ToList();
+                foreach (var teamInMatch in teamInMatchList)
+                {
+                    var teamActivityList = _teamActivityRepository.GetAll().Where(x => x.TeamInMatchId == teamInMatch.Id).ToList();
+                    foreach (var activity in teamActivityList)
+                    {
+                        _teamActivityRepository.Delete(activity);
+                    }
+                    _teamInMatchRepository.Delete(teamInMatch);
+                }
                 _teamRepository.Delete(chosenTeam);
             }
         }

@@ -17,7 +17,8 @@ namespace BotTournamentManagement.Service
         private readonly IMapRepository _mapRepository;
         private readonly IRoundRepository _roundRepository;
         private readonly ITournamentRepository _tournamentRepository;
-        public MatchService(IMatchRepository matchRepository, IMapper mapper, ITeamInMatchRepository teamInMatchRepository, IMapRepository mapRepository, IRoundRepository roundRepository, ITournamentRepository tournamentRepository)
+        private readonly ITeamActivityRepository _teamActivityRepository;
+        public MatchService(IMatchRepository matchRepository, IMapper mapper, ITeamInMatchRepository teamInMatchRepository, IMapRepository mapRepository, IRoundRepository roundRepository, ITournamentRepository tournamentRepository,ITeamActivityRepository teamActivityRepository)
         {
             _matchRepository = matchRepository;
             _mapper = mapper;
@@ -25,6 +26,7 @@ namespace BotTournamentManagement.Service
             _mapRepository = mapRepository;
             _roundRepository = roundRepository;
             _tournamentRepository = tournamentRepository;
+            _teamActivityRepository = teamActivityRepository;
         }
 
         public void CreateNewMatch(MatchCreatedModel matchCreatedModel)
@@ -51,7 +53,17 @@ namespace BotTournamentManagement.Service
                 throw new Exception("This match is not existed");
             }
             else
-            {
+            {                
+                var teamInMatchList = _teamInMatchRepository.GetAll().Where(x => x.MatchId == id).ToList();
+                foreach (var teamInMatch in teamInMatchList)
+                {
+                    var teamActivitiesList = _teamActivityRepository.GetAll().Where(x => x.TeamInMatchId == teamInMatch.Id).ToList();
+                    foreach (var teamActivity in teamActivitiesList)
+                    {
+                        _teamActivityRepository.Delete(teamActivity);
+                    }
+                    _teamInMatchRepository.Delete(teamInMatch);
+                }
                 _matchRepository.Delete(chosenMatch);
             }
         }
