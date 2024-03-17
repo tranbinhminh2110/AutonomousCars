@@ -69,10 +69,6 @@ namespace BotTournamentManagement.Service
         public List<PlayerResponseModel> GetPlayerByTeamId(string teamId)
         {
             var playerList = _playerRepository.GetAll().Where(p => p.TeamId.Equals(teamId)).OrderBy(x => x.KeyId).ToList();
-            if (!playerList.Any())
-            {
-                throw new Exception("Empty list player in this team!");
-            }
             var responsePlayerList = _mapper.Map<List<PlayerResponseModel>>(playerList);
             foreach( var playerResponse in responsePlayerList)
             {
