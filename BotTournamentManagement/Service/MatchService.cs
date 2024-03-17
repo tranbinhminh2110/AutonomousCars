@@ -107,10 +107,6 @@ namespace BotTournamentManagement.Service
         public List<MatchResponseModel> GetMatchesInTournament(string tournamentId)
         {
             var matchList = _matchRepository.GetAll().Where(p => p.TournamentId.Equals(tournamentId)).OrderBy(x => x.KeyId).ToList();
-            if (!matchList.Any())
-            {
-                throw new Exception("Not found matches in tournament !");
-            }
             var responseMatchList = _mapper.Map<List<MatchResponseModel>>(matchList);
             foreach (var match in responseMatchList)
             {
