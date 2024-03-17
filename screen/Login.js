@@ -24,6 +24,7 @@ const Login = ({ navigation }) => {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const dispatch = useDispatch();
+  const [temporaryUserInfo, setTemporaryUserInfo] = useState('');
 
   const _userLogin = () => {
     if (email === '' || password === '') {
@@ -47,6 +48,18 @@ const Login = ({ navigation }) => {
         return response.json();
       })
       .then((responseData) => {
+        setTemporaryUserInfo({
+          userName: responseData.userName,
+          userEmail: responseData.userEmail,
+          fullName: responseData.fullName
+        });
+
+        // Lưu thông tin người dùng vào AsyncStorage
+        AsyncStorage.setItem('temporaryUserInfo', JSON.stringify({
+          userName: responseData.userName,
+          userEmail: responseData.userEmail,
+          fullName: responseData.fullName,
+        }));
 
         AsyncStorage.setItem('token', responseData.token);
         dispatch(setToken(responseData.token));
