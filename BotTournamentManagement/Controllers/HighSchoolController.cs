@@ -76,11 +76,11 @@ namespace BotTournamentManagement.Controllers
         [HttpDelete]
         [Authorize(Roles = "Organizer")]
         [Route(WebApiEndpoint.HighSchool.DeleteHighSchool)]
-        public IActionResult DeleteSchool(string Id)
+        public IActionResult DeleteSchool(string id)
         {
             try
             {
-                _highSchoolService.DeleteSchool(Id);
+                _highSchoolService.DeleteSchool(id);
                 return Ok("Deleted Successfully !");
             }
             catch (Exception e)

@@ -38,6 +38,10 @@ namespace BotTournamentManagement.Service
             {
                 throw new Exception("This player doesn't exited");
             }
+            string deleteKeyId = chosenPlayer.KeyId + "_H";
+            var deletedList = _playerRepository.GetBothActiveandInactive().Where(x => x.KeyId.Contains(deleteKeyId)).ToList();
+            chosenPlayer.KeyId = (deleteKeyId + deletedList.Count()).ToString();
+            _playerRepository.Update(chosenPlayer);
             _playerRepository.Delete(chosenPlayer);
         }
 

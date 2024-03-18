@@ -6,6 +6,7 @@ using BotTournamentManagement.Interface.IRepository;
 using BotTournamentManagement.Interface.IService;
 using BotTournamentManagement.Repository;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace BotTournamentManagement.Service
 {
@@ -42,6 +43,10 @@ namespace BotTournamentManagement.Service
             }
             else
             {
+                string deleteKeyId = chosenTournament.KeyId + "_H";
+                var deletedList = _tournamentRepository.GetBothActiveandInactive().Where(x => x.KeyId.Contains(deleteKeyId)).ToList();
+                chosenTournament.KeyId = (deleteKeyId + deletedList.Count()).ToString();
+                _tournamentRepository.Update(chosenTournament);
                 _tournamentRepository.Delete(chosenTournament);
             }
         }

@@ -33,7 +33,8 @@ namespace BotTournamentManagement.Service
         {
             var matchEntity = _mapper.Map<MatchEntity>(matchCreatedModel);
             var tournamentEntity = _tournamentRepository.GetById(matchCreatedModel.TournamentId);
-            matchEntity.KeyId = tournamentEntity.KeyId + "_" + matchCreatedModel.KeyId ;
+            var roundEntity = _roundRepository.GetById(matchCreatedModel.RoundId);
+            matchEntity.KeyId = tournamentEntity.KeyId + "_" + roundEntity.RoundName + "_" + matchCreatedModel.KeyId ;
             var matchList = _matchRepository.GetAll().ToList();
             foreach (var match in matchList)
             {
@@ -64,6 +65,10 @@ namespace BotTournamentManagement.Service
                     }
                     _teamInMatchRepository.Delete(teamInMatch);
                 }
+                string deleteKeyId = chosenMatch.KeyId + "_H";
+                var deletedList = _matchRepository.GetBothActiveandInactive().Where(x => x.KeyId.Contains(deleteKeyId)).ToList();
+                chosenMatch.KeyId = (deleteKeyId + deletedList.Count()).ToString();
+                _matchRepository.Update(chosenMatch);
                 _matchRepository.Delete(chosenMatch);
             }
         }

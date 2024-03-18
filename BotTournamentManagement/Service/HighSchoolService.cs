@@ -39,6 +39,10 @@ namespace BotTournamentManagement.Service
             }
             else
             {
+                string deleteKeyId = chosenSchool.KeyId + "_H";
+                var deletedList = _highSchoolRepository.GetBothActiveandInactive().Where(x => x.KeyId.Contains(deleteKeyId)).ToList();
+                chosenSchool.KeyId = (deleteKeyId + deletedList.Count()).ToString();
+                _highSchoolRepository.Update(chosenSchool);
                 _highSchoolRepository.Delete(chosenSchool);
             }
         }

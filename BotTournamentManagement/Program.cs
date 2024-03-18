@@ -21,8 +21,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("http://localhost:56308",
-                                              "http://localhost:3000", "https://magenta-meerkat-812299.netlify.app", "https://dat--gentle-dusk-aeb080.netlify.app", "https://websiteadminfptbot.netlify.app")
+                          policy.WithOrigins( "http://localhost:3000", "https://magenta-meerkat-812299.netlify.app", "https://dat--gentle-dusk-aeb080.netlify.app",
+                                              "https://websiteadminfptbot.netlify.app")
                                                .AllowAnyHeader()
                                                .AllowAnyMethod(); 
                       });
