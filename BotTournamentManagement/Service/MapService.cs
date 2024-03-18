@@ -14,10 +14,12 @@ namespace BotTournamentManagement.Service
     {
         private readonly IMapRepository _mapRepository;
         private readonly IMapper _mapper;
-        public MapService(IMapRepository mapRepository, IMapper mapper) 
+        private readonly IMatchRepository _matchRepository;
+        public MapService(IMapRepository mapRepository, IMapper mapper, IMatchRepository matchRepository) 
         {
             _mapRepository = mapRepository;
             _mapper = mapper;
+            _matchRepository = matchRepository;
 
         }
 
@@ -42,6 +44,11 @@ namespace BotTournamentManagement.Service
             }
             else 
             {
+                var matchWithMap = _matchRepository.GetAll().Where(x => x.MapId.Equals(id)).ToList();
+                if (matchWithMap.Any())
+                {
+                    throw new Exception("This map is using in some matches");
+                }
                 string deleteKeyId = chosenMap.KeyId + "_H";
                 var deletedList = _mapRepository.GetBothActiveandInactive().Where(x => x.KeyId.Contains(deleteKeyId)).ToList();
                 chosenMap.KeyId = (deleteKeyId + deletedList.Count()).ToString();
