@@ -13,11 +13,13 @@ namespace BotTournamentManagement.Service
     public class TournamentService : ITournamentService
     {
         private readonly ITournamentRepository _tournamentRepository;
+        private readonly IMatchRepository _matchRepository;
         private readonly IMapper _mapper;
-        public TournamentService(ITournamentRepository tournamentRepository, IMapper mapper) 
+        public TournamentService(ITournamentRepository tournamentRepository, IMapper mapper, IMatchRepository matchRepository) 
         {
             _tournamentRepository = tournamentRepository;
             _mapper = mapper;
+            _matchRepository = matchRepository;
         }
 
         public void CreateNewTournament(TournamentCreatedModel tournamentCreatedModel)
@@ -43,6 +45,11 @@ namespace BotTournamentManagement.Service
             }
             else
             {
+                var matchInTournament = _matchRepository.GetAll().Where(x => x.TournamentId.Equals(id)).ToList();
+                if (matchInTournament.Any())
+                {
+                    throw new Exception("This tournament contains matches data, can't be deleted.");
+                }
                 string deleteKeyId = chosenTournament.KeyId + "_H";
                 var deletedList = _tournamentRepository.GetBothActiveandInactive().Where(x => x.KeyId.Contains(deleteKeyId)).ToList();
                 chosenTournament.KeyId = (deleteKeyId + deletedList.Count()).ToString();
