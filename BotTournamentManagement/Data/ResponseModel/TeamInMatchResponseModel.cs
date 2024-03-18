@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace BotTournamentManagement.Data.ResponseModel
+﻿namespace BotTournamentManagement.Data.ResponseModel
 {
     public class TeamInMatchResponseModel
     {

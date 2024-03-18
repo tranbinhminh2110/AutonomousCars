@@ -1,7 +1,6 @@
 ﻿using BotTournamentManagement.Data;
 using BotTournamentManagement.Data.Entities.Base;
 using BotTournamentManagement.Interface.IRepository;
-using Microsoft.EntityFrameworkCore;
 
 namespace BotTournamentManagement.Repository
 {

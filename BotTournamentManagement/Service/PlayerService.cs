@@ -4,7 +4,6 @@ using BotTournamentManagement.Data.RequestModel.PlayModel;
 using BotTournamentManagement.Data.ResponseModel;
 using BotTournamentManagement.Interface.IRepository;
 using BotTournamentManagement.Interface.IService;
-using static BotTournamentManagement.Constant.WebApiEndpoint;
 
 namespace BotTournamentManagement.Service
 {

@@ -1,9 +1,7 @@
 ﻿using BotTournamentManagement.Constant;
-using BotTournamentManagement.Data.RequestModel.RoundModel;
 using BotTournamentManagement.Data.RequestModel.TeamInMatchModel;
 using BotTournamentManagement.Interface.IService;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BotTournamentManagement.Controllers

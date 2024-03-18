@@ -1,7 +1,7 @@
-﻿using DocnetCorePractice.Extensions;
+﻿using BotTournamentManagement.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DocnetCorePractice.Attribute
+namespace BotTournamentManagement.Attribute
 {
     public class ApiKeyAttribute : ServiceFilterAttribute
     {

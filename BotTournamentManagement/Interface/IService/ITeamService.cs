@@ -1,6 +1,5 @@
 ﻿using BotTournamentManagement.Data.RequestModel.TeamModel;
 using BotTournamentManagement.Data.ResponseModel;
-using Microsoft.AspNetCore.Mvc;
 
 namespace BotTournamentManagement.Interface.IService
 {

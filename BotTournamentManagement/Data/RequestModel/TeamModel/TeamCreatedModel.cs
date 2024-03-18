@@ -1,7 +1,4 @@
-﻿using BotTournamentManagement.Data.Entities;
-using BotTournamentManagement.Data.RequestModel.PlayModel;
-
-namespace BotTournamentManagement.Data.RequestModel.TeamModel
+﻿namespace BotTournamentManagement.Data.RequestModel.TeamModel
 {
     public class TeamCreatedModel
     {

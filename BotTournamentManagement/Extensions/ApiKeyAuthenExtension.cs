@@ -1,4 +1,4 @@
-﻿namespace DocnetCorePractice.Extensions
+﻿namespace BotTournamentManagement.Extensions
 {
     public class ApiKeyAuthenExtension
     {

@@ -1,6 +1,5 @@
 ﻿using BotTournamentManagement.Data;
 using BotTournamentManagement.Data.Entities;
-using BotTournamentManagement.Data.RequestModel.TeamInMatchModel;
 using BotTournamentManagement.Interface.IRepository;
 
 namespace BotTournamentManagement.Repository

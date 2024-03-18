@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace DocnetCorePractice.Extensions
+namespace BotTournamentManagement.Extensions
 {
     public class ApiKeyAuthorizationFilter : IAuthorizationFilter
     {

@@ -9,7 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace DocnetCorePractice.Services
+namespace BotTournamentManagement.Services
 {
     public class RandomStringGenerator
     {
@@ -45,12 +45,7 @@ namespace DocnetCorePractice.Services
 
         public ResponseLoginModel Authenticator(RequestLoginModel model)
         {
-            //var account =             //viết repository get UserEntity
-            //if (account == null)
-            //{
-            // kiểm tra nếu user == null thì thorw ex
-            //}
-            var account = _userRepository.GetUser(model);
+            var account = _userRepository.GetAll().Where(x=>x.UserName.Equals(model.UserName) && x.Password.Equals(model.Password)).FirstOrDefault();
             if(account == null)
             {
                 throw new Exception("No account found!!");

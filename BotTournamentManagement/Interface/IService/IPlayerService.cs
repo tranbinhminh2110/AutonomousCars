@@ -1,7 +1,5 @@
-﻿using BotTournamentManagement.Data.RequestModel.ActivityModel;
-using BotTournamentManagement.Data.RequestModel.PlayModel;
+﻿using BotTournamentManagement.Data.RequestModel.PlayModel;
 using BotTournamentManagement.Data.ResponseModel;
-using Microsoft.AspNetCore.Mvc;
 
 namespace BotTournamentManagement.Interface.IService
 {

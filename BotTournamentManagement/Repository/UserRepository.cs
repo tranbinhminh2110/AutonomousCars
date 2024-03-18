@@ -1,6 +1,5 @@
 ﻿using BotTournamentManagement.Data;
 using BotTournamentManagement.Data.Entities;
-using BotTournamentManagement.Data.RequestModel.UserModel;
 using BotTournamentManagement.Interface.IRepository;
 
 namespace BotTournamentManagement.Repository
@@ -9,12 +8,6 @@ namespace BotTournamentManagement.Repository
     {
         public UserRepository(AppDbContext appDbContext) : base(appDbContext)
         {
-        }
-
-        public UserEntity GetUser(RequestLoginModel requestLoginModel)
-        {
-            var user = GetAll().Where(u => u.UserName.Equals(requestLoginModel.UserName) && u.Password.Equals(requestLoginModel.Password)).FirstOrDefault();
-            return user;
         }
         
     }
