@@ -27,6 +27,8 @@ namespace BotTournamentManagement.Service
                 throw new Exception("This player is existed");
             }
             var newPlayer = _mapper.Map<PlayerEntity>(playerCreatedModel);
+            var teamEntity = _teamRepository.GetAll().Where(p => p.Id.Equals(newPlayer.TeamId)).FirstOrDefault();
+            newPlayer.KeyId = teamEntity.KeyId + "_" + playerCreatedModel.KeyId; 
             _playerRepository.Add(newPlayer);
         }
 
