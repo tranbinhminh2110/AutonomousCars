@@ -194,6 +194,7 @@ const styles = StyleSheet.create({
     width: 100,
     color: 'white',
     fontSize: 18,
+    fontWeight: 'bold'
   },
   userInfoText: {
     flex: 1,

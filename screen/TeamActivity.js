@@ -27,6 +27,8 @@ const TeamActivity = ({ navigation, route }) => {
   const [isActivityTypePickerVisible, setIsActivityTypePickerVisible] = useState(false);
   const [selectedActivityTypeId, setSelectedActivityTypeId] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(4); // Số lượng activityTypeId mỗi trang
 
 
   useEffect(() => {
@@ -39,9 +41,10 @@ const TeamActivity = ({ navigation, route }) => {
   }, []);
 
   useEffect(() => {
-    setFilteredTeamActivities(
-      teamActivities.filter(activity => activity.teamInMatchId === teamInMatchId)
-    );
+      setFilteredTeamActivities(
+        teamActivities.filter(activity => activity.teamInMatchId === teamInMatchId)
+          .sort((a, b) => new Date(b.startTime) - new Date(a.startTime))
+      );
   }, [teamActivities]);
 
   const fetchTeamActivities = () => {
@@ -180,6 +183,16 @@ const TeamActivity = ({ navigation, route }) => {
   const handleDurationChange = (text) => {
     setDuration(text);
   };
+  const goToPreviousPage = () => {
+    setCurrentPage(prevPage => prevPage - 1);
+  };
+
+  const goToNextPage = () => {
+    setCurrentPage(prevPage => prevPage + 1);
+  };
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = activityTypeOptions.slice(indexOfFirstItem, indexOfLastItem);
 
 
   return (
@@ -250,21 +263,35 @@ const TeamActivity = ({ navigation, route }) => {
               <View style={styles.modalContainer}>
                 <Text style={styles.modalTitle}>Log Activity</Text>
 
+                <View style={styles.paginationContainer}>
+                  <TouchableOpacity onPress={goToPreviousPage} disabled={currentPage === 1}>
+                    <Text style={styles.paginationButton}>Previous </Text>
+                  </TouchableOpacity>
+                  <Text style={styles.paginationText}>
+                    Page {currentPage} of {Math.ceil(activityTypeOptions.length / itemsPerPage)}
+                  </Text>
+                  <TouchableOpacity onPress={goToNextPage} disabled={indexOfLastItem >= activityTypeOptions.length}>
+                    <Text style={styles.paginationButton}> Next</Text>
+                  </TouchableOpacity>
+                </View>
+
                 {/* Activity Type selection */}
                 <View style={styles.activityTypeContainer}>
-                  {activityTypeOptions.map(option => (
+                  {currentItems.map(option => (
                     <TouchableOpacity
                       key={option.value}
                       style={[
                         styles.activityTypeButton,
-                        option.value === activityTypeId && styles.activityTypeButtonSelected
+                        option.value === selectedActivityTypeId && styles.activityTypeButtonSelected
                       ]}
-                      onPress={() => setActivityTypeId(option.value)}
+                      onPress={() => setSelectedActivityTypeId(option.value)}
                     >
                       <Text style={styles.activityTypeButtonText}>{option.label}</Text>
                     </TouchableOpacity>
                   ))}
                 </View>
+
+
                 {/* Other input fields */}
                 <TextInput
                   style={styles.input}
@@ -432,7 +459,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   modalContainer: {
-    backgroundColor: '#FFF3C7',
+    backgroundColor: '#EEEEEE',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -477,6 +504,21 @@ const styles = StyleSheet.create({
     teamInMatchIdContainer: {
       alignItems: 'center',
       marginBottom: 16,
+    },
+    paginationContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center', // Căn giữa các phần tử theo chiều ngang
+      alignItems: 'center',
+      marginBottom: 16,
+    },
+    paginationText: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      color: '#333', // Màu chữ đậm
+    },
+    paginationButton: {
+      fontSize: 16,
+      color: '#0C5DA5', // Màu của nút
     },
 });
 
