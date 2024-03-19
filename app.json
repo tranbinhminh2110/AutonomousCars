@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./Image/logo.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.companyname.appname"
@@ -27,6 +27,11 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": "Update"
+    "description": "Update",
+    "extra": {
+      "eas": {
+        "projectId": "24770464-213c-4b1f-a7bf-1b9aa242d3ef"
+      }
+    }
   }
 }
