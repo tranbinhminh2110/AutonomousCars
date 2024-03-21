@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BotTournamentManagement.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240321191656_%1")]
+    [Migration("20240321214237_%1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
