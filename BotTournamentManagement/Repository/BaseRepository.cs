@@ -65,7 +65,7 @@ namespace BotTournamentManagement.Repository
         {
             try 
             {
-                return _appDbContext.Set<T>().Where(p => p.Id.Equals(id) && p.DeletedTime == null).FirstOrDefault();
+                return _appDbContext.Set<T>().Where(p => p.Id.Equals(id)).FirstOrDefault();
             }
             catch (Exception ex) 
             {

@@ -41,11 +41,6 @@ namespace BotTournamentManagement.Service
             }
             else 
             {
-                var matchWithMap = _matchRepository.GetAll().Where(x => x.MapId.Equals(id)).ToList();
-                if (matchWithMap.Any())
-                {
-                    throw new Exception("This map is using in some matches");
-                }
                 string deleteKeyId = chosenMap.KeyId + "_H";
                 var deletedList = _mapRepository.GetBothActiveandInactive().Where(x => x.KeyId.Contains(deleteKeyId)).ToList();
                 chosenMap.KeyId = (deleteKeyId + deletedList.Count()).ToString();
