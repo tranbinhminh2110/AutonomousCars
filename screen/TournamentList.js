@@ -12,7 +12,7 @@ const TournamentList = ({ navigation }) => {
   }, []);
 
   const fetchTournaments = () => {
-    fetch('https://fptbottournamentweb.azurewebsites.net/api/tournament/get-all')
+    fetch('https://fptbottournamentmanagement-2e9b0b503b66.herokuapp.com/api/tournament/get-all')
       .then(response => response.json())
       .then(data => {
         setTournaments(data);

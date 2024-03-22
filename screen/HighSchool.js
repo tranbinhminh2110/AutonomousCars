@@ -12,7 +12,7 @@ const HighSchool = ({ navigation }) => {
   }, []);
 
   const fetchHighSchools = () => {
-    fetch('https://fptbottournamentweb.azurewebsites.net/api/highSchool/get-all')
+    fetch('https://fptbottournamentmanagement-2e9b0b503b66.herokuapp.com/api/highSchool/get-all')
       .then(response => response.json())
       .then(data => {
         setHighSchools(data);

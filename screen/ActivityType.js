@@ -12,7 +12,7 @@ const ActivityType = ({ navigation }) => {
   }, []);
 
   const fetchActivityTypes = () => {
-    fetch('https://fptbottournamentweb.azurewebsites.net/api/activity-type/get-all')
+    fetch('https://fptbottournamentmanagement-2e9b0b503b66.herokuapp.com/api/activity-type/get-all')
       .then(response => response.json())
       .then(data => {
         setActivityTypes(data);

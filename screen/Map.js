@@ -12,7 +12,7 @@ const Map = ({ navigation }) => {
   }, []);
 
   const fetchMaps = () => {
-    fetch('https://fptbottournamentweb.azurewebsites.net/api/map/get-all')
+    fetch('https://fptbottournamentmanagement-2e9b0b503b66.herokuapp.com/api/map/get-all')
       .then(response => response.json())
       .then(data => {
         setMaps(data);

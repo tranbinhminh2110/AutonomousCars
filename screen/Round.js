@@ -12,7 +12,7 @@ const Round = ({ navigation }) => {
   }, []);
 
   const fetchRounds = () => {
-    fetch('https://fptbottournamentweb.azurewebsites.net/api/round/get-all')
+    fetch('https://fptbottournamentmanagement-2e9b0b503b66.herokuapp.com/api/round/get-all')
       .then(response => response.json())
       .then(data => {
         setRounds(data);

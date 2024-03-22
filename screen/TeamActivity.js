@@ -48,7 +48,7 @@ const TeamActivity = ({ navigation, route }) => {
   }, [teamActivities]);
 
   const fetchTeamActivities = () => {
-    fetch('https://fptbottournamentweb.azurewebsites.net/api/team-activity/get-all-activity')
+    fetch('https://fptbottournamentmanagement-2e9b0b503b66.herokuapp.com/api/team-activity/get-all-activity')
       .then(response => response.json())
       .then(data => {
         setTeamActivities(data);
@@ -59,7 +59,7 @@ const TeamActivity = ({ navigation, route }) => {
   };
 
   const fetchActivityTypes = () => {
-    fetch('https://fptbottournamentweb.azurewebsites.net/api/activity-type/get-all')
+    fetch('https://fptbottournamentmanagement-2e9b0b503b66.herokuapp.com/api/activity-type/get-all')
       .then(response => response.json())
       .then(data => {
         const options = data.map(activity => ({

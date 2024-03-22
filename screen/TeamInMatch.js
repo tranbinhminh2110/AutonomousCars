@@ -14,7 +14,7 @@ const TeamInMatch = ({ navigation, route }) => {
 
   const fetchTeams = () => {
     // Fetch teams with a specific matchId from the API endpoint
-    fetch(`https://fptbottournamentweb.azurewebsites.net/api/team-in-match/get-all-teams-in-match-id/${matchId}`)
+    fetch(`https://fptbottournamentmanagement-2e9b0b503b66.herokuapp.com/api/team-in-match/get-all-teams-in-match-id/${matchId}`)
       .then(response => response.json())
       .then(data => {
         setTeams(data);

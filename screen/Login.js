@@ -30,7 +30,7 @@ const Login = ({ navigation }) => {
     if (email === '' || password === '') {
       alert('Invalid email or password');
     } else {
-      fetch("https://fptbottournamentweb.azurewebsites.net/api/Login/login", {
+      fetch('https://fptbottournamentmanagement-2e9b0b503b66.herokuapp.com/api/Login/login', {
         method: "POST",
         headers: {
           'Accept': 'application/json',

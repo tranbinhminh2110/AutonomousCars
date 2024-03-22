@@ -24,7 +24,7 @@ const Profile = ({ navigation }) => {
   }, [isLogoutPressed]);
 
   const fetchUserData = () => {
-    fetch('https://fptbottournamentweb.azurewebsites.net/api/user/get-all')
+    fetch('https://fptbottournamentmanagement-2e9b0b503b66.herokuapp.com/api/user/get-all')
       .then(response => response.json())
       .then(data => {
         setUserData(data);

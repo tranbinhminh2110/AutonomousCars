@@ -13,7 +13,7 @@ const Match = ({ navigation, route }) => {
   }, []);
 
   const fetchMatches = () => {
-    fetch('https://fptbottournamentweb.azurewebsites.net/api/match/get-all')
+    fetch('https://fptbottournamentmanagement-2e9b0b503b66.herokuapp.com/api/match/get-all')
       .then(response => response.json())
       .then(data => {
         const filteredMatches = data.filter(match => match.tournamentId === tournamentId);
