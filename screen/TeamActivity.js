@@ -124,7 +124,7 @@ const TeamActivity = ({ navigation, route }) => {
   const handleLogActivity = () => {
     const numericScore = parseFloat(score);
 
-    fetch('https://fptbottournamentweb.azurewebsites.net/api/team-activity/create', {
+    fetch('https://fptbottournamentmanagement-2e9b0b503b66.herokuapp.com/api/team-activity/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
